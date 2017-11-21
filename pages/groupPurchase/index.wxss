@@ -1,0 +1,12 @@
+/**index.wxss**/
+#login-btn{
+  position: fixed;
+  bottom: 20px;
+  /* top:10px; */
+}
+
+#goods{
+  height: 400px;
+}
+
+

@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "团购管理",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50
+}

@@ -1,0 +1,52 @@
+<view class='container'>
+
+  <view>
+    <image class='about-logo' src='{{img}}'></image>
+  </view>
+
+  <view class='mui-input-group'>
+    <view class='mui-input-row'>
+      <label>
+        <text class='icon-mobile'></text>
+      </label>
+      <input id='userMobile' class="mui-input" type='number' maxlength='11' value='{{mobile}}' placeholder='请输入手机号'></input>
+      <text class="icon-cha fuhao" id='showecha' bindtap='clearMobile'></text>
+    </view>
+
+    <!-- </view> -->
+
+    <!-- <view class='mui-input-group'> -->
+    <view class='mui-input-row'>
+      <label>
+        <text class='icon-passwd'></text>
+      </label>
+      <input class="mui-input" type='{{inputType}}' maxlength='16' value='{{password}}' placeholder='请输入密码'></input>
+      <text class="icon-eyes fuhao {{showPass?'color-auto':'color-gray'}}" id='showeyes' bindtap='showPassword'></text>
+    </view>
+
+  </view>
+
+  <!-- <view class="weui-cells weui-cells_after-title width100">
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd color-gray">自动登录</view>
+      <view class="weui-cell__ft">
+        <switch checked="{{autoLogin}}" />
+      </view>
+    </view>
+  </view> -->
+
+  <button id="login-btn" class="switch-commit mt-20" bindtap='goIndex'>登录</button>
+
+  <div class="mui-content-padded mt-10">
+    <div class="link-area color-auto">
+      <a id="forget-password">忘记密码?</a>
+    </div>
+  </div>
+
+  <div class="mui-content-padded mgt-0">
+    <div class="text-center color-auto">
+      <a id="go-application">申请成为商家</a>
+    </div>
+  </div>
+
+</view>

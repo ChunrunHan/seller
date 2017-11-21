@@ -1,0 +1,21 @@
+{
+  "pages":[
+    "pages/groupPurchase/index",
+    "pages/login/index",
+    "pages/index/index"
+   
+    
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#f05141",
+    "backgroundColor": "#f05141",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"white"
+  },
+   "networkTimeout": {
+      "request": 10000,
+      "downloadFile": 10000,
+      "uploadFile": 10000
+  }
+}

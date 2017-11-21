@@ -1,0 +1,52 @@
+/**index.wxss**/
+.nine-top {
+    width: 100%;
+    height: 150px;
+    font-size: 20px;
+    background: #f05141;
+    color: white;
+    text-align: center;
+}
+
+.top-box {
+    padding-top: 5px;
+    height: 80px;
+}
+
+.top-logo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+
+}
+
+.top-logo {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+}
+.width33{
+  width: calc(100% / 3);
+}
+
+.weui-grid {
+position:relative;
+float:left;
+padding:10px 10px;
+width:33.33333333%;
+box-sizing:border-box;
+border-right:0rpx solid #D9D9D9;
+border-bottom:0rpx solid #D9D9D9;
+
+}
+
+.weui-grid__icon {
+display:block;
+width:50px;
+height:50px;
+margin:0 auto;
+border-radius: 50%;
+
+}
+
+
