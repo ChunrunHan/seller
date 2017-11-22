@@ -5,8 +5,12 @@
   /* top:10px; */
 }
 
-#goods{
-  height: 400px;
+.loading{
+  text-align: center;
+}
+
+#box{
+  /* height: 300px; */
 }
 
 

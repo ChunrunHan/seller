@@ -15,5 +15,10 @@ App({
   onError: function (msg) {
     console.log(msg)
   },
-  globalData: 'I am global data'
+  globalData: {
+    addPhoto: []
+  },
+  bucket: 'yzb-mall',
+  // bucket: 'yezhubao-mall',
+  urlBase: 'https://dev.yezhubao.net'
 })

@@ -7,7 +7,7 @@ var ajax = promise.wxPromisify(wx.request);
 var app = getApp();
 
 
-var source = 'app_lite';
+var source = 'wx_lpqd_seller';
 var ver = '0.3';
 
 function getToken() {
@@ -41,8 +41,9 @@ function getHeader() {
     //     var key = token || '98922c26-505a-4305-9890-74bc1a2fb541';
     // }
 
-    var key = token || '838157ed-7bd3-4a1e-be57-cdf22d5e540d'
-
+    // var key = token || '838157ed-7bd3-4a1e-be57-cdf22d5e540d'
+    
+    var key = token || '4da778e6-cea5-11e7-ad62-00163e068d8f'
     
 
     var timestamp = Date.parse(new Date());

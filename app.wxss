@@ -25,12 +25,17 @@ background-color:#efeff4;
     margin-left: 5%;
     height: 40px;
     text-align: center;
-    line-height: 40px;
+    line-height: 35px;
 
 }
 
 .font-15{
   font-size: 15px;
+}
+
+.del-commit{
+    background:white;
+    color: #F05141;
 }
 
 
@@ -49,4 +54,25 @@ background-color:#efeff4;
 
 .mgt-0{
   margin-top: 0px !important;
+}
+
+.mgt-20{
+  margin-top: 20px !important;
+}
+
+.mgb-20{
+  margin-bottom: 20px !important;
+}
+
+.text-center{
+  text-align: center;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.bg-white{
+  background: white;
 }

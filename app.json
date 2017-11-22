@@ -1,9 +1,19 @@
 {
   "pages":[
-    "pages/groupPurchase/index",
-    "pages/login/index",
-    "pages/index/index"
    
+    "pages/goodsAdd/index",
+    "pages/login/index",
+    
+    "pages/upload/upload",
+    
+    
+   
+    
+   
+    
+    
+    "pages/groupPurchase/index",
+    "pages/index/index"
     
   ],
   "window":{

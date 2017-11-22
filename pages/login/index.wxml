@@ -1,7 +1,7 @@
 <view class='container'>
 
   <view>
-    <image class='about-logo' src='{{img}}'></image>
+    <image class='about-logo' src='{{img}}' bindtap='switchUrl'></image>
   </view>
 
   <view class='mui-input-group'>
@@ -9,7 +9,7 @@
       <label>
         <text class='icon-mobile'></text>
       </label>
-      <input id='userMobile' class="mui-input" type='number' maxlength='11' value='{{mobile}}' placeholder='请输入手机号'></input>
+      <input id='userMobile' class="mui-input" type='number' maxlength='11' value='{{mobile}}' placeholder='请输入手机号' bindinput="getUserMobile"></input>
       <text class="icon-cha fuhao" id='showecha' bindtap='clearMobile'></text>
     </view>
 
@@ -20,7 +20,7 @@
       <label>
         <text class='icon-passwd'></text>
       </label>
-      <input class="mui-input" type='{{inputType}}' maxlength='16' value='{{password}}' placeholder='请输入密码'></input>
+      <input class="mui-input" type='{{inputType}}' maxlength='16' value='{{password}}' placeholder='请输入密码' bindinput="getUserPass"></input>
       <text class="icon-eyes fuhao {{showPass?'color-auto':'color-gray'}}" id='showeyes' bindtap='showPassword'></text>
     </view>
 
@@ -48,5 +48,7 @@
       <a id="go-application">申请成为商家</a>
     </div>
   </div>
+
+
 
 </view>

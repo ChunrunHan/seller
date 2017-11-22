@@ -1,0 +1,314 @@
+<!--index.wxml-->
+<view class="width100">
+
+  <view class="weui-cells__title">商品信息</view>
+
+  <view class="weui-cells weui-cells_after-title">
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">商品名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' bindinput='getName' value='{{data.name}}' placeholder='请输入商品名称'></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">商品是否销售</view>
+      <view class="weui-cell__ft">
+        <switch bindchange='getAvailable' checked="{{data.available}}" />
+      </view>
+    </view>
+
+
+
+    <!-- </view> -->
+
+    <!-- <view class="weui-cells__title">商品图片</view> -->
+    <!-- <view class="weui-cells weui-cells_after-title"> -->
+
+    <view class="weui-cell bg-white" style='padding:10px 15px'>
+      <view class="weui-cell__bd">
+        <view class="weui-uploader">
+          <view class="weui-uploader__hd">
+            <view class="weui-uploader__title" style='font-size:17px'>商品图片</view>
+            <view class="weui-uploader__info">{{files.length}}/6</view>
+          </view>
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{files}}" wx:key="*this">
+                <view class="weui-uploader__file img-box" id="{{item}}">
+                  <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" bindtap="previewImage" />
+                  <icon id='{{index}}' data-name='{{item}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
+                </view>
+              </block>
+              <!-- <view class="weui-uploader__file img-box">
+                <image class="weui-uploader__img" src="../../images/logo.jpg" mode="aspectFill" />
+                 <icon class='cancel' type="cancel" size="50"></icon>
+              </view>
+              <view class="weui-uploader__file img-box">
+                <image class="weui-uploader__img" src="../../images/logo.jpg" mode="aspectFill" />
+              </view>
+              <view class="weui-uploader__file img-box">
+                <image class="weui-uploader__img" src="../../images/logo.jpg" mode="aspectFill" />
+              </view>
+               <view class="weui-uploader__file img-box">
+                <image class="weui-uploader__img" src="../../images/logo.jpg" mode="aspectFill" />
+              </view>
+              <view class="weui-uploader__file img-box">
+                <image class="weui-uploader__img" src="../../images/logo.jpg" mode="aspectFill" />
+              </view> -->
+              <view class="weui-uploader__file img-box" hidden='{{files.length == 6?true:false}}'>
+                <image class="weui-uploader__img" id='addphoto' src="../../images/iconfont-tianjia.png" bindtap="chooseImage" />
+              </view>
+
+
+            </view>
+            <!-- <view class="weui-uploader__input" bindtap="chooseImage"></view> -->
+            <!-- <view class="weui-uploader__input-box img-box" bindtap="chooseImage"> -->
+
+            <!-- </view> -->
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+
+  <view class="weui-cells__title">商品属性</view>
+  <view class="weui-cells weui-cells_after-title">
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">原价</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' bindinput='getOldPrice' class='weui-input text-right' value='{{data.oldPrice}}' placeholder='元'></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">规格</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' bindinput='getUnit' class='weui-input text-right' value='{{data.unit}}' placeholder='500ml × 12瓶'></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">存货量</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='num' bindinput='getRemaining' class='weui-input text-right' value='{{data.remaining}}' placeholder='-1：无限制'></input>
+      </view>
+    </view>
+
+
+
+
+
+
+
+
+
+
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">是否支持七天无理由退货</view>
+      <view class="weui-cell__ft">
+        <switch bindchange='getIsSupportSevenDaysRefund' checked="{{data.isSupportSevenDaysRefund}}" />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">是否支持当日达</view>
+      <view class="weui-cell__ft">
+        <switch bindchange='getIsSupportOneDayArrive' checked="{{data.isSupportOneDayArrive}}" />
+      </view>
+    </view>
+
+  </view>
+
+  <view class="weui-cells__title">拼团规则</view>
+  <view class="weui-cells weui-cells_after-title">
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">成团人数</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindPeopleChange" value="{{peopleIndex}}" range="{{people}}">
+          <view class="weui-select weui-select_in-select-after text-right">{{people[peopleIndex]}} </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">单人购买价</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' bindinput='getSinglePrice' class='weui-input text-right' value='{{data.singlePrice}}' placeholder='元'></input>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">团长价格</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' bindinput='getLeaderPrice' class='weui-input text-right' value='{{data.leaderPrice}}' placeholder='元'></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">团员价格</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text'  bindinput='getMemberPrice' class='weui-input text-right' value='{{data.memberPrice}}' placeholder='元'></input>
+      </view>
+    </view>
+
+
+
+
+
+    <!-- <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">团购开始时间</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="startTimeChange">
+          <view class="weui-input text-right weui-select_in-select-after">{{data.startTime}}</view>
+        </picker>
+      </view>
+    </view> -->
+
+     <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">团购开始时间</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-01-01" bindchange="startTimeChange">
+          <view class="weui-select weui-select_in-select-after text-right">{{startTime}} </view>
+        </picker>
+      </view>
+    </view>
+
+         <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">团购结束时间</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="endTimeChange">
+          <view class="weui-select weui-select_in-select-after text-right">{{endTime}} </view>
+        </picker>
+      </view>
+    </view>
+
+         <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">拼团时间限制</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="timeoutChange" value="{{dayIndex}}" range="{{day}}">
+          <view class="weui-select weui-select_in-select-after text-right">{{day[dayIndex]}} </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">团购结束时间</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="endTimeChange">
+          <view class="weui-input text-right">{{date}}</view>
+        </picker>
+      </view>
+    </view> -->
+
+  </view>
+
+
+
+  <view class="weui-cells__title">销售地区</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_switch">
+      <view class="weui-cell__bd">全青岛</view>
+      <view class="weui-cell__ft">
+        <switch bindchange='areaSwitch' checked="{{areaShow}}" />
+      </view>
+    </view>
+
+    <view bindtap='showMap' class="weui-cell weui-cell_access" wx-if="{{!areaShow}}">
+      <view class="weui-cell__bd">指定小区</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+
+
+
+  </view>
+  <view class='show-area' wx-if="{{!areaShow}}">
+    <block> </block>
+    <block wx:for="{{zones}}" wx:key="*this">
+      <view class='area-box'>
+        <text>{{item.name}}</text>
+        <icon id='{{index}}' class='' bindtap="delZones" type="cancel" size="30"></icon>
+      </view>
+    </block>
+
+    <!-- <view class='area-box'>
+          <text>双福大厦</text>
+          <icon class='' bindtap="" type="cancel" size="30"></icon>
+        </view>
+         <view class='area-box'>
+          <text>双福大厦</text>
+          <icon class='' bindtap="" type="cancel" size="30"></icon>
+        </view>
+         <view class='area-box'>
+          <text>双福大厦</text>
+          <icon class='' bindtap="" type="cancel" size="30"></icon>
+        </view> -->
+  </view>
+
+
+
+  <!-- <view class="weui-cells__title">带跳转的列表项</view>
+        <view class="weui-cells weui-cells_after-title">
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">cell standard</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                <view class="weui-cell__bd">cell standard</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </navigator>
+        </view> -->
+
+  <view class="weui-cells__title">商品描述</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea maxlength='200' bindinput="getMemo" class="weui-textarea" value='{{memo}}' placeholder="请输入商品描述" style="height: 3.3em" />
+        <view class="weui-textarea-counter">{{memoLength}}/200</view>
+      </view>
+    </view>
+  </view>
+
+
+
+
+  <button id="" class="switch-commit mgt-20 mgb-20" bindtap='saveGoods'>添加商品</button>
+  <!-- <button id="" class="switch-commit mgt-20 del-commit" bindtap='openConfirm'>删除商品</button> -->
+
+
+
+
+
+
+
+</view>

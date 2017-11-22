@@ -1,93 +1,27 @@
 <!--index.wxml-->
 <view class="width100">
-
-
+   
+  <import src="../../tpl/goodsList.wxml"/>
   
 
-  <!-- <scroll-view id='box' scroll-y style="height:{{boxHeight}}" bindscroll="scroll"> -->
+
+
+   <scroll-view id='box' scroll-y style="height:{{boxHeight}}px" bindscroll="scroll" bindscrolltoupper="scrolltoupper" bindscrolltolower="scrolltolower"> 
       <view class="weui-cells__title width100">带跳转的列表项</view>
       <view class="weui-cells weui-cells_after-title" id='goods'>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
-    <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-      <view class="weui-cell__bd">cell standard</view>
-      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-    </navigator>
+      <block wx:for="{{goods}}">
+        <template is="msgItem" data="{{name:item.name,url:item.url,icon:item.icon,status:item.status}}"/>
+      </block>
   </view>
 
-
-  <!-- </scroll-view> -->
+   <view class="loading" hidden="{{pullup}}">正在载入更多...</view>  
+   <view class="loading complete" hidden="{{!pullup}}">已加载全部</view>  
+   </scroll-view> 
 
 
   
 
-  <button id="login-btn" class="switch-commit mt-20" bindtap=''>添加商品</button>
+  <button id="login-btn" class="switch-commit mt-20" bindtap='goAdd'>添加商品</button>
 
 
   <!-- <view class="weui-cells weui-cells_after-title">
@@ -110,8 +44,7 @@
 
   <!-- <scroll-view scroll-y="true" bindscrolltolower="searchScrollLower">   
         
-      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
-      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>  
+     
     </scroll-view>     -->
 
 

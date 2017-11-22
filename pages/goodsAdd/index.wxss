@@ -1,0 +1,57 @@
+/**index.wxss**/
+
+.loading{
+  text-align: center;
+}
+
+#box{
+  /* height: 300px; */
+}
+
+.img-src {
+    width: 100%;
+    border-radius: 3px;
+}
+
+.weui-uploader__bd {
+  margin-bottom:0px;
+  margin-right:0px;
+  overflow:hidden;
+  width: 100%;
+}
+
+.img-box {
+  position: relative;
+  float:left;
+  margin-right:9px;
+  margin-bottom:9px;
+  width:30%;
+  margin:5px 1.6%;
+}
+
+.weui-uploader__img {
+  display:block;
+  width:100%;
+  height:calc(100vw/3.5);
+
+}
+
+.cancel{
+  position: absolute;
+  top:0px;
+  right:0px;
+}
+
+
+.show-area{
+  background: #efeff4;
+  width: 100%;
+  height: auto;
+}
+.show-area .area-box{
+  display: inline-block;
+  border-radius: 20px;
+  background: white;
+  padding: 5px 5px;
+  margin: 5px;
+}
