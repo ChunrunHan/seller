@@ -1,0 +1,46 @@
+<!--index.wxml-->
+<view class="width100">
+
+  <view class="weui-cells__title">问题和意见</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea bindinput='getMemo' class="weui-textarea" placeholder="有什么问题反馈吗？" style="height: 3.3em" />
+        <view class="weui-textarea-counter">{{memoLength}}/200</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-cells__title">联系方式</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input bindinput='getMobile' type='tel' maxlength='11' class="weui-input" placeholder="电话" />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input bindinput='getName' type='text' maxlength='11' class="weui-input" placeholder="姓名" />
+      </view>
+    </view>
+  </view>
+
+
+
+
+
+
+
+
+
+    <button id="" class="switch-commit mgt-20 mgb-20" bindtap='submitInfo'>提交反馈</button>
+    <!-- <button id="" class="switch-commit mgt-20 del-commit" bindtap='openConfirm'>删除商品</button> -->
+
+
+
+
+
+
+
+  </view>

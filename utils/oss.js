@@ -1,7 +1,9 @@
-var Q = require('q.min');
 var md5 = require('md5');
 var app = getApp();
 var ajax = require('ajax');
+var promise = require('promise');
+
+var wxUploadFile = promise.wxPromisify(wx.uploadFile);
 
 function uuid() {
   var lut = [];
@@ -18,64 +20,62 @@ function uuid() {
 
 function ossUpload(source) {
   console.log('ossUpload(' + source + ')');
-  var defer = Q.defer();
   // if (this.isNullOrUndefined(source)) {
   //   defer.reject(ERROR.FILE_INVALID);
   //   return defer.promise;
   // }
+  var upload = new Promise(function (resolve, reject) {
 
-  stsUpdate().then(function (sts) {
-    var ossKeyId = sts.accessKeyId;
-    var signature = sts.signature;
-    var policy = sts.policy;
-    var dir = sts.dir;
-    var host = sts.host;
+    stsUpdate().then(function (sts) {
+      var ossKeyId = sts.accessKeyId;
+      var signature = sts.signature;
+      var policy = sts.policy;
+      var dir = sts.dir;
+      var host = 'https://dev.yezhubao.net/oss_mall';
+      // var host = sts.host;
 
-    if (ossKeyId === undefined || signature === undefined) {
-      defer.reject(ERROR.INVALID_PARAMS);
-    }
-
-    var pos = source.lastIndexOf('.');
-    var suffix = source.substring(pos).toLowerCase();
-    var filename = uuid().replace(/-/, '') + suffix;
-    var keyname = dir + filename;
-
-    wx.showLoading({
-      title: '上传中',
-    });
-    wx.uploadFile({
-      url: host,
-      filePath: source,
-      formData:{
-        'key': keyname,
-        'policy': policy,
-        'OSSAccessKeyId': ossKeyId,
-        'signature': signature,
-        'success_action_status': '200'
-      },
-      name: "file",
-      success: function (res){
-        wx.hideLoading();
-        if (res.statusCode == 200) {
-          defer.resolve(filename);
-        }
-      },
-      fail: function (err){
-        wx.hideLoading();
-        defer.reject(err);
-        console.log(err);
+      if (ossKeyId === undefined || signature === undefined) {
+        reject(ERROR.INVALID_PARAMS);
       }
-    })
 
+      var pos = source.lastIndexOf('.');
+      var suffix = source.substring(pos).toLowerCase();
+      var filename = uuid().replace(/-/, '') + suffix;
+      var keyname = dir + filename;
+
+      wx.showLoading({
+        title: '上传中',
+      });
+
+
+      wxUploadFile({
+        url: host,
+        filePath: source,
+        formData: {
+          'key': keyname,
+          'policy': policy,
+          'OSSAccessKeyId': ossKeyId,
+          'signature': signature,
+          'success_action_status': '200'
+        },
+        name: "file"
+      }).then(function (res) {
+        wx.hideLoading();
+        res.filename = filename
+        resolve(res)
+      }).catch(function (err) {
+        wx.hideLoading();
+        console.log(err);
+        reject(err)
+      })
+    })
   });
 
-  return defer.promise;
+  return upload;
 }
-		
+
 // get post signature
 function stsUpdate(forceUpdate) {
-  var defer = Q.defer();
-
   // var mobile = plus.storage.getItem('mobile');
   // var cache = plus.storage.getItem(mobile);
 
@@ -92,26 +92,34 @@ function stsUpdate(forceUpdate) {
   // }
 
   var urlBase = app.urlBase;
-  var url = urlBase + '/oss/sign/seller';
+  // var url = urlBase + '/oss/sign/seller';
+  var url = urlBase + "/mall/oss/sign/seller";
   console.log('ossupload图片上传url' + url);
 
-  ajax.get(url).then(function (res) {
-    console.log(res.data);
-    console.log(res.data.data);
-    var sts = res.data;
-    if (sts.errCode !== 0) defer.reject(sts.errorCode);
-    console.log('sts=' + JSON.stringify(sts));
-    var data = new Object();
-    data.sts = sts.data;
-    defer.resolve(data.sts);
 
-  }).catch(function (status) {
-    console.log('fail to update sts: ' + status);
-    defer.reject(status);
+  var getTts = new Promise(function (resolve, reject) {
+    ajax.get(url).then(function (res) {
+      if (res.statusCode !== 200) {
+        throw (res)
+      }
+      console.log('res');
+      console.log(res);
+
+      console.log(res.data);
+      console.log(res.data.data);
+      var sts = res.data;
+      if (sts.errCode !== 0) reject(sts.errorCode);
+      console.log('sts=' + JSON.stringify(sts));
+      var data = new Object();
+      data.sts = sts.data;
+      resolve(data.sts)
+
+    }).catch(function (err) {
+      console.log('fail to update sts: ', err);
+      reject(err)
+    })
   })
-
-
-  return defer.promise;
+  return getTts
 }
 
 
@@ -127,8 +135,8 @@ function delImgFromServer(file, source) {
   urlBase = app.urlBase;
   var url = urlBase + '/oss/delete/seller';
   ajax.post(url, delfile).then(function (res) {
-   console.log('删除成功');
-   console.log(res.data);
+    console.log('删除成功');
+    console.log(res.data);
 
   }).catch(function (status) {
     console.log('oss单个文件删除' + status)
@@ -136,14 +144,14 @@ function delImgFromServer(file, source) {
   })
 }
 
-function ceshi(){
+function ceshi() {
   console.log('测试')
 }
 
-function timeToLong(time,end){
-  if(end == "end"){
+function timeToLong(time, end) {
+  if (end == "end") {
     end = "23:59:59";
-  }else{
+  } else {
     end = "00:00:00";
   }
   var timer = time.replace(/-/g, "/");
@@ -176,7 +184,7 @@ function currentTime() {
   if (minute < 10) {
     minute = '0' + minute;
   }
-  var currentdate = year + "/" + month + "/" + date + " " + hour + ":" + minute;
+  var currentdate = year + "/" + month + "/" + date + " " + '00' + ":" + '00';
   var date = new Date(currentdate);
   currentdate = date.getTime();
   return currentdate;
@@ -196,8 +204,22 @@ function NowTimer() {
   if (date < 10) {
     date = '0' + date;
   }
-  var currentdate = year +'-'+ month +'-'+ date;
+  var currentdate = year + '-' + month + '-' + date;
   return currentdate;
+}
+
+//判断手机号格式
+function checkMobile(mobile) {
+  if (!(/^1[3|4|5|8|7][0-9]\d{4,8}$/.test(mobile))) {
+    wx.showToast({
+      title: '手机号格式不正确',
+      image: '../../images/alert.png',
+      duration: 2000
+    })
+    return false;
+  } else {
+    return true;
+  }
 }
 
 module.exports = {
@@ -206,5 +228,6 @@ module.exports = {
   ceshi: ceshi,
   timeToLong: timeToLong,
   currentTime: currentTime,
-  NowTimer: NowTimer
+  NowTimer: NowTimer,
+  checkMobile: checkMobile
 }

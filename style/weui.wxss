@@ -962,7 +962,7 @@ icon {
   box-sizing: border-box;
   height: 100%;
   padding-top: 50px;
-  overflow: auto;
+  /* overflow: auto; */
   -webkit-overflow-scrolling: touch;
 }
 .weui-search-bar {

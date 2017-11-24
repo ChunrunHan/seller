@@ -29,6 +29,7 @@ background-color:#efeff4;
 
 }
 
+
 .font-15{
   font-size: 15px;
 }
@@ -48,12 +49,25 @@ background-color:#efeff4;
     color: #F05141;
 }
 
+.app-line{
+  background-color: #efeff4 !important;
+  height: 20px;
+}
+
 .width100{
   width: 100%;
 }
 
 .mgt-0{
   margin-top: 0px !important;
+}
+
+.mgl-10{
+  margin-left: 10px;
+}
+
+.mgr-10{
+  margin-right: 10px;
 }
 
 .mgt-20{
@@ -76,3 +90,14 @@ background-color:#efeff4;
 .bg-white{
   background: white;
 }
+
+.pull-lett{
+  float: left;
+}
+.pull-right{
+  float: right;
+}
+.font-17{
+  font-size: 17px;
+}
+

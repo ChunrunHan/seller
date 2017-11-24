@@ -8,6 +8,7 @@ App({
   },
   onShow: function (options) {
     // Do something when show.
+    
   },
   onHide: function () {
     // Do something when hide.
@@ -20,5 +21,10 @@ App({
   },
   bucket: 'yzb-mall',
   // bucket: 'yezhubao-mall',
-  urlBase: 'https://dev.yezhubao.net'
+  urlBase: 'https://dev.yezhubao.net',
+  token: '',
+  sellerId: '',
+  mobile: '',
+  id: '',
+  realName: ''
 })

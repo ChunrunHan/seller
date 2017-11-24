@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="width100">
+
+  <view class="weui-cells__title">充值方式</view>
+
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input" style='padding:10px 15px;'>
+      <view class="weui-cell__hd">
+
+        <view class="weui-label">
+          <image src='../../images/wxpay.png' class='left-img'></image>
+          微信</view>
+      </view>
+      <image class='right-img' src='../../images/check.png'></image>
+    </view>
+
+  </view>
+  <view class="weui-cells__title">充值金额</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">金额</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input placeholder-style="color:#f05141" type='text' class='weui-input text-left color-auto' bindinput='getName' value='{{data.name}}' placeholder='0.00'></input>
+      </view>
+    </view>
+
+    <!-- <view class="weui-cell weui-cell_switch" style='padding:10px 15px;'>
+      <view class="weui-cell__bd">可用金额5000</view>
+      <view class="weui-cell__ft btn-auto">
+        全部提现
+      </view>
+    </view> -->
+
+  </view>
+
+  <button id="" class="switch-commit mgt-20 mgb-20" bindtap='saveGoods'>确认</button>
+  <!-- <button id="" class="switch-commit mgt-20 del-commit" bindtap='openConfirm'>删除商品</button> -->
+
+
+</view>

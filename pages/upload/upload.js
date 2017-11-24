@@ -1,5 +1,5 @@
 import weCropper from '../../utils/weCropper.js'
-
+var oss = require('../../utils/oss');
 const device = wx.getSystemInfoSync()
 const width = device.windowWidth
 const height = device.windowHeight - 50
@@ -35,14 +35,41 @@ Page({
       if (avatar) {
         //  获取到裁剪后的图片
         console.log(avatar);
-        app.globalData.addPhoto = app.globalData.addPhoto.concat(avatar);
+        //  图片上传
+
+        // app.globalData.addPhoto = app.globalData.addPhoto.concat(avatar);
         // wx.redirectTo({
         //   url: '',
         // })
-     
-        wx.redirectTo({
-          url: '../goodsAdd/index?avatar=${avatar}'
+
+        oss.ossUpload(avatar).then(function (res) {
+
+          console.log(res)
+          if (res.statusCode == 200){
+            wx.showToast({
+              title: '上传成功',
+            });
+            console.log(res.filename);
+            var img = {
+              oldImg: avatar,
+              newImg: res.filename
+            }
+            app.globalData.addPhoto = app.globalData.addPhoto.concat(img);
+            wx.navigateBack({
+              url: '../goodsAdd/index'
+            })
+          }
+          // console.log('upload done:' + file);
+          // app.globalData.addPhoto = app.globalData.addPhoto.concat(file);
+          //  wx.navigateBack({
+          // url: '../goodsAdd/index?avatar=${avatar}'
+        // });
+
+        }).catch(function (status) {
+          console.log('failed to upload');
+
         });
+       
       } else {
         console.log('获取图片失败，请稍后重试')
       }
@@ -91,8 +118,8 @@ Page({
     }
   },
   back: function(){
-    wx.redirectTo({
+    wx.navigateBack({
       url: '../goodsAdd/index'
-    });
+    })
   }
 })

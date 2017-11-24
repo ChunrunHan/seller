@@ -18,6 +18,7 @@ function getToken() {
 // 获取header
 function getHeader() {
     var token = getToken();
+    console.log('token' + token);
     var argNum = arguments.length;
     if (argNum > 2) {
         alert("请求参数不正确");

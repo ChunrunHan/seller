@@ -1,0 +1,35 @@
+.top-logo{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.bill-bottom{
+  position: relative;
+  padding: 10px;
+  padding-top: 20px;
+   font-size: 15px;
+  color: #8f8f94;
+}
+
+.bill-font{
+    font-size: 15px;
+  color: #8f8f94;
+}
+
+.bill-bottom view{
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  height: 30px;
+  line-height: 30px;
+}
+
+.bill-bottom:before{
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}

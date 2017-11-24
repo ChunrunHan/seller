@@ -9,9 +9,11 @@ Page({
    */
   data: {
     boxHeight: device.windowHeight - 80,
-    goods: [{ name: 'haha', url: '../login/index', icon: '../../images/logo.jpg', status: '已下架' }, { name: 'haha', url: '../login/index', icon: '../../images/logo.jpg', status: '已下架' }, { name: 'haha', url: '../login/index', icon: '../../images/logo.jpg', status: '已下架' }]
+    list: [{ name: '账号管理', url: '', icon: '../../images/user.png', optype: 'navigate' }, { name: '商家信息', url: '', icon: '../../images/seller.png', optype: 'navigate' }],
+    listTwo: [{ name: '版本号', url: '', icon: '../../images/version.png', optype: 'navigate' }, { name: '注销', url: '../login/index', icon: '../../images/restart.png', optype: 'reLaunch' }]
 
   },
+  
 
   /**
    * 生命周期函数--监听页面加载
@@ -76,10 +78,8 @@ Page({
   scrolltolower: function () {
     console.log('滚动到底部触发');
   },
-  goAdd: function(){
-    wx.navigateTo({
-      url: '../goodsAdd/index',
-    })
+  clearStorage: function(){
+    console.log('清除所有');
   }
 
 })

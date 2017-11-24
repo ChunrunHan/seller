@@ -1,0 +1,32 @@
+<view class='width100'>
+  <view class='bg-white'>
+      <view class='bill-top text-center'>
+          <view class=''>
+            <image class='top-logo mgt-20' src='../../images/logo.jpg'></image>
+          </view>
+          
+          <view class='flex-view-item '>
+            <span>+</span> ￥{{5000}}
+          </view>
+          <view class='flex-view-item bill-font'>
+           交易完成
+          </view>
+      </view>
+
+      <view class='bill-bottom'>
+        <view>
+        <span>成交金额</span><span class="pull-right">12312</span>
+        </view>
+        <view>
+        <span>支付金额</span><span class="pull-right">12312</span>
+        </view>
+        <view>
+        <span>手续费</span><span class="pull-right">12312</span>
+        </view>
+        <view>
+        <span>订单号</span><span class="pull-right">12312</span>
+        </view>
+      
+      </view>
+  </view>
+</view>

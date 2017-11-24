@@ -62,3 +62,31 @@
 .memo-showbox image{
   width: 100%;
 }
+
+.left-img{
+  width: 25px;
+  height: 20px;
+  vertical-align: middle;
+  position: relative;
+  margin-right: 5px;
+}
+
+.right-img{
+   width: 25px;
+  height: 20px;
+  position: absolute;
+  right: 20px;
+
+}
+
+
+.btn-auto{
+  border: 1px solid #f05141;
+  border-radius: 5px;
+  padding:2px 5px;
+  color:#f05141;
+}
+.btn-auto:hover{
+  background: #f05141;
+  color: white;
+}

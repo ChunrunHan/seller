@@ -152,6 +152,11 @@ Page({
   onShareAppMessage: function () {
 
   },
+  goCashinfo: function(){
+    wx.navigateTo({
+      url: '../cashInfo/index'
+    })
+  },
   openConfirm: function () {
     wx.showModal({
       title: '警告',
