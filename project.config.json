@@ -21,7 +21,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 3,
 			"list": [
 				{
 					"id": 0,
@@ -81,6 +81,48 @@
 					"id": -1,
 					"name": "recharge",
 					"pathName": "pages/recharge/index",
+					"query": ""
+				},
+				{
+					"id": 10,
+					"name": "groupPurchase",
+					"pathName": "pages/groupPurchase/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "about",
+					"pathName": "pages/about/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "sales",
+					"pathName": "pages/sales/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "settingInfo",
+					"pathName": "pages/settingInfo/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "password",
+					"pathName": "pages/password/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "mobile",
+					"pathName": "pages/mobile/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "sellerinfo",
+					"pathName": "pages/sellerInfo/index",
 					"query": ""
 				}
 			]

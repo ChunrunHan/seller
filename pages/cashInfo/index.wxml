@@ -1,4 +1,3 @@
-
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
@@ -8,165 +7,177 @@
             <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>
-        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white"></view>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white; width:{{sliderW}}px"></view>
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
+  
+            <view class='bg-white'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                </view>
 
-          <!-- <block wx:for="{{dealwithOrder}}"> -->
-          <view class='mui-table-view'>
-            <view class='li'>
-              <view class="deal-top">
-                <span class="today">
-                  <span>订单号：</span>20170629174641708688</span>
-                <span class="status">2017-06-29 00:00:00</span>
-              </view>
-              <view class="deal-center">
-                <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
-                  <span class="name">Rain</span>
-                  <span class="phonebox">
-                    <!-- <span class="icon-phone color-call"></span>
-                   -->
-                    <image src='{{mobile}}' class='mobile'></image>
-                    <span class="mobile" data-bind="reciverMobile">17863253292</span>
-                  </span>
-                </p>
-                <p class="address">青岛市崂山区双福大厦</p>
-              </view>
-              <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
-                <view class="title">商品订单</view>
-                <!-- {{#goodsList}} -->
-                <view class="goodsbox">
-                  <image class="goodsimg" src="../../images/all.jpg" alt=""></image>
-                  <span class="goodsname">花</span>
-                  <span class="goodsnum">
-                    <span>×</span>2</span>
-                  <span class="goodsprice">
-                    <span>¥</span>30</span>
+                <view class='flex-view-item font-40'>
+                 {{5000}}
                 </view>
-                <!-- {{/goodsList}} -->
-              </view>
-              <view class="goods-memo">
-                千万别弄断了
-              </view>
-              <view class="deal-bottom">
-                <view class="deal-right">
-                  <p class="totalAmount">
-                    <span>商品总价:</span>
-                    <span>3000</span>元</p>
-                  <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p>
-                  <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p>
-                  <p class="receiptAmount">
-                    <span>实收金额:</span>
-                    <span class="color-call">300</span>元</p>
-                </view>
-                <view class="deal-left">
-                  <p>
-                    <span>订单状态:</span>
-                    <span>待配送</span>
-                  </p>
-                  <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p>
+                <view class='flex-view-item bill-font'>
+                  待审核
                 </view>
               </view>
 
-              <view class="deal-btn" style="border-bottom: 0px;">
-                <button type="button" class="mui-btn commit" bindtap='startSend' id="{{id}}">开始配送</button>
+              <view class='bill-bottom'>
+                <view>
+                  <span>微信账号</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>申请状态修改时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+
               </view>
             </view>
 
 
-          </view>
+          <!-- <block wx:for="{{dealwithOrder}}"> -->
+
           <!-- </block> -->
         </view>
 
 
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <!-- <block wx:for="{{dealwithSend}}"> -->
-
-            <view class='mui-table-view'>
-
-              <view class='li'>
-                <view class="deal-top">
-                  <span class="today">
-                    <span>订单号：</span>{{id}}</span>
-                  <span class="status">{{showTime}}</span>
-                </view>
-                <view class="deal-center">
-                  <p style="border-top:1px solid #f4f4f8; padding-top: 5px;">
-                    <span class="name">{{reciverName}}</span>
-                    <span class="phonebox">
-                      <span class="icon-phone color-call"></span>
-                      <span class="mobile" data-bind="reciverMobile">{{reciverMobile}}</span>
-                    </span>
-                  </p>
-                  <p class="address">{{reciverAddr}}</p>
-                </view>
-                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
-                  <view class="title">商品订单</view>
-                  <!-- {{#goodsList}} -->
-                  <view class="goodsbox">
-                    <!-- <img class="goodsimg" src="{{images}}" alt="" /> -->
-                    <image class="goodsimg" src='../../images/all.jpg'></image>
-                    <span class="goodsname">{{name}}</span>
-                    <span class="goodsnum">
-                      <span>×</span>{{count}}</span>
-                    <span class="goodsprice">
-                      <span>¥</span>{{price}}</span>
-                  </view>
-                  <!-- {{/goodsList}} -->
-                </view>
-                <!--<view class="goods-memo">
-							千万别弄断了
-						</view>-->
-                <view class="deal-bottom">
-                  <view class="deal-right">
-                    <p class="totalAmount">
-                      <span>商品总价:</span>
-                      <span>{{totalAmount}}</span>元</p>
-                    <p class="deliveryPrice">
-                      <span>配送费:</span>
-                      <span>{{deliveryPrice}}</span>元</p>
-                    <p class="deliveryPrice">
-                      <span>优惠券:</span>
-                      <span>{{couponName}}</span>
-                    </p>
-                    <p class="receiptAmount">
-                      <span>实收金额:</span>
-                      <span class="color-call">{{receiptAmount}}</span>元</p>
-                  </view>
-                  <view class="deal-left">
-                    <p>
-                      <span>订单状态:</span>
-                      <span>{{status}}</span>
-                    </p>
-                    <p>
-                      <span>支付状态:</span>
-                      <span>已支付</span>
-                    </p>
-                  </view>
+            <view class='bg-white'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
                 </view>
 
-                <view class="deal-btn" style="border-bottom: 0px;">
-                  <button id="commit-save" type="button" bindtap='sendOk' class="mui-btn commit" id="{{id}}">配送完成</button>
+                <view class='flex-view-item font-40'>
+                 {{5000}}
+                </view>
+                <view class='flex-view-item bill-font'>
+                  待转账
                 </view>
               </view>
 
+              <view class='bill-bottom'>
+                <view>
+                  <span>微信账号</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>申请状态修改时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+
+              </view>
             </view>
+
 
 
           <!-- </block> -->
 
         </view>
-        <!-- <view class="weui-tab__content" hidden="{{activeIndex != 2}}">选项三的内容</view> -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+        <view class='bg-white'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                </view>
+
+                <view class='flex-view-item font-40'>
+                 {{5000}}
+                </view>
+                <view class='flex-view-item bill-font'>
+                  已拒绝
+                </view>
+              </view>
+
+              <view class='bill-bottom'>
+                <view>
+                  <span>微信账号</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>申请状态修改时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+
+              </view>
+            </view>
+        
+        
+        
+        </view>
+
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+        <view class='bg-white'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                </view>
+
+                <view class='flex-view-item font-40'>
+                 {{5000}}
+                </view>
+                <view class='flex-view-item bill-font'>
+                  交易完成
+                </view>
+              </view>
+
+              <view class='bill-bottom'>
+                <view>
+                  <span>微信账号</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+                <view>
+                  <span>申请状态修改时间</span>
+                  <span class="pull-right">12312</span>
+                </view>
+
+              </view>
+            </view>
+        
+        
+        
+        
+        </view>
       </view>
     </view>
   </view>

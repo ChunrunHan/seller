@@ -1,0 +1,48 @@
+<!--index.wxml-->
+<view class="width100">
+  <view class="weui-cells__title">基本信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">原手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='tel' maxlength='11' class='weui-input text-left' bindinput='getOldMobile' value='' placeholder='请输入手机号'></input>
+      </view>
+
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">新手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='tel' maxlength='11' class='weui-input text-left' bindinput='getNewMobile' value='' placeholder='请输入手机号'></input>
+      </view>
+
+    </view>
+
+   
+
+
+
+  </view>
+
+  <view class="weui-cells weui-cells_after-title mgt-10">
+ <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">验证码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-left' maxlength='4' bindinput='showSmscode' value='' placeholder='请输入验证码'></input>
+      </view>
+      <view class="weui-cell__ft btn-auto" data-text='{{text}}' catchtap='getSmscode'>
+        {{text}}
+      </view>
+    </view>
+
+  </view>
+
+  <button id="" class="switch-commit mgt-20 mgb-20" bindtap='modifyMobile'>确认</button>
+
+</view>

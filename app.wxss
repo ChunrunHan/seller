@@ -34,6 +34,14 @@ background-color:#efeff4;
   font-size: 15px;
 }
 
+.font-30{
+  font-size: 30px;
+}
+
+.font-40{
+  font-size: 40px;
+}
+
 .del-commit{
     background:white;
     color: #F05141;
@@ -60,6 +68,9 @@ background-color:#efeff4;
 
 .mgt-0{
   margin-top: 0px !important;
+}
+.mgt-10{
+  margin-top: 10px;
 }
 
 .mgl-10{
@@ -100,4 +111,41 @@ background-color:#efeff4;
 .font-17{
   font-size: 17px;
 }
+.search-result{
+    text-align: center;
+    margin-top: 35%;
+    font-size: 14px;
+    color: #8f8f94;
+}
+.search-img{
+  width: 50px;
+  height: 50px;
+}
 
+.icon-mobile::after{
+  font-family: 'icomoon';
+  content: '\e901';
+  color:#F05141;
+
+}
+
+.icon-passwd::after{
+  font-family: 'icomoon';
+  content: '\e900';
+  color:#F05141;
+
+}
+
+.icon-eyes::after{
+  font-family: 'icomoon';
+  content: '\e903';
+  /* color:#999999; */
+
+}
+
+.fuhao{
+  position: absolute;
+  top:50%;
+  right: 20px;
+  margin-top:-13px;
+}

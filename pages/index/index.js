@@ -10,8 +10,7 @@ Page({
     img: '../../images/logo.jpg',
     money: 1000,
     store: '果果快运',
-    grids: [{ name: '团购管理', src: '../../images/tg.png', url: '../groupPurchase/index?title=团购管理' }, { name: '订单管理', src: '../../images/dd.png', url: '../order/index'}, {
-      name: '收支流水', src: '../../images/mx.png',url: '../bill/index'}, { name: '基本设置', src: '../../images/sz.png',url: '../setting/index' }, { name: '意见反馈', src: '../../images/yj.png',url:'../feedback/index' }, { name: '联系我们', src: '../../images/lx.png',url: '' }]
+    grids: [{ name: '团购管理', src: '../../images/tg.png', url: '../groupPurchase/index?title=团购管理' }, { name: '订单管理', src: '../../images/dd.png', url: '../order/index' }, { name: '商家提现', src: '../../images/sales.png', url: '../cash/index'}, { name: '基本设置', src: '../../images/sz.png',url: '../setting/index' }, { name: '意见反馈', src: '../../images/yj.png',url:'../feedback/index' }, { name: '联系我们', src: '../../images/lx.png',url: '../about/index' }]
   },
 
   /**

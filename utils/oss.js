@@ -115,6 +115,7 @@ function stsUpdate(forceUpdate) {
       resolve(data.sts)
 
     }).catch(function (err) {
+      wx.hideLoading();
       console.log('fail to update sts: ', err);
       reject(err)
     })
@@ -148,6 +149,111 @@ function ceshi() {
   console.log('测试')
 }
 
+function restart(){
+  try {
+    wx.clearStorageSync()
+    wx.reLaunch({
+      url: '../login/index',
+    })
+  } catch (e) {
+    
+  }
+}
+
+function statusHandler(status) {
+  console.log('statusHandler(' + status + ')');
+  console.log(status);
+  wx.hideLoading();
+
+  switch (status) {
+    case 0:
+ 
+      wx.showToast({
+        title: '网络问题，请稍后再试',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+      break;
+    // case ERROR.FILE_INVALID:
+     
+    //   wx.showToast({
+    //     title: '无效的文件',
+    //     image: '../../images/alert.png',
+    //     duration: 2000
+    //   })
+    //   break;
+    // case ERROR.INVALID_PARAMS:
+    
+    //   wx.showToast({
+    //     title: '无效的参数',
+    //     image: '../../images/alert.png',
+    //     duration: 2000
+    //   })
+      // break;
+    case "request:fail timeout":
+      wx.showToast({
+        title: '请求超时',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+      break;
+
+    case 204:
+  
+      wx.showToast({
+        title: '没有内容，请稍候再试',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+      break;
+    case 401:
+      
+      wx.showToast({
+        title: '没有权限，请联系客服',
+        image: '../../images/alert.png',
+        duration: 2000,
+        success: function(res){
+          restart();
+        }
+      })
+      
+      break;
+    case 403:
+    
+      wx.showToast({
+        title: '越权操作，请联系客服',
+        image: '../../images/alert.png',
+        duration: 2000,
+        success: function (res) {
+          restart();
+        }
+      })
+      break;
+    case 404:
+      // mui.toast('请求地址错误，请联系客服');
+      wx.showToast({
+        title: '请求地址错误，请联系客服',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+      break;
+    case 500:
+      // mui.toast('服务器出错啦，请稍候再试');
+      wx.showToast({
+        title: '请稍候再试',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+      break;
+    default:
+      wx.showToast({
+        title: '未知错误',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+  }
+}
+
 function timeToLong(time, end) {
   if (end == "end") {
     end = "23:59:59";
@@ -162,6 +268,34 @@ function timeToLong(time, end) {
   var date = new Date(timer);
   console.log(date.getTime());
   return date.getTime();
+}
+
+//时间戳转时间
+function formatDate(timestamp) {
+  timestamp = new Date(timestamp);
+  var year = timestamp.getFullYear();
+  var month = timestamp.getMonth() + 1;
+  var date = timestamp.getDate();
+  var hour = timestamp.getHours();
+  var minute = timestamp.getMinutes();
+  var second = timestamp.getSeconds();
+  if (month < 10) {
+    month = '0' + month;
+  }
+  if (date < 10) {
+    date = '0' + date;
+  }
+  if (hour < 10) {
+    hour = '0' + hour;
+  }
+  if (minute < 10) {
+    minute = '0' + minute;
+  }
+  if (second < 10) {
+    second = '0' + second;
+  }
+  // return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+  return year + "-" + month + "-" + date;
 }
 
 //	返回当前时间戳
@@ -212,7 +346,7 @@ function NowTimer() {
 function checkMobile(mobile) {
   if (!(/^1[3|4|5|8|7][0-9]\d{4,8}$/.test(mobile))) {
     wx.showToast({
-      title: '手机号格式不正确',
+      title: '手机号格式错误',
       image: '../../images/alert.png',
       duration: 2000
     })
@@ -229,5 +363,7 @@ module.exports = {
   timeToLong: timeToLong,
   currentTime: currentTime,
   NowTimer: NowTimer,
-  checkMobile: checkMobile
+  checkMobile: checkMobile,
+  statusHandler: statusHandler,
+  formatDate: formatDate
 }

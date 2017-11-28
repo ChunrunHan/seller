@@ -106,43 +106,54 @@ Page({
     } else {
       if(oss.checkMobile(data.phone)){
         console.log('上传的数据' + JSON.stringify(that.data.data));
-        wx.showLoading({
-          title: '添加中',
-        })
+        that.submitFeedback();
+
       }
      
-      // var url = urlBase + '/mall/goods/group';
-      // ajax.post(url, that.data.data).then(function (data) {
-      //   wx.hideLoading();
-      //   console.log(data);
-      //   console.log(JSON.stringify(data));
-      //   if(data.data.code == 0){
-      //     wx.showToast({
-      //       title: '添加成功',
-      //       duration: 2000
-      //     })
-      //     wx.navigateBack({
-      //       url: '../goodsAdd/index'
-      //     })
-      //   }else{
-      //     wx.showToast({
-      //       title: '添加失败',
-      //       image: '../../images/alert.png',
-      //       duration: 2000
-      //     })
-      //   }
-
-      // }).catch(function (status) {
-      //   wx.hideLoading();
-      //   console.log(status.errMsg);
-      //   wx.showToast({
-      //     title: '请求超时',
-      //     image: '../../images/alert.png',
-      //     duration: 2000
-      //   })
-      // });
 
     }
+  },
+  submitFeedback: function(){
+    var that = this;
+    wx.showLoading({
+      title: '提交中',
+    })
+    var url = urlBase + '/mall/feedback';
+    ajax.post(url, that.data.data).then(function (data) {
+      wx.hideLoading();
+      console.log(data);
+      console.log(JSON.stringify(data));
+      if (data.data.code == 0) {
+        wx.showToast({
+          title: '提交成功',
+          duration: 2000,
+          success:function(){
+            setTimeout(function(){
+              wx.navigateBack({
+                url: '../index/index'
+              })
+            },2000)
+            
+          }
+        })
+        
+      } else {
+        wx.showToast({
+          title: '提交失败',
+          image: '../../images/alert.png',
+          duration: 2000
+        })
+      }
+
+    }).catch(function (status) {
+      wx.hideLoading();
+      console.log(status.errMsg);
+      wx.showToast({
+        title: '请求超时',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+    });
   }
 
 

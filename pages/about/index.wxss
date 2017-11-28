@@ -1,0 +1,28 @@
+/**index.wxss**/
+#login-btn{
+  position: fixed;
+  bottom: 20px;
+  /* top:10px; */
+}
+
+.loading{
+  text-align: center;
+}
+
+#box{
+  /* height: 300px; */
+}
+
+.font-17{
+  font-size: 17px;
+}
+
+.about-logo {
+    width: 100px;
+    height: 100px;
+    display: block;
+    border-radius: 20px;
+    margin: 30px auto;
+}
+
+

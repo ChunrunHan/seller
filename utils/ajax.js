@@ -57,7 +57,9 @@ function getHeader() {
         source: source,
         timestamp: timestamp,
         sign: sign,
-        token: key
+        token: key,
+        // token: '78423abfc55e48bd9b8019c008f4155e',    //临时用
+        // backdoor: 'e10adc3949ba59abbe56e057f20f883e'  //临时用
     });
 
     return header;
@@ -87,10 +89,21 @@ function post(url, data) {
 }
 
 //  put方法
-function put(url){
-  var header = getHeader(url);
+function put(url, data){
+  var header = getHeader(url, data);
   return ajax({
     method: 'PUT',
+    url: url,
+    data: data,
+    dataType: 'json',
+    header: header
+  })
+}
+// del
+function del(url) {
+  var header = getHeader(url);
+  return ajax({
+    method: 'DELETE',
     url: url,
     dataType: 'json',
     header: header
@@ -100,5 +113,6 @@ function put(url){
 module.exports = {
     get: get,
     post: post,
-    put: put
+    put: put,
+    del: del
 }

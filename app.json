@@ -1,18 +1,27 @@
 {
   "pages": [
     "pages/login/index",
+    "pages/index/index",
+   
     "pages/goodsAdd/index",
+    "pages/goodsEdit/index",
+    "pages/about/index",
+    "pages/sales/index",
     "pages/order/index",
     "pages/bill/index",
     "pages/upload/upload",
     "pages/setting/index",
+    "pages/settingInfo/index",
+    "pages/sellerInfo/index",
+    "pages/password/index",
+    "pages/mobile/index",
     "pages/feedback/index",
     "pages/billinfo/index",
     "pages/groupPurchase/index",
     "pages/cash/index",
     "pages/recharge/index",
-    "pages/cashInfo/index",
-    "pages/index/index"
+    "pages/cashInfo/index"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

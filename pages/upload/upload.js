@@ -41,9 +41,11 @@ Page({
         // wx.redirectTo({
         //   url: '',
         // })
-
+        wx.showLoading({
+          title: '上传中',
+        })
         oss.ossUpload(avatar).then(function (res) {
-
+          wx.hideLoading();
           console.log(res)
           if (res.statusCode == 200){
             wx.showToast({
@@ -56,7 +58,7 @@ Page({
             }
             app.globalData.addPhoto = app.globalData.addPhoto.concat(img);
             wx.navigateBack({
-              url: '../goodsAdd/index'
+              
             })
           }
           // console.log('upload done:' + file);
@@ -67,6 +69,8 @@ Page({
 
         }).catch(function (status) {
           console.log('failed to upload');
+          console.log(status);
+          oss.statusHandler(status.statusCode);
 
         });
        

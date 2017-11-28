@@ -21,9 +21,9 @@ Page({
       singlePrice: '',
       leaderPrice: '',
       memberPrice: '',
-      buyerLimit: 3,
-      isSupportSevenDaysRefund: false,
-      isSupportOneDayArrive: false,
+      buyerLimit: 2,
+      sevenDaysRefund: false,
+      oneDayArrive: false,
       startTime: '',
       endTime: '',
       timeoutLimit: 24,
@@ -33,7 +33,7 @@ Page({
       sellLocations: []
     },
 
-    people: ['3人', '4人', '5人', '6人', '7人', '8人', '9人', '10人'],
+    people: ['2人','3人', '4人', '5人', '6人', '7人', '8人', '9人', '10人'],
     peopleIndex: 0,
     day: ["24小时", "48小时", "72小时"],
     dayIndex: 0,
@@ -101,6 +101,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.showLoading({
+      title: '',
+    })
     console.log(typeof this.data)
     console.log(JSON.stringify(this.data))
     console.log()
@@ -116,6 +119,7 @@ Page({
       files: app.globalData.addPhoto
     })
     console.log('初始化：', that.data);
+    wx.hideLoading()
   },
 
   /**
@@ -212,7 +216,11 @@ Page({
             content: '图片不能大于500KB',
           })
         } else {
+          wx.showLoading({
+            title: '上传中',
+          })
           oss.ossUpload(imgSrc).then(function (res) {
+            wx.hideLoading();
             console.log(res)
             if (res.statusCode == 200) {
               wx.showToast({
@@ -229,6 +237,8 @@ Page({
             }
           }).catch(function (status) {
             console.log('failed to upload');
+            console.log(status);
+            oss.statusHandler(status.statusCode);
 
           });
         }
@@ -368,6 +378,9 @@ Page({
             console.log(JSON.stringify(res));
             if (res.data.code == 0) {
               console.log('删除成功');
+              wx.showToast({
+                title: '删除成功',
+              })
               console.log(res);
               if (delFrom == 'goods') {
                 var files = that.data.files;
@@ -401,11 +414,20 @@ Page({
 
           }).catch(function (err) {
             console.log('oss单个文件删除', err)
-            wx.showToast({
-              title: '删除失败',
-              image: '../../images/alert.png',
-              duration: 2000
-            })
+            if (err.errMsg == "request: fail timeout"){
+              wx.showToast({
+                title: '删除请求超时',
+                image: '../../images/alert.png',
+                duration: 2000
+              })
+            }else{
+              wx.showToast({
+                title: '删除失败',
+                image: '../../images/alert.png',
+                duration: 2000
+              })
+            }
+            
 
           })
 
@@ -453,34 +475,37 @@ Page({
     this.data.data.remaining = e.detail.value
     console.log(JSON.stringify(this.data.data));
   },
-  getIsSupportOneDayArrive: function (e) {
+  getoneDayArrive: function (e) {
     console.log(e.detail.value);
     if (e.detail.value) {
       wx.showModal({
         title: '注意',
-        content: '当日达必须当日送达',
+        content: '上午11点之前当日达，11点之后次日送达。',
       });
     }
-    this.data.data.isSupportOneDayArrive = e.detail.value
-    // this.setData({
-    //   'data.isSupportOneDayArrive': e.detail.value
-    // })
+    var oneDayArrive = e.detail.value;
+    this.setData({
+      'data.oneDayArrive': oneDayArrive
+    })
     console.log(JSON.stringify(this.data.data));
   },
-  getIsSupportSevenDaysRefund: function (e) {
+  getsevenDaysRefund: function (e) {
     console.log(e.detail.value);
     if (e.detail.value) {
       wx.showModal({
         title: '注意',
-        content: '买家退货后，商家7天后资金到账',
+        content: '消费者收货七天后，资金到账。',
       });
     }
-    this.data.data.isSupportSevenDaysRefund = e.detail.value
+    var sevenDaysRefund = e.detail.value;
+    this.setData({
+      'data.sevenDaysRefund': sevenDaysRefund
+    })
     console.log(JSON.stringify(this.data.data));
   },
   bindPeopleChange: function (e) {
-    console.log(parseInt(e.detail.value) + 3);
-    var buyerLimit = parseInt(e.detail.value) + 3
+    console.log(parseInt(e.detail.value) + 2);
+    var buyerLimit = parseInt(e.detail.value) + 2
     this.data.data.buyerLimit = buyerLimit;
     this.setData({
       peopleIndex: e.detail.value
@@ -567,8 +592,8 @@ Page({
         city: "青岛市",
         district: "",
         zone: "",
-        longitude: 120.33,
-        latitude: 36.07
+        longitude: 120.38299,
+        latitude: 36.06623
       }
       // that.setData({
       //   'data.sellLocations': that.data.data.sellLocations.push(json)
@@ -634,8 +659,10 @@ Page({
       wx.showLoading({
         title: '添加中',
       })
+      var newgoods = that.data.data;
+      console.log('上传的数据' + JSON.stringify(newgoods));
       var url = urlBase + '/mall/goods/group';
-      ajax.post(url, that.data.data).then(function (data) {
+      ajax.post(url, newgoods).then(function (data) {
         wx.hideLoading();
         console.log(data);
         console.log(JSON.stringify(data));
@@ -648,11 +675,12 @@ Page({
             url: '../goodsAdd/index'
           })
         } else {
-          wx.showToast({
-            title: '添加失败',
-            image: '../../images/alert.png',
-            duration: 2000
-          })
+          oss.statusHandler(data.statusCode);
+          // wx.showToast({
+          //   title: '添加失败',
+          //   image: '../../images/alert.png',
+          //   duration: 2000
+          // })
         }
 
       }).catch(function (status) {

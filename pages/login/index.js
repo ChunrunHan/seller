@@ -1,6 +1,7 @@
 var app = getApp()
 var ajax = require('../../utils/ajax');
 var md5 = require('../../utils/md5');
+var oss = require('../../utils/oss')
 console.log(app.urlBase) // I am global data
 var urlBase = app.urlBase;
 
@@ -14,60 +15,15 @@ Page({
     showPass: false
   },
   onLoad: function (options) {
-    // Do some initialize when page load.
-    // var that = this;
-    // wx.showLoading();
-    // wx.getStorage({
-    //   key: 'unionId',
-    //   success: function (res) {
-    //     wx.hideLoading();
-    //     console.log(res.data);
-    //     if (res.data != undefined && res.data != ''){
-    //       that.userLogin('', '', '', res.data);
-    //     }
-        
-    //   },
-    //   fail: function (){
-    //     wx.hideLoading();
-    //     console.log('失败');
-    //     wx.showToast({
-    //       title: '请重新登录',
-    //       image: '../../images/alert.png',
-    //       duration: 2000
-    //     })
-    //   }
-    // });
+    var mobile = wx.getStorageSync('mobile');
+    var wxOpenId = wx.getStorageSync('wxOpenId');
+    console.log(wxOpenId);
+    if (wxOpenId != ''){
+      this.userLogin(mobile, '', '', wxOpenId);
+    }
 
   },
   onReady: function () {
-    // Do something when page ready.
-    var that = this;
-    wx.showLoading();
-    var mobile = wx.getStorageSync("mobile");
-    var password = wx.getStorageSync("password");
-    if(mobile != undefined && password != undefined){
-      wx.hideLoading();
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            console.log(res.code);
-            that.userLogin(mobile, password , res.code, '');
-          } else {
-            console.log('获取用户登录态失败！' + res.errMsg);
-          }
-        }
-      });
-
-
-    } else{
-      wx.hideLoading();
-      console.log('失败');
-      wx.showToast({
-        title: '请重新登录',
-        image: '../../images/alert.png',
-        duration: 2000
-      })
-    }
 
   },
   onShow: function () {
@@ -168,14 +124,17 @@ Page({
       title: '登录中',
     });
     var oldpass = password;
-    password = md5(password);
-    
+    if (oldpass != ''){
+      password = md5(password);
+    }
+
     var url = urlBase + "/mall/selleruser/wx_micro_app_login/"+ mobile +'/'+ password +'/'+ jsCode +'/'+ unionId;
     console.log(url);
     ajax.get(url).then(function (data) {
       wx.hideLoading();
       console.log(data);
       console.log(JSON.stringify(data));
+      var statusCode = data.statusCode;
       var data = data.data;
       if (data.errCode == 0){
         var datalist = data.data;
@@ -185,10 +144,13 @@ Page({
         app.mobile = datalist.mobile;
         app.realName = datalist.realName;
         app.mobile = datalist.mobile;
+
         wx.setStorageSync('sellerId', datalist.sellerId)
         wx.setStorageSync('token', datalist.token)
         wx.setStorageSync('mobile', mobile)
         wx.setStorageSync('password', oldpass)
+        wx.setStorageSync('wxOpenId', datalist.wxOpenId);
+
         // wx.setStorage({
         //   key: 'sellerId',
         //   data: datalist.sellerId,
@@ -211,11 +173,12 @@ Page({
 
       }else{
         console.log('失败')
-        wx.showToast({
-          title: data.errMsg,
-          image: '../../images/alert.png',
-          duration: 2000
-        })
+        oss.statusHandler(statusCode)
+        // wx.showToast({
+        //   title: data.errMsg,
+        //   image: '../../images/alert.png',
+        //   duration: 2000
+        // })
       }
       // if (data.data.errCode == 0){
       //   wx.setStorage({

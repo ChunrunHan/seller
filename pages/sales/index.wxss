@@ -1,0 +1,32 @@
+.flex-box{
+    display: flex;
+    background: #f05141;
+    padding:10px 0px;
+    color: white;
+}
+.flex-item{
+  flex-direction:column;
+  width: calc(100%/3);
+  text-align: center;
+  font-weight: 600;
+}
+.border-lr{
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+
+
+/* ................................................ */
+.list{
+  padding: 5px 10px;
+}
+.list-img{
+  width: 40px;
+  height: 40px;
+}
+
+.list-p{
+  height: 20px;
+  font-size: 13px;
+  line-height: 20px;
+}

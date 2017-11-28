@@ -22,9 +22,12 @@ App({
   bucket: 'yzb-mall',
   // bucket: 'yezhubao-mall',
   urlBase: 'https://dev.yezhubao.net',
+  // token: '78423abfc55e48bd9b8019c008f4155e',
+  // sellerId: 'f63ef7105cf94d71015cfce10e760176',
   token: '',
   sellerId: '',
   mobile: '',
   id: '',
-  realName: ''
+  realName: '',
+  ossHost: 'https://dev.yezhubao.net/oss_mall'
 })

@@ -7,46 +7,29 @@
 
 
    <scroll-view id='box' scroll-y style="height:{{boxHeight}}px" bindscroll="scroll" bindscrolltoupper="scrolltoupper" bindscrolltolower="scrolltolower"> 
-      <view class="weui-cells__title width100">商品列表</view>
-      <view class="weui-cells weui-cells_after-title" id='goods'>
+      <!-- <view class="weui-cells__title width100">商品列表</view> -->
+      <view class="bg-white weui-cells_after-title" id='goods'>
       <block wx:for="{{goods}}">
         <template is="msgItem" data="{{name:item.name,url:item.url,icon:item.icon,status:item.status}}"/>
       </block>
   </view>
 
-   <view class="loading" hidden="{{pullup}}">正在载入更多...</view>  
-   <view class="loading complete" hidden="{{!pullup}}">已加载全部</view>  
+   <view class="loading" hidden="{{!lock}}">上拉加载更多...</view>  
+   <!-- <view class="loading complete" hidden="{{lock}}">没有更多数据了</view>   -->
+
+    <view class="search-result" hidden="{{listnum}}">
+				<image class="search-img" src="../../images/search.svg" alt="" width="40px" height="40px"></image>
+				<view>当前没有任何商品</view>
+				<view>请添加商品</view>
+	 </view>
    </scroll-view> 
+
+ 
 
 
   
 
   <button id="login-btn" class="switch-commit mt-20" bindtap='goAdd'>添加商品</button>
-
-
-  <!-- <view class="weui-cells weui-cells_after-title">
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__hd">
-                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-                </view>
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__hd">
-                    <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-                </view>
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
-            </navigator>
-        </view> -->
-
-
-  <!-- <scroll-view scroll-y="true" bindscrolltolower="searchScrollLower">   
-        
-     
-    </scroll-view>     -->
-
 
 
 

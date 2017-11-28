@@ -10,7 +10,7 @@
         <view class="weui-label">商品名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getName' value='{{data.name}}' placeholder='请输入商品名称（至少三个字）'></input>
+        <input type='text' class='weui-input text-right' bindinput='getName' value='{{data.name}}' placeholder='请输入商品名称(至少三个字)'></input>
       </view>
     </view>
 
@@ -97,16 +97,16 @@
 
 
     <view class="weui-cell weui-cell_switch">
-      <view class="weui-cell__bd">是否支持七天无理由退货</view>
+      <view class="weui-cell__bd">支持七天无理由退货</view>
       <view class="weui-cell__ft">
-        <switch bindchange='getIsSupportSevenDaysRefund' checked="{{data.isSupportSevenDaysRefund}}" />
+        <switch bindchange='getsevenDaysRefund' checked="{{data.sevenDaysRefund}}" />
       </view>
     </view>
 
     <view class="weui-cell weui-cell_switch">
-      <view class="weui-cell__bd">是否支持当日达</view>
+      <view class="weui-cell__bd">支持当日达</view>
       <view class="weui-cell__ft">
-        <switch bindchange='getIsSupportOneDayArrive' checked="{{data.isSupportOneDayArrive}}" />
+        <switch bindchange='getoneDayArrive' checked="{{data.oneDayArrive}}" />
       </view>
     </view>
 
@@ -320,7 +320,7 @@
     <block wx:for="{{memofiles}}" wx:key="*this">
       <view class='memo-showbox'>
         <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
-        <image mode="widthFix" src="{{item.oldImg}}" bindtap="previewImage" id='{{item.oldImg}}' />
+        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
 
         <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
       </view>
