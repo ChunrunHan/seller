@@ -21,11 +21,14 @@ Page({
       city:'',
       district:'',
       address: '',
-      servicePhone: 17863253292
+      servicePhone: '',
+      latitude: '',
+      longitude: ''
     },
     files: [],
     zones: [],
-    areaShow: true
+    areaShow: true,
+    delfilename:''
 
 
   },
@@ -52,36 +55,38 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    this.getSellerVlue();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getVlue();
     console.log(JSON.stringify(this.data));
     var that = this;
     //  图片添加
     console.log('全局图片' + app.globalData.addPhoto);
-    this.setData({
-      files: app.globalData.addPhoto
-    })
+    if (app.globalData.addPhoto.length != 0){
+      this.setData({
+        files: app.globalData.addPhoto
+      })
+    }
+   
     console.log('初始化：', that.data);
+  
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    // app.globalData.addPhoto = [];
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    // app.globalData.addPhoto = [];
   },
 
   /**
@@ -140,9 +145,6 @@ Page({
     wx.chooseLocation({
       success: function (res) {
         console.log(res.name);
-        that.setData({
-          'data.address': res.name
-        })
         console.log(res.address);
         console.log(res.latitude);
         console.log(res.longitude);
@@ -152,6 +154,11 @@ Page({
         var province = '';
         var city = '';
         var district = '';
+        that.setData({
+          'data.address': res.name,
+          'data.latitude': latitude,
+          'data.longitude': longitude
+        })
        
 
         //  逆地址解析
@@ -201,95 +208,24 @@ Page({
   //  删除图片
   delImage: function (e) {
     var that = this;
+    console.log(that.data.files)
     console.log(e.currentTarget.id);
     console.log(e.currentTarget.dataset.name);
-    console.log(e.currentTarget.dataset.source);
-    var delFrom = e.currentTarget.dataset.source;
     var index = e.currentTarget.id;
     var delfilename = e.currentTarget.dataset.name;
 
-    var delinfo = '确定删除该照片';
-    if (delFrom == 'goods') {
-      delinfo = '确定删除该商品图片';
-    } else {
-      delinfo = '确定删除该商品描述图片';
-    }
-    wx.showModal({
-      title: '提示',
-      content: delinfo,
-      success: function (res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-          var bucket = app.bucket;
-          var delfile = [{
-            bucket: bucket,
-            object: delfilename
-          }]
-          var urlBase = app.urlBase;
-          var url = urlBase + '/mall/oss/delete/seller';
-          ajax.post(url, delfile).then(function (res) {
-            console.log(JSON.stringify(res));
-            if (res.data.code == 0) {
-              console.log('删除成功');
-              wx.showToast({
-                title: '删除成功',
-              })
-              console.log(res);
-              if (delFrom == 'goods') {
-                var files = that.data.files;
-                console.log(files);
-                files.splice(index, 1);
-                that.setData({
-                  files: files
-                });
-                app.globalData.addPhoto = that.data.files;
-                console.log('全局商品图片' + app.globalData.addPhoto)
-              } else {
-                var memoFiles = that.data.memofiles;
-                console.log(memoFiles);
-                memoFiles.splice(index, 1);
-                that.setData({
-                  memofiles: memoFiles
-                });
-
-                console.log('备注图片' + that.data.memofiles);
-              }
-
-
-            } else {
-              wx.showToast({
-                title: '删除失败',
-                image: '../../images/alert.png',
-                duration: 2000
-              })
-            }
-
-
-          }).catch(function (err) {
-            console.log('oss单个文件删除', err)
-            if (err.errMsg == "request: fail timeout"){
-              wx.showToast({
-                title: '删除请求超时',
-                image: '../../images/alert.png',
-                duration: 2000
-              })
-            }else{
-              wx.showToast({
-                title: '删除失败',
-                image: '../../images/alert.png',
-                duration: 2000
-              })
-            }
-            
-
-          })
-
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-
-        }
-      }
+    that.setData({
+      delfilename: delfilename
     });
+    var files = that.data.files;
+    console.log(files);
+    files.splice(index, 1);
+    that.setData({
+      files: files
+    });
+    console.log(that.data.files);
+    console.log(that.data.delfilename)
+  
   },
   getStoreName: function (e) {
     console.log(e.detail.value);
@@ -335,12 +271,15 @@ Page({
         allData.sellerId = app.sellerId;
         console.log('上传的数据' + JSON.stringify(that.data.data));
         wx.showLoading({
-          title: '添加中',
+          title: '保存中',
         })
+        if(that.data.delfilename != ""){
+          // that.delImg();
+        }
         var json = that.data.data;
         console.log('上传的数据' + JSON.stringify(json));
-        var url = urlBase + '/mall/goods/group';
-        ajax.post(url, json).then(function (data) {
+        var url = urlBase + '/mall/seller';
+        ajax.put(url, json).then(function (data) {
           wx.hideLoading();
           console.log(data);
           console.log(JSON.stringify(data));
@@ -349,10 +288,15 @@ Page({
               title: '保存成功',
               duration: 2000
             })
-            wx.navigateBack({
-              url: '../goodsAdd/index'
+            // wx.navigateBack({
+            //   url: '../setting/index'
+            // })
+          } else if (data.statusCode == 200 && data.data.code !== 0){
+            wx.showToast({
+              title: data.data.message,
+              duration: 2000
             })
-          } else {
+          }else{
             oss.statusHandler(data.statusCode);
             // wx.showToast({
             //   title: '添加失败',
@@ -374,12 +318,13 @@ Page({
 
     }
   },
-  getVlue:function(){
-    var url = urlBase + '/mall/seller/info/' + app.sellerId;
-    console.log(url);
+  getSellerVlue:function(e){
     wx.showLoading({
       title: '',
     })
+    var that = this;
+    var url = urlBase + '/mall/seller/info/' + app.sellerId;
+    console.log(url);
     ajax.get(url).then(function (data) {
       wx.hideLoading();
       console.log(JSON.stringify(data));
@@ -393,17 +338,89 @@ Page({
           oldImg: img2,
           newImg: datalist.data.logo
         }
+
+        var files = [];
+        files.push(json2)
         that.setData({
-          files: that.data.files.concat(json2)
+          files: files
         })
+        app.globalData.addPhoto = that.data.files;
+
         that.setData({
           data: datalist.data
         })
+      } else if (datalist.errCode !== 0 && statusCode == 200){
+        wx.showToast({
+          title: datalist.message,
+          duration: 2000
+        })
+      } else{
+        oss.statusHandler(statusCode);
+
       }
 
     }).catch(function (status){
+      console.log(status);
+      oss.statusHandler(status);
+    })
+  },
+  delImg: function(){
+    var that = this;
+    var delfilename = that.data.delfilename;
+    var bucket = app.bucket;
+    var delfile = [{
+      bucket: bucket,
+      object: delfilename
+    }]
+    var url = urlBase + '/mall/oss/delete/seller';
+    ajax.post(url, delfile).then(function (res) {
+      console.log(JSON.stringify(res));
+      if (res.data.code == 0) {
+        console.log('删除成功');
+        wx.showToast({
+          title: '删除成功',
+        })
+        console.log(res);
+
+        var files = that.data.files;
+        console.log(files);
+        files.splice(index, 1);
+        that.setData({
+          files: files
+        });
+        app.globalData.addPhoto = that.data.files;
+        console.log('全局商品图片' + app.globalData.addPhoto)
+
+
+
+      } else {
+        wx.showToast({
+          title: '删除失败',
+          image: '../../images/alert.png',
+          duration: 2000
+        })
+      }
+
+
+    }).catch(function (err) {
+      console.log('oss单个文件删除', err)
+      if (err.errMsg == "request: fail timeout") {
+        wx.showToast({
+          title: '删除请求超时',
+          image: '../../images/alert.png',
+          duration: 2000
+        })
+      } else {
+        wx.showToast({
+          title: '删除失败',
+          image: '../../images/alert.png',
+          duration: 2000
+        })
+      }
+
 
     })
+
   }
 
 

@@ -118,6 +118,9 @@ Page({
       title: '加载中',
     })
     var that = this;
+    that.setData({
+      lock: false
+    })
     var page = that.data.page
     var url = app.urlBase + '/mall/goods/seller_list_group/' + app.sellerId + '/' + page +'/' + that.data.pageSize; 
     console.log(url);

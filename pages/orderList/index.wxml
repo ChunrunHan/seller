@@ -1,0 +1,303 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar" style='position:fixed'>
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style='background: #F05141;color:white'>
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white; width:{{sliderW}}px"></view>
+      </view>
+       <view class="search-result" style='magin-top:50%' hidden="{{listnum}}">
+				<image class="search-img" src="../../images/cart.svg" alt="" width="40px" height="40px"></image>
+				<view>当前状态没有数据</view>
+	 </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+
+        <!-- <block wx:for="{{list1}}"> -->
+            <!-- <view class='bg-white mgb-10'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                </view>
+
+                <view class='flex-view-item font-40'>
+                 {{item.amount}}
+                </view>
+                <view class='flex-view-item bill-font'>
+                  待审核
+                </view>
+              </view>
+
+              <view class='bill-bottom'>
+                <view>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
+                </view>
+                
+
+              </view>
+            </view> -->
+             <view class='mui-table-view'>
+            <view class='li'>
+              <view class="deal-top">
+                <span class="today">
+                  <span>订单号：</span>20170629174641708688</span>
+                <span class="status">2017-06-29 00:00:00</span>
+              </view>
+              <view class="deal-center">
+                <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
+                  <span class="name">Rain</span>
+                  <span class="phonebox">
+                    <!-- <span class="icon-phone color-call"></span>
+                   -->
+                    <image src='{{mobile}}' class='mobile'></image>
+                    <span class="mobile" data-bind="reciverMobile">17863253292</span>
+                  </span>
+                </p>
+                <p class="address">青岛市崂山区双福大厦</p>
+              </view>
+              <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                <view class="title">商品订单</view>
+                <!-- {{#goodsList}} -->
+                <view class="goodsbox">
+                  <image class="goodsimg" src="../../images/all.jpg" alt=""></image>
+                  <span class="goodsname">花</span>
+                  <span class="goodsnum">
+                    <span>×</span>2</span>
+                  <span class="goodsprice">
+                    <span>¥</span>30</span>
+                </view>
+                <!-- {{/goodsList}} -->
+              </view>
+              <view class="goods-memo">
+                千万别弄断了
+              </view>
+              <view class="deal-bottom">
+                <view class="deal-right">
+                  <p class="totalAmount">
+                    <span>商品总价:</span>
+                    <span>3000</span>元</p>
+                  <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p>
+                  <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p>
+                  <p class="receiptAmount">
+                    <span>实收金额:</span>
+                    <span class="color-call">300</span>元</p>
+                </view>
+                <view class="deal-left">
+                  <p>
+                    <span>订单状态:</span>
+                    <span>待配送</span>
+                  </p>
+                  <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p>
+                </view>
+              </view>
+
+              <view class="deal-btn" style="border-bottom: 0px;">
+                <button type="button" class="mui-btn commit" bindtap='startSend' id="{{id}}">开始配送</button>
+              </view>
+            </view>
+
+
+          </view>
+
+           <!-- </block>  -->
+        </view>
+
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+           <!-- <block wx:for="{{list2}}"> -->
+                      <view class='mui-table-view'>
+
+              <view class='li'>
+                <view class="deal-top">
+                  <span class="today">
+                    <span>订单号：</span>{{item.id}}</span>
+                  <span class="status">{{item.showTime}}</span>
+                </view>
+                <view class="deal-center">
+                  <p style="border-top:1px solid #f4f4f8; padding-top: 5px;">
+                    <span class="name">{{item.reciverName}}</span>
+                    <span class="phonebox">
+                      <span class="icon-phone color-call"></span>
+                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
+                    </span>
+                  </p>
+                  <p class="address">{{reciverAddr}}</p>
+                </view>
+                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                  <view class="title">商品订单</view>
+                  <!-- {{#goodsList}} -->
+                  <view class="goodsbox">
+                    <!-- <img class="goodsimg" src="{{images}}" alt="" /> -->
+                    <image class="goodsimg" src='../../images/all.jpg'></image>
+                    <span class="goodsname">{{name}}</span>
+                    <span class="goodsnum">
+                      <span>×</span>{{count}}</span>
+                    <span class="goodsprice">
+                      <span>¥</span>{{price}}</span>
+                  </view>
+                  <!-- {{/goodsList}} -->
+                </view>
+                <!--<view class="goods-memo">
+							千万别弄断了
+						</view>-->
+                <view class="deal-bottom">
+                  <view class="deal-right">
+                    <p class="totalAmount">
+                      <span>商品总价:</span>
+                      <span>{{totalAmount}}</span>元</p>
+                    <p class="deliveryPrice">
+                      <span>配送费:</span>
+                      <span>{{deliveryPrice}}</span>元</p>
+                    <p class="deliveryPrice">
+                      <span>优惠券:</span>
+                      <span>{{couponName}}</span>
+                    </p>
+                    <p class="receiptAmount">
+                      <span>实收金额:</span>
+                      <span class="color-call">{{receiptAmount}}</span>元</p>
+                  </view>
+                  <view class="deal-left">
+                    <p>
+                      <span>订单状态:</span>
+                      <span>{{status}}</span>
+                    </p>
+                    <p>
+                      <span>支付状态:</span>
+                      <span>已支付</span>
+                    </p>
+                  </view>
+                </view>
+
+                <view class="deal-btn" style="border-bottom: 0px;">
+                  <button id="commit-save" type="button" bindtap='sendOk' class="mui-btn commit" id="{{id}}">配送完成</button>
+                </view>
+              </view>
+
+            </view>
+
+
+
+           <!-- </block>  -->
+
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+         <block wx:for="{{list3}}">
+        <view class='bg-white mgb-10'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                </view>
+
+                <view class='flex-view-item font-40'>
+                 {{item.amount}}
+                </view>
+                <view class='flex-view-item bill-font'>
+                  已拒绝
+                </view>
+                
+              </view>
+
+              <view class='bill-bottom'>
+                <view>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
+                </view>
+                <view>
+                  <span>申请状态修改时间</span>
+                  <span class="pull-right">{{item.updateDateTime}}</span>
+                </view>
+
+        
+                  <view class='memotext'>
+                  拒绝原因: {{item.reason}}
+                  </view>
+           
+
+              </view>
+            </view>
+
+            
+          </block>
+        
+        
+        </view>
+
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+         <block wx:for="{{list4}}">
+        <view class='bg-white mgb-10'>
+              <view class='bill-top text-center'>
+                <view class=''>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                </view>
+
+                <view class='flex-view-item font-40'>
+                 {{item.amount}}
+                </view>
+                <view class='flex-view-item bill-font'>
+                  交易完成
+                </view>
+              </view>
+
+              <view class='bill-bottom'>
+                <view>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
+                </view>
+                <view>
+                  <span>真是姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
+                </view>
+                <view>
+                  <span>创建时间</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
+                </view>
+                <view>
+                  <span>申请状态修改时间</span>
+                  <span class="pull-right">{{item.updateDateTime}}</span>
+                </view>
+                <view>
+                  <span>流水号</span>
+                  <span class="pull-right">{{item.swiftNumber}}</span>
+                </view>
+
+              </view>
+            </view>
+        </block>
+        
+        
+        
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</view>

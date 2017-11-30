@@ -8,18 +8,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    boxHeight: device.windowHeight - 80,
-    list: [{ name: '服务热线', icon: '../../images/call.png', content: '13361213969' }, { name: '客服邮箱', icon: '../../images/email.png', content: 'service@yezhubao.net' }, { name: '微信公众号', icon: '../../images/wx.png', content: '业主宝' }]
 
   },
-  
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     console.log(options.title);
-   
+
   },
 
   /**
@@ -41,14 +39,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    wx.navigateBack({
+      delta: 2
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    wx.navigateBack({
+      delta: 2
+    })
   },
 
   /**
@@ -77,14 +79,11 @@ Page({
   scrolltolower: function () {
     console.log('滚动到底部触发');
   },
-  callMobile: function(e){
-    console.log(e.currentTarget.id);
-    if (e.currentTarget.id == '0'){
-      console.log('拨打打电话');
-      wx.makePhoneCall({
-        phoneNumber: '13361213969' //仅为示例，并非真实的电话号码
-      })
-    }
+  callMobile: function (e) {
+    console.log('拨打打电话');
+    wx.makePhoneCall({
+      phoneNumber: '13361213969' //仅为示例，并非真实的电话号码
+    })
   }
 
 })

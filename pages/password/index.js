@@ -149,6 +149,7 @@ Page({
     console.log(url);
     ajax.get(url).then(function (data) {
       console.log('验证码返回数据：' + JSON.stringify(data));
+      var statusCode = data.statusCode;
       wx.hideLoading();
       var data = data.data;
       if (data.code === 0) {
@@ -190,6 +191,8 @@ Page({
         that.setData({
           text: "获取验证码"
         })
+      }else{
+        oss.statusHandler(statusCode);
       }
 
     }).catch(function (status) {
@@ -235,10 +238,12 @@ Page({
       wx.showLoading({
         title: '修改中',
       })
+      console.log(that.data.data);
       var url = urlBase + '/mall/selleruser/reset/password';
       ajax.put(url, data).then(function (data) {
         console.log(JSON.stringify(data));
         wx.hideLoading();
+        var statusCode = data.statusCode;
         var data = data.data;
         if (data.code === 182) {
           // mui.toast('用户不存在');
@@ -277,7 +282,7 @@ Page({
             image: '../../images/alert.png',
             duration: 2000
           })
-        } else {
+        } else if(data.code == 0) {
           // mui.toast('修改成功');
           wx.showToast({
             title: '修改成功',
@@ -285,6 +290,8 @@ Page({
           setTimeout(function () {
             oss.restart();
           }, 1000);
+        }else{
+          oss.statusHandler(statusCode);
         }
 
       }).catch(function (status) {

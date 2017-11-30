@@ -37,17 +37,17 @@
 
   <button id="login-btn" class="switch-commit mt-20" bindtap='goIndex'>登录</button>
 
-  <div class="mui-content-padded mt-10">
-    <div class="link-area color-auto">
+  <view class="mui-content-padded mgt-20">
+    <view class="link-area color-auto" bindtap='goPassword'>
       <a id="forget-password">忘记密码?</a>
-    </div>
-  </div>
+    </view>
+  </view>
 
-  <div class="mui-content-padded mgt-0">
-    <div class="text-center color-auto">
-      <a id="go-application">申请成为商家</a>
-    </div>
-  </div>
+  <view class="mui-content-padded mgt-10">
+    <view class="text-center color-auto" bindtap='goApply' >
+      <a id="go-application">商家申请入驻</a>
+    </view>
+  </view>
 
 
 

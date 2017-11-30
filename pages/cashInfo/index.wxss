@@ -57,3 +57,11 @@ transition:transform .3s, -webkit-transform .3s;
 .wxpay-logo{
   width: 35%;
 }
+.memotext{
+  padding: 5px 5px;
+  margin: 0px 0px;
+  border: 1px solid red;
+  border-radius: 5px;
+  color: red;
+  font-size: 14px;
+}

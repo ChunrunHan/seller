@@ -1,0 +1,21 @@
+<!--index.wxml-->
+<view class="width100 text-center" >
+
+  <image src='../../images/check.svg' class='about-logo mgt-60'></image>
+
+  <view class="text-center mgt-20">
+    <view class="color-black" style="font-size: 20viewx;">商家入驻申请成功</view>
+    <view class="mg10 text-p">请您保持手机畅通，我们的工作人员将于3-5个工作日尽快与你取得联系。</view>
+  </view>
+
+  <view bindtap='callMobile' class='mgt-60'>
+  <image src='../../images/call.png' class='img20 v-middle'></image>
+    联系客服
+  </view>
+  
+
+
+
+
+
+</view>

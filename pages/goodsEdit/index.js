@@ -13,7 +13,7 @@ Page({
    */
   data: {
     data: {
-      available: true,
+      available: '',
       description: '',
       images: '',
       name: '',
@@ -492,28 +492,58 @@ Page({
     console.log(JSON.stringify(this.data.data));
   },
   getoneDayArrive: function (e) {
+    var that = this;
     console.log(e.detail.value);
-    if (e.detail.value) {
-      wx.showModal({
-        title: '注意',
-        content: '上午11点之前当日达，11点之后次日送达。',
-      });
-    }
-    this.data.data.oneDayArrive = e.detail.value
+    // if (e.detail.value) {
+    //   wx.showModal({
+    //     title: '注意',
+    //     content: '上午11点之前当日达，11点之后次日送达。',
+    //   });
+    // }
+    wx.showModal({
+      title: '注意',
+      content: '上午11点之前当日达，11点之后次日送达。',
+      success: function (res) {
+        if (res.confirm) {
+          that.setData({
+            "data.oneDayArrive": e.detail.value
+          })
+        } else if (res.cancel) {
+          that.setData({
+            "data.oneDayArrive": !e.detail.value
+          })
+        }
+      }
+
+    });
+    // this.data.data.oneDayArrive = e.detail.value
     // this.setData({
     //   'data.oneDayArrive': e.detail.value
     // })
     console.log(JSON.stringify(this.data.data));
   },
   getsevenDaysRefund: function (e) {
+    var that = this;
     console.log(e.detail.value);
     if (e.detail.value) {
       wx.showModal({
         title: '注意',
         content: '消费者收货七天后，资金到账。',
+        success: function (res) {
+          if (res.confirm) {
+            that.setData({
+              "data.sevenDaysRefund": e.detail.value
+            })
+          } else if (res.cancel) {
+            that.setData({
+              "data.sevenDaysRefund": !e.detail.value
+            })
+          }
+        }
+
       });
     }
-    this.data.data.sevenDaysRefund = e.detail.value
+    
     console.log(JSON.stringify(this.data.data));
   },
   bindPeopleChange: function (e) {

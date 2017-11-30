@@ -5,16 +5,17 @@ var oss = require('../../utils/oss');
 var urlBase = app.urlBase;
 Page({
   data: {
-    tabs: ["待审核", "待转账","已拒绝","已转账"],
+    tabs: ["待发货", "已发货","已收货","入账货款"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
     sliderW: 0,
-    // status 1:待审核 2:已拒绝 3:待转账 4:已转账
+    // status 1:待审核 2:代发货 3:已发货 4:已转账
     list1:[],
     list2: [],
     list3: [],
     list4: [],
+    status: 2,
     userjson: {
       sellerId: '',
       status: 1
@@ -39,9 +40,9 @@ Page({
     });
   },
   onShow: function(){
-    this.setData({
-      'userjson.sellerId': app.sellerId
-    });
+    // this.setData({
+    //   'userjson.sellerId': app.sellerId
+    // });
     this.getList(0);
   },
   tabClick: function (e) {
@@ -70,7 +71,7 @@ Page({
     })
     var index = that.data.activeIndex;
     console.log(index);
-    this.getList(index,true);
+    // this.getList(index);
   },
   onReachBottom: function(e){
     console.log("上拉");
@@ -90,43 +91,43 @@ Page({
     }
     
   },
-  getList: function(index,isDown){
+  getList: function(index){
     var that = this;
     // var status = 1;
-  // 1:待审核 2:已拒绝 3:待转账 4:已转账
+  // 2:代发货 3:已发货 3:已收货 4:已取消
     if(index == 0){
       // status = 1
       console.log('待审核');
       that.setData({
-        'userjson.status': 1
+        status: 2
       })
     }else if(index == 1){
       // status = 3
       console.log('待转账')
       that.setData({
-        'userjson.status': 3
+        status: 3
       })
     }else if(index == 2){
       // status = 2
       console.log('已拒绝')
       that.setData({
-        'userjson.status': 2
+        status: 3
       })
     }else if(index == 3){
       // status = 4
       console.log('已转账')
       that.setData({
-        'userjson.status': 4
+        status: 3
       }) 
     }
 
     console.log(JSON.stringify(that.data.userjson))
-    that.getListValue(that.data.userjson,isDown);
+    that.getListValue(that.data.status);
 
 
 
   },
-  getListValue: function (userjson, isDown){
+  getListValue: function (status){
     var that = this;
     that.setData({
       lock: false
@@ -134,9 +135,10 @@ Page({
     wx.showLoading({
       title: '',
     })
-    var url = urlBase + '/mall/financial/cashadvance/list/' + that.data.page + '/' + that.data.size;
+    // urlBase + '/order/list/' + sellerId + '//2/' + page + '/' + size;
+    var url = urlBase + '/mall/order/list/' + app.sellerId + '//' + status+ '/'+ that.data.page + '/' + that.data.size;
     console.log(url);
-    ajax.post(url, userjson).then(function (data) {
+    ajax.get(url).then(function (data) {
       wx.hideLoading()
       console.log('获得数据：' + JSON.stringify(data));
       var statusCode = data.statusCode;
@@ -201,11 +203,6 @@ Page({
       that.setData({
         lock:true
       })
-      console.log(isDown)
-      console.log(typeof isDown)
-      if (isDown){
-        wx.stopPullDownRefresh();
-      }
 
     }).catch(function(status){
       wx.hideLoading();
@@ -215,9 +212,6 @@ Page({
         image: '../../images/alert.png',
         duration: 2000
       })
-      if (isDown) {
-        wx.stopPullDownRefresh();
-      }
       that.setData({
         lock: true
       })

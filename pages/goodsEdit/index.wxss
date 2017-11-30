@@ -37,9 +37,13 @@
 }
 
 .cancel{
+    /* display: inline-block; */
   position: absolute;
   top:0px;
-  right:0px;
+  right: 0px;
+   background: white; 
+  border: 2px solid white;
+  border-radius: 50%;
 }
 
 

@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-tab">
-      <view class="weui-navbar">
+      <view class="weui-navbar" style='position:fixed'>
         <block wx:for="{{tabs}}" wx:key="*this">
           <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style='background: #F05141;color:white'>
             <view class="weui-navbar__title">{{item}}</view>
@@ -9,18 +9,22 @@
         </block>
         <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white; width:{{sliderW}}px"></view>
       </view>
+       <view class="search-result" style='magin-top:50%' hidden="{{listnum}}">
+				<image class="search-img" src="../../images/search.svg" alt="" width="40px" height="40px"></image>
+				<view>当前状态没有信息</view>
+	 </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
-  
-            <view class='bg-white'>
+        <block wx:for="{{list1}}">
+            <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
-                 {{5000}}
+                 {{item.amount}}
                 </view>
                 <view class='flex-view-item bill-font'>
                   待审核
@@ -29,42 +33,39 @@
 
               <view class='bill-bottom'>
                 <view>
-                  <span>微信账号</span>
-                  <span class="pull-right">12312</span>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
                 </view>
                 <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">12312</span>
+                  <span>真实姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
                 </view>
                 <view>
                   <span>创建时间</span>
-                  <span class="pull-right">12312</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
                 </view>
-                <view>
+                <!-- <view>
                   <span>申请状态修改时间</span>
                   <span class="pull-right">12312</span>
-                </view>
+                </view> -->
 
               </view>
             </view>
 
-
-          <!-- <block wx:for="{{dealwithOrder}}"> -->
-
-          <!-- </block> -->
+           </block> 
         </view>
 
 
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <!-- <block wx:for="{{dealwithSend}}"> -->
-            <view class='bg-white'>
+           <block wx:for="{{list2}}">
+            <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
-                 {{5000}}
+                 {{item.amount}}
                 </view>
                 <view class='flex-view-item bill-font'>
                   待转账
@@ -73,80 +74,91 @@
 
               <view class='bill-bottom'>
                 <view>
-                  <span>微信账号</span>
-                  <span class="pull-right">12312</span>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
                 </view>
                 <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">12312</span>
+                  <span>真实姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
                 </view>
                 <view>
                   <span>创建时间</span>
-                  <span class="pull-right">12312</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
                 </view>
-                <view>
+                <!-- <view>
                   <span>申请状态修改时间</span>
                   <span class="pull-right">12312</span>
-                </view>
+                </view> -->
 
               </view>
             </view>
 
 
 
-          <!-- </block> -->
+           </block> 
 
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-        <view class='bg-white'>
+         <block wx:for="{{list3}}">
+        <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
-                 {{5000}}
+                 {{item.amount}}
                 </view>
                 <view class='flex-view-item bill-font'>
                   已拒绝
                 </view>
+                
               </view>
 
               <view class='bill-bottom'>
                 <view>
-                  <span>微信账号</span>
-                  <span class="pull-right">12312</span>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
                 </view>
                 <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">12312</span>
+                  <span>真实姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
                 </view>
                 <view>
                   <span>创建时间</span>
-                  <span class="pull-right">12312</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
                 </view>
                 <view>
                   <span>申请状态修改时间</span>
-                  <span class="pull-right">12312</span>
+                  <span class="pull-right">{{item.updateDateTime}}</span>
                 </view>
+
+        
+                  <view class='memotext'>
+                  拒绝原因: {{item.reason}}
+                  </view>
+           
 
               </view>
             </view>
-        
+
+            
+          </block>
         
         
         </view>
 
 
         <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
-        <view class='bg-white'>
+         <block wx:for="{{list4}}">
+        <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/wxzf.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
-                 {{5000}}
+                 {{item.amount}}
                 </view>
                 <view class='flex-view-item bill-font'>
                   交易完成
@@ -155,29 +167,34 @@
 
               <view class='bill-bottom'>
                 <view>
-                  <span>微信账号</span>
-                  <span class="pull-right">12312</span>
+                  <span>支付宝账号</span>
+                  <span class="pull-right">{{item.alipayAccount}}</span>
                 </view>
                 <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">12312</span>
+                  <span>真实姓名</span>
+                  <span class="pull-right">{{item.alipayRealName}}</span>
                 </view>
                 <view>
                   <span>创建时间</span>
-                  <span class="pull-right">12312</span>
+                  <span class="pull-right">{{item.createDateTime}}</span>
                 </view>
                 <view>
                   <span>申请状态修改时间</span>
-                  <span class="pull-right">12312</span>
+                  <span class="pull-right">{{item.updateDateTime}}</span>
+                </view>
+                <view>
+                  <span>流水号</span>
+                  <span class="pull-right">{{item.swiftNumber}}</span>
                 </view>
 
               </view>
             </view>
-        
+        </block>
         
         
         
         </view>
+        
       </view>
     </view>
   </view>

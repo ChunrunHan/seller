@@ -17,7 +17,7 @@
         <view class="weui-label">验证码</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-left' maxlength='4' bindinput='showSmscode' value='' placeholder='请输入验证码'></input>
+        <input type='text' class='weui-input text-left' maxlength='4' bindinput='showSmscode' value='' placeholder='验证码'></input>
       </view>
       <view class="weui-cell__ft btn-auto" data-text='{{text}}' catchtap='getSmscode'>
         {{text}}

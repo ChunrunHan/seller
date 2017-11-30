@@ -4,8 +4,8 @@
   <view class="box">
     <block wx:for="{{files}}" wx:key="*this">
       <view style='position:relative;display:inline-block'>
-        <image class="img-logo" id='addphoto' src="{{item.oldImg}}" bindtap="chooseImage" />
-        <icon id='{{index}}' data-source='goods' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
+        <image class="img-logo" src="{{item.oldImg}}" />
+        <icon id='{{index}}' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
       </view>
 
     </block>
@@ -24,7 +24,7 @@
         <view class="weui-label">店铺名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getStoreName' value='{{data.sellerName}}' placeholder='请输入店铺名称'></input>
+        <input type='text' class='weui-input text-right' bindinput='getStoreName' value='{{data.name}}' placeholder='请输入店铺名称'></input>
       </view>
     </view>
 
@@ -60,7 +60,7 @@
         <view class="weui-label">门店地址</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getName' value='{{data.address}}' placeholder='请输入门店地址'></input>
+        <input type='text' disabled='true' class='weui-input text-right' bindinput='getName' value='{{data.address}}' placeholder='请输入门店地址'></input>
       </view>
     </view>
 
@@ -70,7 +70,7 @@
         <view class="weui-label">联系电话</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='tel' disabled='true' class='weui-input text-right' maxlength='11' bindinput='getMobile' value='{{data.servicePhone}}' placeholder='请输入联系电话'></input>
+        <input type='tel' disabled='true' class='weui-input text-right input-disable' maxlength='11' bindinput='getMobile' value='{{data.servicePhone}}' placeholder='请输入联系电话'></input>
       </view>
     </view>
 
@@ -85,7 +85,7 @@
         <view class="weui-label">总订单数</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' disabled="true" class='weui-input text-right' value='{{data.totalOrder}}' placeholder=''></input>
+        <input type='text' disabled="true" class='weui-input text-right input-disable' value='{{data.totalOrder}}' placeholder=''></input>
       </view>
     </view>
 
@@ -94,7 +94,7 @@
         <view class="weui-label">总评分</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' disabled='true' class='weui-input text-right' value='{{data.totalScore}}' placeholder=''></input>
+        <input type='text' disabled='true' class='weui-input text-right input-disable' value='{{data.totalScore}}' placeholder=''></input>
       </view>
     </view>
 

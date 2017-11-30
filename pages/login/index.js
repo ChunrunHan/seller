@@ -28,6 +28,7 @@ Page({
   },
   onShow: function () {
     // Do something when page show.
+    app.globalData.addPhoto = [];
   },
   onHide: function () {
     // Do something when page hide.
@@ -43,6 +44,20 @@ Page({
   },
   onShareAppMessage: function () {
     // return custom share data when user share.
+    return {
+      title: '乐拼青岛，趁年轻就要拼。',
+      path: '/pages/login/index',
+      success: function (res) {
+        wx.showToast({
+          title: '转发成功',
+        })
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '转发失败',
+        })
+      }
+    }
   },
   onPageScroll: function () {
     // Do something when page scroll
@@ -81,7 +96,7 @@ Page({
       })
     } else if (userpasswd == '') {
       wx.showToast({
-        title: '用户密码不能为空',
+        title: '密码不能为空',
         image: '../../images/alert.png',
         duration: 2000
       })
@@ -106,16 +121,19 @@ Page({
     })
   },
   showPassword: function () {
+    var that = this;
     console.log(this.data.inputType);
     if (this.data.inputType == 'password') {
       this.setData({
         inputType: 'text',
-        showPass: true
+        showPass: true,
+        password: that.data.password
       })
     } else {
       this.setData({
         inputType: 'password',
-        showPass: false
+        showPass: false,
+        password: that.data.password
       })
     }
   },
@@ -151,50 +169,20 @@ Page({
         wx.setStorageSync('password', oldpass)
         wx.setStorageSync('wxOpenId', datalist.wxOpenId);
 
-        // wx.setStorage({
-        //   key: 'sellerId',
-        //   data: datalist.sellerId,
-        // })
-        // wx.setStorage({
-        //   key: 'token',
-        //   data: datalist.token,
-        // })
-        // wx.setStorage({
-        //   key: 'mobile',
-        //   data: mobile,
-        // })
-        // wx.setStorage({
-        //   key: 'password',
-        //   data: oldpass,
-        // })
         wx.redirectTo({
           url: '../index/index',
         })
 
+      } else if (statusCode == 200 && data.errCode != 0){
+         wx.showToast({
+          title: data.errMsg,
+          image: '../../images/alert.png',
+          duration: 2000
+        })
       }else{
         console.log('失败')
         oss.statusHandler(statusCode)
-        // wx.showToast({
-        //   title: data.errMsg,
-        //   image: '../../images/alert.png',
-        //   duration: 2000
-        // })
       }
-      // if (data.data.errCode == 0){
-      //   wx.setStorage({
-      //     key: "unionId",
-      //     data: data.data.data.unionId
-      //   })
-      //   wx.navigateTo({
-      //     url: '../index/index'
-      //   })
-      // }else{
-      //   wx.showToast({
-      //     title: "",
-      //     image: '../../images/alert.png',
-      //     duration: 2000
-      //   })
-      // }
       
     }).catch(function (status) {
       wx.hideLoading();
@@ -204,6 +192,16 @@ Page({
         image: '../../images/alert.png',
         duration: 2000
       })
+    })
+  },
+  goPassword: function(){
+    wx.navigateTo({
+      url: '../password/index',
+    })
+  },
+  goApply: function () {
+    wx.navigateTo({
+      url: '../sellerApply/index?id=1',
     })
   }
 })

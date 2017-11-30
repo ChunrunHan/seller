@@ -13,15 +13,15 @@
       </view> -->
     <view class='flex-box mgt-20'>
       <view class='flex-item'>
-        <view>5000元</view>
+        <view>{{yesterday}}</view>
         昨天
       </view>
       <view class='flex-item border-lr'>
-        <view>5000元</view>
+        <view>{{today}}</view>
         今天
       </view>
       <view class='flex-item'>
-        <view>10000元</view>
+        <view>{{all}}</view>
         销售额
       </view>
 
