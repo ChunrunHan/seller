@@ -169,7 +169,7 @@ function statusHandler(status) {
     case 0:
  
       wx.showToast({
-        title: '网络问题，请稍后再试',
+        title: '网络问题稍后再试',
         image: '../../images/alert.png',
         duration: 2000
       })
@@ -192,7 +192,7 @@ function statusHandler(status) {
       // break;
     case "request:fail timeout":
       wx.showToast({
-        title: '请求超时',
+        title: '请求超时稍后再试',
         image: '../../images/alert.png',
         duration: 2000
       })
@@ -201,7 +201,7 @@ function statusHandler(status) {
     case 204:
   
       wx.showToast({
-        title: '没有内容，请稍候再试',
+        title: '没有内容稍后再试',
         image: '../../images/alert.png',
         duration: 2000
       })
@@ -209,11 +209,13 @@ function statusHandler(status) {
     case 401:
       
       wx.showToast({
-        title: '没有权限，请联系客服',
+        title: '无权限重新登录',
         image: '../../images/alert.png',
         duration: 2000,
         success: function(res){
-          restart();
+          setTimeout(function () {
+            restart();
+          }, 2000);
         }
       })
       
@@ -221,18 +223,23 @@ function statusHandler(status) {
     case 403:
     
       wx.showToast({
-        title: '越权操作，请联系客服',
+        title: '越权重新登录',
         image: '../../images/alert.png',
         duration: 2000,
         success: function (res) {
-          restart();
+          setTimeout(function(){
+            setTimeout(function () {
+              restart();
+            }, 2000);
+          },2000);
+          
         }
       })
       break;
     case 404:
       // mui.toast('请求地址错误，请联系客服');
       wx.showToast({
-        title: '请求地址错误，请联系客服',
+        title: '请求地址错误',
         image: '../../images/alert.png',
         duration: 2000
       })
@@ -241,6 +248,14 @@ function statusHandler(status) {
       // mui.toast('服务器出错啦，请稍候再试');
       wx.showToast({
         title: '请稍候再试',
+        image: '../../images/alert.png',
+        duration: 2000
+      })
+      break;
+    case 502:
+      // mui.toast('服务器出错啦，请稍候再试');
+      wx.showToast({
+        title: '服务器重启中',
         image: '../../images/alert.png',
         duration: 2000
       })
@@ -296,6 +311,32 @@ function formatDate(timestamp) {
   }
   // return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
   return year + "-" + month + "-" + date;
+}
+
+function formatAllDate(timestamp) {
+  timestamp = new Date(timestamp);
+  var year = timestamp.getFullYear();
+  var month = timestamp.getMonth() + 1;
+  var date = timestamp.getDate();
+  var hour = timestamp.getHours();
+  var minute = timestamp.getMinutes();
+  var second = timestamp.getSeconds();
+  if (month < 10) {
+    month = '0' + month;
+  }
+  if (date < 10) {
+    date = '0' + date;
+  }
+  if (hour < 10) {
+    hour = '0' + hour;
+  }
+  if (minute < 10) {
+    minute = '0' + minute;
+  }
+  if (second < 10) {
+    second = '0' + second;
+  }
+  return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
 }
 
 //	返回当前时间戳
@@ -365,5 +406,7 @@ module.exports = {
   NowTimer: NowTimer,
   checkMobile: checkMobile,
   statusHandler: statusHandler,
-  formatDate: formatDate
+  formatDate: formatDate,
+  restart: restart,
+  formatAllDate: formatAllDate
 }

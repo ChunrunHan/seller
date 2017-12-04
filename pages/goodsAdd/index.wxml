@@ -10,7 +10,7 @@
         <view class="weui-label">商品名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getName' value='{{data.name}}' placeholder='请输入商品名称(至少三个字)'></input>
+        <input type='text' class='weui-input text-right' maxlength='30' bindinput='getName' value='{{data.name}}' placeholder='请输入商品名称(至少三个字)'></input>
       </view>
     </view>
 

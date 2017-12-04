@@ -10,7 +10,7 @@
         <text class='icon-mobile'></text>
       </label>
       <input id='userMobile' class="mui-input" type='number' maxlength='11' value='{{mobile}}' placeholder='请输入手机号' bindinput="getUserMobile"></input>
-      <text class="icon-cha fuhao" id='showecha' bindtap='clearMobile'></text>
+      <text class="icon-cha fuhao" hidden='{{mobile.length == 0? true:false}}' id='showecha' bindtap='clearMobile'></text>
     </view>
 
     <!-- </view> -->

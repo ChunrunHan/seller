@@ -9,7 +9,8 @@ Page({
    */
   data: {
     boxHeight: device.windowHeight - 80,
-    list: [{ name: '修改密码', url: '', icon: '../../images/passwd.png', url: '../password/index' }, { name: '修改手机号', url: '', icon: '../../images/phone.png', url: '../mobile/index' }]
+    list: [{ name: '修改密码', url: '', icon: '../../images/passwd.png', url: '../password/index' }]
+    // { name: '修改手机号', url: '', icon: '../../images/phone.png', url: '../mobile/index' }
 
   },
   

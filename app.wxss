@@ -43,8 +43,9 @@ background-color:#efeff4;
 }
 
 .del-commit{
-    background:white;
-    color: #F05141;
+    background:white !important;
+    color: #F05141 !important;
+    border-color: #F05141 !important;
 }
 
 
@@ -54,9 +55,12 @@ background-color:#efeff4;
 }
 
 .color-auto{
-    color: #F05141;
+    color: #F05141 !important;
 }
 
+.color-red{
+  color:red;
+}
 .app-line{
   background-color: #efeff4 !important;
   height: 20px;
@@ -81,12 +85,23 @@ background-color:#efeff4;
   margin-right: 10px;
 }
 
+.mg10{
+  margin: 10px;
+}
+
 .mgt-20{
   margin-top: 20px !important;
+}
+.mgb-10{
+  margin-bottom: 10px !important;
 }
 
 .mgb-20{
   margin-bottom: 20px !important;
+}
+
+.mgt-60{
+  margin-top: 60px;
 }
 
 .text-center{
@@ -97,6 +112,11 @@ background-color:#efeff4;
 }
 .text-right{
   text-align: right;
+}
+.text-p{
+  font-size: 14px;
+  color: #8f8f94;
+  white-space: 2px;
 }
 .bg-white{
   background: white;
@@ -113,7 +133,8 @@ background-color:#efeff4;
 }
 .search-result{
     text-align: center;
-    margin-top: 35%;
+    /* margin-top: 35%; */
+    margin-top: 50%;
     font-size: 14px;
     color: #8f8f94;
 }
@@ -148,4 +169,17 @@ background-color:#efeff4;
   top:50%;
   right: 20px;
   margin-top:-13px;
+}
+
+.input-disable{
+  color:#999999;
+}
+
+.img20{
+  width: 20px;
+  height: 20px;
+}
+
+.v-middle{
+  vertical-align: middle
 }

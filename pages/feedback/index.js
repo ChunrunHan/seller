@@ -69,9 +69,9 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  // onShareAppMessage: function () {
 
-  },
+  // },
   getMemo: function (e) {
     console.log(e.detail.value.length);
     this.setData({

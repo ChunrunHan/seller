@@ -2,7 +2,7 @@
   "pages": [
     "pages/login/index",
     "pages/index/index",
-   
+    "pages/orderList/index",
     "pages/goodsAdd/index",
     "pages/goodsEdit/index",
     "pages/about/index",
@@ -13,6 +13,8 @@
     "pages/setting/index",
     "pages/settingInfo/index",
     "pages/sellerInfo/index",
+    "pages/sellerApply/index",
+    "pages/applySuccess/index",
     "pages/password/index",
     "pages/mobile/index",
     "pages/feedback/index",

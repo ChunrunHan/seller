@@ -614,7 +614,7 @@ Page({
   timeoutChange: function (e) {
     console.log(e.detail.value);
     var time = parseInt(e.detail.value) + 1;
-    time = time * 24;
+    // time = time * 24;
     this.setData({
       dayIndex: e.detail.value
     })

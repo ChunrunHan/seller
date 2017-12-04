@@ -2,9 +2,6 @@
 <view class="width100">
    
   <import src="../../tpl/goodsList.wxml"/>
-  
-
-
 
    <scroll-view id='box' scroll-y style="height:{{boxHeight}}px" bindscroll="scroll" bindscrolltoupper="scrolltoupper" bindscrolltolower="scrolltolower"> 
       <!-- <view class="weui-cells__title width100">商品列表</view> -->

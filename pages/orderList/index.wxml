@@ -1,4 +1,6 @@
-<view class="page">
+<view class="page width100">
+ <!-- <scroll-view style='height:100%' scroll-y="true"  upper-threshold="100">  -->
+
   <view class="page__bd">
     <view class="weui-tab">
       <view class="weui-navbar" style='position:fixed'>
@@ -9,124 +11,15 @@
         </block>
         <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white; width:{{sliderW}}px"></view>
       </view>
-       <view class="search-result" style='magin-top:50%' hidden="{{listnum}}">
-				<image class="search-img" src="../../images/cart.svg" alt="" width="40px" height="40px"></image>
-				<view>当前状态没有数据</view>
-	 </view>
+      <view class="search-result" style='magin-top:50% !important' hidden="{{listnum}}">
+        <image class="search-img" src="../../images/cart.svg" alt="" width="40px" height="40px"></image>
+        <view>当前没有{{statusText}}数据</view>
+      </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
-        <!-- <block wx:for="{{list1}}"> -->
-            <!-- <view class='bg-white mgb-10'>
-              <view class='bill-top text-center'>
-                <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
-                </view>
-
-                <view class='flex-view-item font-40'>
-                 {{item.amount}}
-                </view>
-                <view class='flex-view-item bill-font'>
-                  待审核
-                </view>
-              </view>
-
-              <view class='bill-bottom'>
-                <view>
-                  <span>支付宝账号</span>
-                  <span class="pull-right">{{item.alipayAccount}}</span>
-                </view>
-                <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">{{item.alipayRealName}}</span>
-                </view>
-                <view>
-                  <span>创建时间</span>
-                  <span class="pull-right">{{item.createDateTime}}</span>
-                </view>
-                
-
-              </view>
-            </view> -->
-             <view class='mui-table-view'>
-            <view class='li'>
-              <view class="deal-top">
-                <span class="today">
-                  <span>订单号：</span>20170629174641708688</span>
-                <span class="status">2017-06-29 00:00:00</span>
-              </view>
-              <view class="deal-center">
-                <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
-                  <span class="name">Rain</span>
-                  <span class="phonebox">
-                    <!-- <span class="icon-phone color-call"></span>
-                   -->
-                    <image src='{{mobile}}' class='mobile'></image>
-                    <span class="mobile" data-bind="reciverMobile">17863253292</span>
-                  </span>
-                </p>
-                <p class="address">青岛市崂山区双福大厦</p>
-              </view>
-              <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
-                <view class="title">商品订单</view>
-                <!-- {{#goodsList}} -->
-                <view class="goodsbox">
-                  <image class="goodsimg" src="../../images/all.jpg" alt=""></image>
-                  <span class="goodsname">花</span>
-                  <span class="goodsnum">
-                    <span>×</span>2</span>
-                  <span class="goodsprice">
-                    <span>¥</span>30</span>
-                </view>
-                <!-- {{/goodsList}} -->
-              </view>
-              <view class="goods-memo">
-                千万别弄断了
-              </view>
-              <view class="deal-bottom">
-                <view class="deal-right">
-                  <p class="totalAmount">
-                    <span>商品总价:</span>
-                    <span>3000</span>元</p>
-                  <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p>
-                  <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p>
-                  <p class="receiptAmount">
-                    <span>实收金额:</span>
-                    <span class="color-call">300</span>元</p>
-                </view>
-                <view class="deal-left">
-                  <p>
-                    <span>订单状态:</span>
-                    <span>待配送</span>
-                  </p>
-                  <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p>
-                </view>
-              </view>
-
-              <view class="deal-btn" style="border-bottom: 0px;">
-                <button type="button" class="mui-btn commit" bindtap='startSend' id="{{id}}">开始配送</button>
-              </view>
-            </view>
-
-
-          </view>
-
-           <!-- </block>  -->
-        </view>
-
-
-        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-           <!-- <block wx:for="{{list2}}"> -->
-                      <view class='mui-table-view'>
-
+          <block wx:for="{{list1}}">
+            <view class='mui-table-view'>
               <view class='li'>
                 <view class="deal-top">
                   <span class="today">
@@ -134,170 +27,580 @@
                   <span class="status">{{item.showTime}}</span>
                 </view>
                 <view class="deal-center">
-                  <p style="border-top:1px solid #f4f4f8; padding-top: 5px;">
+                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
                     <span class="name">{{item.reciverName}}</span>
                     <span class="phonebox">
-                      <span class="icon-phone color-call"></span>
+                      <!-- <span class="icon-phone color-call"></span>
+                   -->
+                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile'  catchtap='callMobile'></image>
                       <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
                     </span>
                   </p>
-                  <p class="address">{{reciverAddr}}</p>
+                  <p class="address">{{item.reciverAddr}}</p>
                 </view>
                 <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
                   <view class="title">商品订单</view>
                   <!-- {{#goodsList}} -->
+                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
                   <view class="goodsbox">
-                    <!-- <img class="goodsimg" src="{{images}}" alt="" /> -->
-                    <image class="goodsimg" src='../../images/all.jpg'></image>
-                    <span class="goodsname">{{name}}</span>
+                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
+                     <image class="goodsimg" src='{{item.goods.images}}'></image>
+                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
+                    <span class="goodsname">{{item.goods.name}}</span>
                     <span class="goodsnum">
-                      <span>×</span>{{count}}</span>
+                      <span>×</span>{{item.goods.count}}</span>
                     <span class="goodsprice">
-                      <span>¥</span>{{price}}</span>
+                      <span>￥</span>{{item.goods.price}}</span>
                   </view>
                   <!-- {{/goodsList}} -->
+                   <!-- </block>  -->
                 </view>
-                <!--<view class="goods-memo">
-							千万别弄断了
-						</view>-->
+                <view class="goods-memo">
+                  备注：{{item.memo}}
+                </view>
                 <view class="deal-bottom">
                   <view class="deal-right">
                     <p class="totalAmount">
                       <span>商品总价:</span>
-                      <span>{{totalAmount}}</span>元</p>
-                    <p class="deliveryPrice">
-                      <span>配送费:</span>
-                      <span>{{deliveryPrice}}</span>元</p>
-                    <p class="deliveryPrice">
-                      <span>优惠券:</span>
-                      <span>{{couponName}}</span>
-                    </p>
+                      <span>{{item.totalAmount}}</span>元</p>
+                    <!-- <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p> -->
+                    <!-- <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p> -->
                     <p class="receiptAmount">
                       <span>实收金额:</span>
-                      <span class="color-call">{{receiptAmount}}</span>元</p>
+                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
                   </view>
                   <view class="deal-left">
                     <p>
                       <span>订单状态:</span>
-                      <span>{{status}}</span>
+                      <span class="color-red">{{item.status}}</span>
                     </p>
-                    <p>
-                      <span>支付状态:</span>
-                      <span>已支付</span>
-                    </p>
+                    <!-- <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p> -->
                   </view>
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">
-                  <button id="commit-save" type="button" bindtap='sendOk' class="mui-btn commit" id="{{id}}">配送完成</button>
+                  <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button>
                 </view>
               </view>
+
+
+            </view>
+          </block>
+
+        </view>
+
+
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+           <block wx:for="{{list2}}"> 
+           <view class='mui-table-view'>
+              <view class='li'>
+                <view class="deal-top">
+                  <span class="today">
+                    <span>订单号：</span>{{item.id}}</span>
+                  <span class="status">{{item.showTime}}</span>
+                </view>
+                <view class="deal-center">
+                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
+                    <span class="name">{{item.reciverName}}</span>
+                    <span class="phonebox">
+                      <!-- <span class="icon-phone color-call"></span>
+                   -->
+                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile' bindtap='callMobile'></image>
+                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
+                    </span>
+                  </p>
+                  <p class="address">{{item.reciverAddr}}</p>
+                </view>
+                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                  <view class="title">商品订单</view>
+                  <!-- {{#goodsList}} -->
+                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
+                  <view class="goodsbox">
+                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
+                     <image class="goodsimg" src='{{item.goods.images}}'></image>
+                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
+                    <span class="goodsname">{{item.goods.name}}</span>
+                    <span class="goodsnum">
+                      <span>×</span>{{item.goods.count}}</span>
+                    <span class="goodsprice">
+                      <span>￥</span>{{item.goods.price}}</span>
+                  </view>
+                  <!-- {{/goodsList}} -->
+                   <!-- </block>  -->
+                </view>
+                 <view class="goods-memo">
+                  备注：{{item.memo}}
+                </view> 
+                <view class="deal-bottom">
+                  <view class="deal-right">
+                    <p class="totalAmount">
+                      <span>商品总价:</span>
+                      <span>{{item.totalAmount}}</span>元</p>
+                    <!-- <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p> -->
+                    <!-- <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p> -->
+                    <p class="receiptAmount">
+                      <span>实收金额:</span>
+                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                  </view>
+                  <view class="deal-left">
+                    <p>
+                      <span>订单状态:</span>
+                      <span class="color-red">{{item.status}}</span>
+                    </p>
+                    <!-- <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p> -->
+                  </view>
+                </view>
+
+                 <view class="deal-btn" style="border-bottom: 0px;">
+                  <button hidden='{{item.isExpress}}' type="button" class="mui-btn commit" bindtap='showExpressInfo' id="{{item.id}}" data-carrierCode="{{item.carrierCode}}" data-expressNo="{{item.expressNo}}">查看物流</button>
+                  <button hidden='{{!item.isExpress}}' type="button" class="mui-btn commit" bindtap='deliveryComplete' id="{{item.id}}">配送完成</button>
+                </view> 
+              </view>
+
 
             </view>
 
 
-
-           <!-- </block>  -->
+        </block>  
 
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-         <block wx:for="{{list3}}">
-        <view class='bg-white mgb-10'>
-              <view class='bill-top text-center'>
-                <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+           <block wx:for="{{list3}}"> 
+            <view class='mui-table-view'>
+              <view class='li border-red'>
+                <view class="deal-top">
+                  <span class="today">
+                    <span>订单号：</span>{{item.id}}</span>
+                  <span class="status">{{item.showTime}}</span>
+                  <!-- <view class=''>+{{item.receiptAmount}}</view> -->
+                  <image src='../../images/receive.png' class='receive'></image>
                 </view>
-
-                <view class='flex-view-item font-40'>
-                 {{item.amount}}
+                <view class="deal-center">
+                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
+                    <span class="name">{{item.reciverName}}</span>
+                    <span class="phonebox">
+                      <!-- <span class="icon-phone color-call"></span>
+                   -->
+                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile' bindtap='callMobile'></image>
+                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
+                    </span>
+                  </p>
+                  <p class="address">{{item.reciverAddr}}</p>
                 </view>
-                <view class='flex-view-item bill-font'>
-                  已拒绝
-                </view>
-                
-              </view>
-
-              <view class='bill-bottom'>
-                <view>
-                  <span>支付宝账号</span>
-                  <span class="pull-right">{{item.alipayAccount}}</span>
-                </view>
-                <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">{{item.alipayRealName}}</span>
-                </view>
-                <view>
-                  <span>创建时间</span>
-                  <span class="pull-right">{{item.createDateTime}}</span>
-                </view>
-                <view>
-                  <span>申请状态修改时间</span>
-                  <span class="pull-right">{{item.updateDateTime}}</span>
-                </view>
-
-        
-                  <view class='memotext'>
-                  拒绝原因: {{item.reason}}
+                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                  <view class="title">商品订单</view>
+                  <!-- {{#goodsList}} -->
+                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
+                  <view class="goodsbox">
+                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
+                     <image class="goodsimg" src='{{item.goods.images}}'></image>
+                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
+                    <span class="goodsname">{{item.goods.name}}</span>
+                    <span class="goodsnum">
+                      <span>×</span>{{item.goods.count}}</span>
+                    <span class="goodsprice">
+                      <span>￥</span>{{item.goods.price}}</span>
                   </view>
-           
+                  <!-- {{/goodsList}} -->
+                   <!-- </block>  -->
+                </view>
+                <view class="goods-memo">
+                  备注：{{item.memo}}
+                </view>
+                <view class="deal-bottom">
+                  <view class="deal-right">
+                    <p class="totalAmount">
+                      <span>商品总价:</span>
+                      <span>{{item.totalAmount}}</span>元</p>
+                    <!-- <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p> -->
+                    <!-- <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p> -->
+                    <p class="receiptAmount">
+                      <span>实收金额:</span>
+                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                  </view>
+                  <view class="deal-left">
+                    <p>
+                      <span>订单状态:</span>
+                      <span class="color-red">{{item.status}}</span>
+                    </p>
+                    <!-- <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p> -->
+                  </view>
+                </view>
 
+                <view class="deal-btn" style="border-bottom: 0px;">
+                  <!-- <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button> -->
+                </view>
               </view>
-            </view>
 
-            
-          </block>
-        
-        
+
+            </view>
+           </block> 
+
         </view>
 
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 6}}">
+          <block wx:for="{{list4}}">
+           <view class='mui-table-view'>
+              <view class='li'>
+                <view class="deal-top">
+                  <span class="today">
+                    <span>订单号：</span>{{item.id}}</span>
+                  <span class="status">{{item.showTime}}</span>
+                </view>
+                <view class="deal-center">
+                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
+                    <span class="name">{{item.reciverName}}</span>
+                    <span class="phonebox">
+                      <!-- <span class="icon-phone color-call"></span>
+                   -->
+                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile' bindtap='callMobile'></image>
+                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
+                    </span>
+                  </p>
+                  <p class="address">{{item.reciverAddr}}</p>
+                </view>
+                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                  <view class="title">商品订单</view>
+                  <!-- {{#goodsList}} -->
+                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
+                  <view class="goodsbox">
+                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
+                     <image class="goodsimg" src='{{item.goods.images}}'></image>
+                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
+                    <span class="goodsname">{{item.goods.name}}</span>
+                    <span class="goodsnum">
+                      <span>×</span>{{item.goods.count}}</span>
+                    <span class="goodsprice">
+                      <span>￥</span>{{item.goods.price}}</span>
+                  </view>
+                  <!-- {{/goodsList}} -->
+                   <!-- </block>  -->
+                </view>
+                <view class="goods-memo">
+                  备注：{{item.memo}}
+                </view>
+                <view class="deal-bottom">
+                  <view class="deal-right">
+                    <p class="totalAmount">
+                      <span>商品总价:</span>
+                      <span>{{item.totalAmount}}</span>元</p>
+                    <!-- <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p> -->
+                    <!-- <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p> -->
+                    <p class="receiptAmount">
+                      <span>实收金额:</span>
+                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                  </view>
+                  <view class="deal-left">
+                    <p>
+                      <span>订单状态:</span>
+                      <span class="color-red">{{item.status}}</span>
+                    </p>
+                    <!-- <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p> -->
+                  </view>
+                </view>
+
+                <view class="deal-btn" style="border-bottom: 0px;">
+                   <button type="button" class="mui-btn commit" bindtap='returnGoods' id="{{item.id}}">确认退货</button> 
+                   <button type="button" class="switch-commit mgt-20 mgb-20 del-commit del-commit" bindtap='refuseReturn' id="{{item.id}}">拒绝退货</button> 
+                </view>
+              </view>
+
+
+            </view>
+          </block>
+
+
+
+        </view>
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
+          <block wx:for="{{list5}}">
+          <view class='mui-table-view'>
+              <view class='li'>
+                <view class="deal-top">
+                  <span class="today">
+                    <span>订单号：</span>{{item.id}}</span>
+                  <span class="status">{{item.showTime}}</span>
+                </view>
+                <view class="deal-center">
+                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
+                    <span class="name">{{item.reciverName}}</span>
+                    <span class="phonebox">
+                      <!-- <span class="icon-phone color-call"></span>
+                   -->
+                  
+                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile' catchtap='callMobile'></image>
+                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
+                    </span>
+
+                  </p>
+                  <p class="address">{{item.reciverAddr}}</p>
+                </view>
+                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                  <view class="title">商品订单</view>
+                  <!-- {{#goodsList}} -->
+                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
+                  <view class="goodsbox">
+                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
+                     <image class="goodsimg" src='{{item.goods.images}}'></image>
+                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
+                    <span class="goodsname">{{item.goods.name}}</span>
+                    <span class="goodsnum">
+                      <span>×</span>{{item.goods.count}}</span>
+                    <span class="goodsprice">
+                      <span>￥</span>{{item.goods.price}}</span>
+                  </view>
+                  <!-- {{/goodsList}} -->
+                   <!-- </block>  -->
+                </view>
+                <view class="goods-memo">
+                  备注：{{item.memo}}
+                </view>
+                <view class="deal-bottom">
+                  <view class="deal-right">
+                    <p class="totalAmount">
+                      <span>商品总价:</span>
+                      <span>{{item.totalAmount}}</span>元</p>
+                    <!-- <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p> -->
+                    <!-- <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p> -->
+                    <p class="receiptAmount">
+                      <span>实收金额:</span>
+                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                  </view>
+                  <view class="deal-left">
+                    <p>
+                      <span>订单状态:</span>
+                      <span class="color-red">{{item.status}}</span>
+                    </p>
+                    <!-- <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p> -->
+                  </view>
+                </view>
+
+                <view class="deal-btn" style="border-bottom: 0px;">
+                  <!-- <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button> -->
+                </view>
+              </view>
+
+
+            </view>
+          </block>
+
+        </view>
 
         <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
-         <block wx:for="{{list4}}">
-        <view class='bg-white mgb-10'>
-              <view class='bill-top text-center'>
-                <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+          <block wx:for="{{list4}}">
+            <view class='mui-table-view'>
+              <view class='li'>
+                <view class="deal-top">
+                  <span class="today">
+                    <span>订单号：</span>{{item.id}}</span>
+                  <span class="status">{{item.showTime}}</span>
+                </view>
+                <view class="deal-center">
+                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
+                    <span class="name">{{item.reciverName}}</span>
+                    <span class="phonebox">
+                      <!-- <span class="icon-phone color-call"></span>
+                   -->
+                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile' bindtap='callMobile'></image>
+                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
+                    </span>
+                  </p>
+                  <p class="address">{{item.reciverAddr}}</p>
+                </view>
+                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
+                  <view class="title">商品订单</view>
+                  <!-- {{#goodsList}} -->
+                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
+                  <view class="goodsbox">
+                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
+                     <image class="goodsimg" src='{{item.goods.images}}'></image>
+                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
+                    <span class="goodsname">{{item.goods.name}}</span>
+                    <span class="goodsnum">
+                      <span>×</span>{{item.goods.count}}</span>
+                    <span class="goodsprice">
+                      <span>￥</span>{{item.goods.price}}</span>
+                  </view>
+                  <!-- {{/goodsList}} -->
+                   <!-- </block>  -->
+                </view>
+                <view class="goods-memo">
+                  备注：{{item.memo}}
+                </view>
+                <view class="deal-bottom">
+                  <view class="deal-right">
+                    <p class="totalAmount">
+                      <span>商品总价:</span>
+                      <span>{{item.totalAmount}}</span>元</p>
+                    <!-- <p class="deliveryPrice">
+                    <span>配送费:</span>
+                    <span>3</span>元</p> -->
+                    <!-- <p class="deliveryPrice">
+                    <span>优惠券:</span>
+                    <span>dd</span>
+                  </p> -->
+                    <p class="receiptAmount">
+                      <span>实收金额:</span>
+                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                  </view>
+                  <view class="deal-left">
+                    <p>
+                      <span>订单状态:</span>
+                      <span class="color-red">{{item.status}}</span>
+                    </p>
+                    <!-- <p>
+                    <span>支付状态:</span>
+                    <span>已支付</span>
+                  </p> -->
+                  </view>
                 </view>
 
-                <view class='flex-view-item font-40'>
-                 {{item.amount}}
-                </view>
-                <view class='flex-view-item bill-font'>
-                  交易完成
+                <view class="deal-btn" style="border-bottom: 0px;">
+                  <!-- <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button> -->
                 </view>
               </view>
 
-              <view class='bill-bottom'>
-                <view>
-                  <span>支付宝账号</span>
-                  <span class="pull-right">{{item.alipayAccount}}</span>
-                </view>
-                <view>
-                  <span>真是姓名</span>
-                  <span class="pull-right">{{item.alipayRealName}}</span>
-                </view>
-                <view>
-                  <span>创建时间</span>
-                  <span class="pull-right">{{item.createDateTime}}</span>
-                </view>
-                <view>
-                  <span>申请状态修改时间</span>
-                  <span class="pull-right">{{item.updateDateTime}}</span>
-                </view>
-                <view>
-                  <span>流水号</span>
-                  <span class="pull-right">{{item.swiftNumber}}</span>
-                </view>
 
-              </view>
             </view>
-        </block>
-        
-        
-        
+          </block>
+
         </view>
-        
+
       </view>
     </view>
   </view>
+   <!-- </scroll-view>  -->
+</view>
+
+<view class='mask-black' hidden='{{showMask}}'>
+  <view class='bg-white select-send'>
+    <icon class='cancel' bindtap="hiddenMask" type="cancel" size="40"></icon>
+    <view class="weui-cells__title color-auto">请选择配送方式</view>
+    <!-- <view class="weui-cell weui-cell_link">
+                <view class="weui-cell__bd">请选择配送方式</view>
+            </view> -->
+    <view class="weui-cells weui-cells_after-title">
+      <radio-group bindchange="radioChange">
+        <label class="weui-cell weui-check__label" wx:for="{{radioItems}}" wx:key="value">
+          <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+
+          <view class="weui-cell__bd">{{item.name}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+      </radio-group>
+       <!-- <view class="weui-cell weui-cell_input"  hidden="{{!sendMode}}">
+        <view class="weui-cell__hd">
+          <view class="weui-label">快递公司</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input type='text' class='weui-input text-right' maxlength='15' bindinput='getCarrierCode' value='{{json.carrierCode}}' placeholder='请输入快递公司名称'></input>
+        </view>
+      </view> -->
+       <view class="weui-cell weui-cell_select" hidden="{{!sendMode}}">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">快递公司</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker class="picker" bindchange="bindExpressChange" value='{{expressIndex}}' range='{{express}}' range-key="name">
+          <view class="weui-select weui-select_in-select-after text-right">{{express[expressIndex].name}} </view>
+        </picker>
+      </view>
+    </view>
+      <view bindtap='openCamera' class="weui-cell weui-cell_access" hidden="{{!sendMode}}">
+        <view class="weui-cell__bd">快递单号</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" style='color:black'>{{json.expressNo}}</view>
+      </view>
+
+      <button bindtap='submitSend' style='background:#F05141;color:white;'> 确认发货 </button>
+
+    </view>
+
+  </view>
+
+</view>
+
+
+<view class='mask-black' hidden='{{showExpressInfo}}' >
+    <view style='position:relative;width:80%;height:400px;top:50%;margin-top:-200px;margin-left:10%'>
+    <icon class='canceltwo' bindtap="hiddenExpressMask" type="cancel" size="40"></icon>
+    <scroll-view class='bg-white goods-info' scroll-y style="height:400px">
+      <view class="search-result" style='magin-top:50% !important' hidden="{{expressList}}">
+        <image class="search-img" src="../../images/cart.svg" alt="" width="40px" height="40px"></image>
+        <view>当前没有物流数据</view>
+      </view>
+
+      <view>
+
+      
+        <!-- <view class='list-box'>
+            <view class='box-content'>
+            <view class='box-quan color-arrive'></view>
+                <view class='box-text color-auto'>到达目的难打开方式飞机适得府君书开了房间考虑双方均是分开了设计费</view>
+                <view class='box-time color-auto'>2017-12-2 12:12:12</view>
+            </view>
+        </view> -->
+         <block wx:for="{{expressArry}}" wx:key="*this">
+         <view class='list-box'>
+            <view class='box-content'>
+            <view class="box-quan  {{index == 0 ? 'color-arrive' : 'color-send'}}"></view>
+                <view class="box-text {{index == 0 ? 'color-auto' : ''}}">{{item.context}}</view>
+                <view class="box-time {{index == 0 ? 'color-auto' : ''}}">{{item.time}}</view>
+            </view>
+        </view>
+        </block>
+
+      
+
+
+
+      </view>
+     
+    </scroll-view>
+    </view>
+
 </view>

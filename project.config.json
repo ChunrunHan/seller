@@ -21,12 +21,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 3,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
-					"name": "test",
-					"pathName": "pages/goodsAdd/index",
+					"name": "bill",
+					"pathName": "pages/bill/index",
 					"query": ""
 				},
 				{
@@ -43,8 +43,8 @@
 				},
 				{
 					"id": 3,
-					"name": "bill",
-					"pathName": "pages/bill/index",
+					"name": "order",
+					"pathName": "pages/orderList/index",
 					"query": ""
 				},
 				{
@@ -60,9 +60,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "billinfo",
-					"pathName": "pages/billinfo/index",
+					"id": 6,
+					"name": "applySuccess",
+					"pathName": "pages/applySuccess/index",
 					"query": ""
 				},
 				{
@@ -123,6 +123,12 @@
 					"id": -1,
 					"name": "sellerinfo",
 					"pathName": "pages/sellerInfo/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "apply",
+					"pathName": "pages/sellerApply/index",
 					"query": ""
 				}
 			]
