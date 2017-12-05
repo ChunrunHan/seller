@@ -10,7 +10,7 @@ Page({
   data: {
     data: {
       sellerId: "",
-      channel: 3,
+      channel: 1,
       amount: ""
     },
     totalAssets:0  // 可用金额

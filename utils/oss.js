@@ -255,7 +255,7 @@ function statusHandler(status) {
     case 502:
       // mui.toast('服务器出错啦，请稍候再试');
       wx.showToast({
-        title: '服务器重启中',
+        title: '请稍后再试',
         image: '../../images/alert.png',
         duration: 2000
       })

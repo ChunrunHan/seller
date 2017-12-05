@@ -13,6 +13,16 @@
   /* height: 300px; */
 }
 
+.weui-cell__bd {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+          overflow:hidden;
+white-space:nowrap;
+text-overflow:ellipsis;
+
+}
+
 .weui-cells::after {
 content:" ";
 position:absolute;

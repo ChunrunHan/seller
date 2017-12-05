@@ -24,7 +24,7 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     sliderW: 0,
-    // status 7:待发货 8:已发货 9:已收货 10:退货申请 6:退货中 4:订单完成
+    // status 1:待发货 3:已发货 4:已收货 6:退货申请 7:退货中 5:订单完成
     list1: [],
     list2: [],
     list3: [],
@@ -151,25 +151,28 @@ Page({
     
   },
   getList: function(index,isDown){
+    wx.showLoading({
+      title: '',
+    })
     var that = this;
     // var status = 1;
-    // status 7:待发货 8:已发货 9:已收货 10:退货申请 6:退货中 4:订单完成
+    // status  1:待发货 3:已发货 4:已收货 6:退货申请 7:退货中 5:订单完成
     if(index == 0){
       console.log('待发货');
       that.setData({
-        status: 7,
+        status: 1,
         statusText: '待发货'
       })
     } else if(index == 1){
       console.log('已发货')
       that.setData({
-        status: 8,
+        status: 3,
         statusText: '已发货'
       })
     } else if(index == 2){
       console.log('已收货')
       that.setData({
-        status: 9,
+        status: 4,
         statusText: '已收货'
       })
     // } else if(index == 3){
@@ -187,7 +190,7 @@ Page({
     } else if (index == 3) {
       console.log('已完成')
       that.setData({
-        status: 4,
+        status: 5,
         statusText: '订单完成'
       })
     } 
@@ -207,7 +210,8 @@ Page({
       title: '',
     })
     // urlBase + '/order/list/' + sellerId + '//2/' + page + '/' + size;
-    var url = urlBase + '/mall/order/list/group/' + app.sellerId + '/' + status+ '/'+ that.data.page + '/' + that.data.size;
+    // var url = urlBase + '/mall/order/list/group/' + app.sellerId + '/' + status+ '/'+ that.data.page + '/' + that.data.size;
+    var url = urlBase + '/mall/order/group_seller/' + app.sellerId + '/' + status + '/' + that.data.page + '/' + that.data.size;
     console.log(url);
     ajax.get(url).then(function (data) {
       wx.hideLoading()
@@ -220,30 +224,36 @@ Page({
         for(var i=0;i<datalist.length;i++){
           datalist[i].showTime = oss.formatAllDate(datalist[i].orderTime);
           datalist[i].status = statusText[datalist[i].status-1];
-          var goodsImg = datalist[i].goods;
-          goodsImg.images = goodsImg.images.split(':');
-
-          goodsImg.images = app.ossHost + '/' + app.sellerId + '/' + goodsImg.images[0];
-          if (datalist[i].carrierCode == "" || datalist[i].expressNo == "" || datalist[i].carrierCode == undefined || datalist[i].expressNo == undefined){
-            datalist[i].isExpress = true;
+          if (datalist[i].goods == undefined || datalist[i].seller == undefined){
+            datalist.splice(i,1);
           }else{
-            datalist[i].isExpress = false
+            var goodsImg = datalist[i].goods;
+            goodsImg.images = goodsImg.images.split(':');
+            console.log(goodsImg.images);
+            goodsImg.images = app.ossHost + '/' + app.sellerId + '/' + goodsImg.images[0];
+            console.log(goodsImg.images);
+            if (datalist[i].carrierCode == "" || datalist[i].expressNo == "" || datalist[i].carrierCode == undefined || datalist[i].expressNo == undefined) {
+              datalist[i].isExpress = true;
+            } else {
+              datalist[i].isExpress = false
+            }
           }
          
          
+         
         }
-       // status 7:待发货 8:已发货 9:已收货 10:退货申请 6:退货中 4:订单完成
-        if(that.data.status == 7){
+       // status 1:待发货 3:已发货 4:已收货 6:退货申请 7:退货中 5:订单完成
+        if(that.data.status == 1){
           that.setData({
             list1: that.data.list1.concat(datalist),
             listnum: true
           })
-        } else if (that.data.status == 8){
+        } else if (that.data.status == 3){
           that.setData({
             list2: that.data.list2.concat(datalist),
             listnum: true
           })
-        } else if (that.data.status == 9) {
+        } else if (that.data.status == 4) {
           that.setData({
             list3: that.data.list3.concat(datalist),
             listnum: true
@@ -258,7 +268,7 @@ Page({
             list5: that.data.list5.concat(datalist),
             listnum: true
           })
-        } else if (that.data.status == 4) {
+        } else if (that.data.status == 5) {
           that.setData({
             list4: that.data.list4.concat(datalist),
             listnum: true
@@ -331,7 +341,8 @@ Page({
     that.setData({
       showMask: false,
       'json.id': id,
-      isScroll: false
+      isScroll: false,
+      'json.expressNo': ''
     })
 
   },
@@ -549,7 +560,8 @@ Page({
     // })
     this.setData({
       showExpressInfo: false,
-      isScroll: false
+      isScroll: false,
+      expressArry: []
     });
     this.getExpressInfo(shipperCode, logisticCode);
 

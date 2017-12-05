@@ -79,10 +79,14 @@ Page({
     console.log('滚动到底部触发');
   },
   clearStorage: function(e){
+    wx.showLoading({
+      title: '',
+    })
     console.log('清除所有');
     var that = this;
     var index = e.currentTarget.id;
     console.log(typeof index);
+    wx.hideLoading();
     if(parseInt(index)){
     //  注销
       try {
