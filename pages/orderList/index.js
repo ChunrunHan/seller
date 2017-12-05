@@ -260,7 +260,7 @@ Page({
           })
         } else if (that.data.status == 4) {
           that.setData({
-            list6: that.data.list6.concat(datalist),
+            list4: that.data.list4.concat(datalist),
             listnum: true
           })
         }
