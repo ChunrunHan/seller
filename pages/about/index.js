@@ -9,7 +9,7 @@ Page({
    */
   data: {
     boxHeight: device.windowHeight - 80,
-    list: [{ name: '服务热线', icon: '../../images/call.png', content: '13361213969' }, { name: '客服邮箱', icon: '../../images/email.png', content: 'service@yezhubao.net' }, { name: '微信公众号', icon: '../../images/wx.png', content: '业主宝' }]
+    list: [{ name: '服务热线', icon: '../../images/call.png', content: '18954231462' }, { name: '客服邮箱', icon: '../../images/email.png', content: 'service@yezhubao.net' }, { name: '微信公众号', icon: '../../images/wx.png', content: '业主宝智慧社区' }]
 
   },
   

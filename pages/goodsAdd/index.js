@@ -2,7 +2,7 @@
 var app = getApp()
 var ajax = require('../../utils/ajax');
 var oss = require('../../utils/oss');
-var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
+var QQMapWX = require('../../utils/qqmap-wx-jssdk');
 var demo = new QQMapWX({
   key: 'YFBBZ-AJRKO-KAKWM-S55DU-S3K2S-UNBQK' // 必填
 });
@@ -268,44 +268,63 @@ Page({
     var that = this;
     wx.chooseLocation({
       success: function (res) {
+        console.log(res);
         console.log(res.name);
         console.log(res.address);
         console.log(res.latitude);
         console.log(res.longitude);
-        var latitude = res.latitude;
-        var longitude = res.longitude;
         var zone = res.name;
-        var province = '';
-        var city = '';
-        var district = '';
-       
+        var latitude;
+        var longitude;
 
-        //  逆地址解析
-        demo.reverseGeocoder({
-          location: {
-            latitude: latitude,
-            longitude: longitude
-          },
+        // 调用接口（根据地址获取经纬度）
+        demo.geocoder({
+          address: res.address,
           success: function (res) {
-            console.log(JSON.stringify(res));
-            console.log(JSON.stringify(res.result.address_component));
-            var result = res.result.address_component;
-            province = result.province;
-            city = result.city;
-            district = result.district;
-            var json = {
-              province: province,
-              city: city,
-              district: district,
-              zone: zone,
-              longitude: longitude,
-              latitude: latitude
-            }
-            that.setData({
-              zones: that.data.zones.concat(json)
-            })
-            console.log(that.data.zones);
+            console.log(res.result.location);
+            latitude = res.result.location.lat;
+            longitude = res.result.location.lng;
+            var province = '';
+            var city = '';
+            var district = '';
+            // wx.setStorageSync("latitude", latitude );
+            // console.log(wx.getStorageSync('latitude'))
+            //  逆地址解析
+            demo.reverseGeocoder({
+              location: {
+                latitude: latitude,
+                longitude: longitude
+              },
+              success: function (res) {
+                console.log(res);
+                console.log(JSON.stringify(res));
+                console.log(JSON.stringify(res.result.address_component));
+                var result = res.result.address_component;
+                province = result.province;
+                city = result.city;
+                district = result.district;
+                var json = {
+                  province: province,
+                  city: city,
+                  district: district,
+                  zone: zone,
+                  longitude: longitude,
+                  latitude: latitude
+                }
+                that.setData({
+                  zones: that.data.zones.concat(json)
+                })
+                console.log(that.data.zones);
 
+
+              },
+              fail: function (res) {
+                console.log(res);
+              },
+              complete: function (res) {
+                console.log(res);
+              }
+            });
 
           },
           fail: function (res) {
@@ -315,16 +334,66 @@ Page({
             console.log(res);
           }
         });
-
-
-
-        // that.data.zones = that.data.zones.concat(json);
-       
-
-
       },
     })
   },
+  // showMap: function () {
+  //   var that = this;
+  //   wx.chooseLocation({
+  //     success: function (res) {
+  //       console.log(res.name);
+  //       console.log(res.address);
+  //       console.log(res.latitude);
+  //       console.log(res.longitude);
+  //       var latitude = res.latitude;
+  //       var longitude = res.longitude;
+  //       var zone = res.name;
+  //       var province = '';
+  //       var city = '';
+  //       var district = '';
+       
+
+  //       //  逆地址解析
+  //       demo.reverseGeocoder({
+  //         location: {
+  //           latitude: latitude,
+  //           longitude: longitude
+  //         },
+  //         success: function (res) {
+  //           console.log(res);
+  //           console.log(JSON.stringify(res));
+  //           console.log(JSON.stringify(res.result.address_component));
+  //           var result = res.result.address_component;
+  //           province = result.province;
+  //           city = result.city;
+  //           district = result.district;
+  //           var json = {
+  //             province: province,
+  //             city: city,
+  //             district: district,
+  //             zone: zone,
+  //             longitude: longitude,
+  //             latitude: latitude
+  //           }
+  //           that.setData({
+  //             zones: that.data.zones.concat(json)
+  //           })
+  //           console.log(that.data.zones);
+
+
+  //         },
+  //         fail: function (res) {
+  //           console.log(res);
+  //         },
+  //         complete: function (res) {
+  //           console.log(res);
+  //         }
+  //       });
+
+
+  //     },
+  //   })
+  // },
   //  销售地区
   areaSwitch: function (e) {
     var that = this;
