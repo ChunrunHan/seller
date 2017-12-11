@@ -158,9 +158,11 @@ Page({
         })
           
       } else if (data.data.errCode == 1){
+        console.log("没数据啊")
         if (that.data.page == 0){
+          console.log('显示提示啊');
           that.setData({
-            listnum: true
+            listnum: false
           })
         }else{
           wx.showToast({

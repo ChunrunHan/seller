@@ -22,7 +22,8 @@ Page({
     page: 0,
     size: 10,
     listnum: true,
-    lock: false
+    lock: false,
+    statusText: '待审核'
 
   },
   onLoad: function () {
@@ -45,6 +46,7 @@ Page({
     this.getList(0);
   },
   tabClick: function (e) {
+    var that = this;
     this.setData({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id,
@@ -57,6 +59,9 @@ Page({
     var id = e.currentTarget.id
     console.log(id)
     this.getList(id);
+    this.setData({
+      statusText: that.data.tabs[id]
+    })
   },
   onPullDownRefresh: function(e){
     console.log("下拉");

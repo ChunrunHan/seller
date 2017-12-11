@@ -3,7 +3,7 @@
     <view class="weui-tab">
       <view class="weui-navbar" style='position:fixed'>
         <block wx:for="{{tabs}}" wx:key="*this">
-          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style='background: #F05141;color:white'>
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style='background: #F05141;color:white;font-size:12px !important;'>
             <view class="weui-navbar__title">{{item}}</view>
           </view>
         </block>
@@ -11,7 +11,7 @@
       </view>
        <view class="search-result" style='magin-top:50%' hidden="{{listnum}}">
 				<image class="search-img" src="../../images/search.svg" alt="" width="40px" height="40px"></image>
-				<view>当前状态没有信息</view>
+				<view>当前{{statusText}}没有信息</view>
 	 </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
