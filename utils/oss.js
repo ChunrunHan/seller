@@ -31,7 +31,7 @@ function ossUpload(source) {
       var signature = sts.signature;
       var policy = sts.policy;
       var dir = sts.dir;
-      var host = 'https://dev.yezhubao.net/oss_mall';
+      var host = 'https://api.yezhubao.net/oss_mall';
       // var host = sts.host;
 
       if (ossKeyId === undefined || signature === undefined) {
