@@ -25,8 +25,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "bill",
-					"pathName": "pages/bill/index",
+					"name": "申请退货详情",
+					"pathName": "pages/returnDetail/index",
 					"query": ""
 				},
 				{

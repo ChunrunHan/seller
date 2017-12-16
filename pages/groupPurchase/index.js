@@ -43,7 +43,8 @@ Page({
     var that = this;
     app.globalData.addPhoto = [];
     this.setData({
-      page: 0
+      page: 0,
+      goods:[]
     });
     that.getGoodslist();
   },

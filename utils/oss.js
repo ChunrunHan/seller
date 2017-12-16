@@ -31,7 +31,8 @@ function ossUpload(source) {
       var signature = sts.signature;
       var policy = sts.policy;
       var dir = sts.dir;
-      var host = 'https://api.yezhubao.net/oss_mall';
+      // var host = 'https://api.yezhubao.net/oss_mall';
+      var host = app.ossHost
       // var host = sts.host;
 
       if (ossKeyId === undefined || signature === undefined) {
@@ -76,26 +77,9 @@ function ossUpload(source) {
 
 // get post signature
 function stsUpdate(forceUpdate) {
-  // var mobile = plus.storage.getItem('mobile');
-  // var cache = plus.storage.getItem(mobile);
-
-  // if (!this.isNullOrUndefined(cache)) {
-  //   cache = JSON.parse(cache);
-  //   var storedExpire = cache.sts.expiration;
-
-  //   var nowTime = Date.parse(new Date());
-  //   if (forceUpdate !== true && storedExpire > nowTime) {
-  //     //console.log('not expired sts');
-  //     defer.resolve(cache.sts);
-  //     return defer.promise;
-  //   }
-  // }
-
   var urlBase = app.urlBase;
-  // var url = urlBase + '/oss/sign/seller';
   var url = urlBase + "/mall/oss/sign/seller";
   console.log('ossupload图片上传url' + url);
-
 
   var getTts = new Promise(function (resolve, reject) {
     ajax.get(url).then(function (res) {

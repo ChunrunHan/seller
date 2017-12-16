@@ -22,6 +22,7 @@
     "pages/groupPurchase/index",
     "pages/cash/index",
     "pages/recharge/index",
+    "pages/returnDetail/index",
     "pages/cashInfo/index"
     
   ],

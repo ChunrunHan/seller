@@ -266,15 +266,15 @@
         </view>
 
 
-        <view class="weui-tab__content" hidden="{{activeIndex != 6}}">
-          <block wx:for="{{list4}}">
+        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
+          <block wx:for="{{list5}}">
            <view class='mui-table-view'>
               <view class='li border-red'>
                 <view class="deal-top">
                   <span class="today">
                     <span>订单号：</span>{{item.id}}</span>
                   <span class="status">{{item.showTime}}</span>
-                   <image src='../../images/ok.png' class='receive'></image>
+                    <image src='../../images/tui.png' class='receive'></image> 
                 </view>
                 <view class="deal-center">
                   <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
@@ -337,8 +337,9 @@
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">
-                   <button type="button" class="mui-btn commit" bindtap='returnGoods' id="{{item.id}}">确认退货</button> 
-                   <button type="button" class="switch-commit mgt-20 mgb-20 del-commit del-commit" bindtap='refuseReturn' id="{{item.id}}">拒绝退货</button> 
+                <button type="button" class="mui-btn commit" bindtap='goDetail' id="{{item.id}}">查看退货详情</button>
+                   <!-- <button type="button" class="mui-btn commit" bindtap='returnGoods' id="{{item.id}}">确认退货</button> 
+                   <button type="button" class="switch-commit mgt-20 mgb-20 del-commit del-commit" bindtap='refuseReturn' id="{{item.id}}">拒绝退货</button>  -->
                 </view>
               </view>
 
@@ -350,14 +351,15 @@
 
         </view>
 
-        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
-          <block wx:for="{{list5}}">
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+          <block wx:for="{{list4}}">
           <view class='mui-table-view'>
               <view class='li'>
                 <view class="deal-top">
                   <span class="today">
                     <span>订单号：</span>{{item.id}}</span>
                   <span class="status">{{item.showTime}}</span>
+                     <image src='../../images/ok1.png' class='receive'></image>
                 </view>
                 <view class="deal-center">
                   <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">

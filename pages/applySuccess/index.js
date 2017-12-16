@@ -82,7 +82,7 @@ Page({
   callMobile: function (e) {
     console.log('拨打打电话');
     wx.makePhoneCall({
-      phoneNumber: '13361213969' //仅为示例，并非真实的电话号码
+      phoneNumber: '18954231462' //仅为示例，并非真实的电话号码
     })
   }
 

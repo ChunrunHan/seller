@@ -8,7 +8,7 @@ var statusText = ["待支付", "待发货", "待收货", "已收货", "待评价
 Page({
   data: {
     // tabs: ["待发货", "已发货", "已收货","待退货","退货中","订单完成"],
-    tabs: ["待发货", "已发货", "已收货", "订单完成"],
+    tabs: ["待发货", "已发货", "已收货", "订单完成", "退货申请"],
     radioItems: [
       { name: '商家配送', value: '0', checked: true },
       { name: '快递配送', value: '1' }
@@ -181,12 +181,12 @@ Page({
     //     status: 10,
     //     statusText: '待退货'
     //   }) 
-    // } else if (index == 4) {
-    //   console.log('退货中')
-    //   that.setData({
-    //     status: 6,
-    //     statusText: '退货中'
-    //   })
+    } else if (index == 4) {
+      console.log('退货中')
+      that.setData({
+        status: 6,
+        statusText: '退货中'
+      })
     } else if (index == 3) {
       console.log('已完成')
       that.setData({
@@ -258,16 +258,16 @@ Page({
             list3: that.data.list3.concat(datalist),
             listnum: true
           })
-        } else if (that.data.status == 10) {
-          that.setData({
-            list4: that.data.list4.concat(datalist),
-            listnum: true
-          })
         } else if (that.data.status == 6) {
           that.setData({
             list5: that.data.list5.concat(datalist),
             listnum: true
           })
+        // } else if (that.data.status == 6) {
+        //   that.setData({
+        //     list5: that.data.list5.concat(datalist),
+        //     listnum: true
+        //   })
         } else if (that.data.status == 5) {
           that.setData({
             list4: that.data.list4.concat(datalist),
@@ -685,6 +685,15 @@ Page({
         duration: 2000
       })
     })
+  },
+  // 查看退货详情
+  goDetail:function(e){
+    console.log(e.target.id);
+    var id = e.target.id;
+    wx.navigateTo({
+      url: `../returnDetail/index?orderId=${id}`,
+    })
+
   }
   // scrolltoupper:function(e){
   // console.log("下拉");
