@@ -171,3 +171,5 @@
     </view>
   </view>
 </view>
+
+<button bindtap='showmodel'>点我显示</button>

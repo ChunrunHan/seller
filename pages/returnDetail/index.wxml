@@ -1,9 +1,9 @@
 <!--index.wxml-->
 <view class="width100">
 
-  <view class="weui-cells__title">申请退货详情</view>
+  <view class="weui-cells__title">{{title}}</view>
 
-  <view class="weui-cells weui-cells_after-title">
+  <!-- <view class="weui-cells weui-cells_after-title">
    <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">退款金额</view>
@@ -34,9 +34,45 @@
                   <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" bindtap="previewImage" id='{{item}}' />
                 </view>
               </block>
-              <!-- <view class="weui-uploader__file img-box" hidden='{{files.length == 6?true:false}}'>
-                <image class="weui-uploader__img" id='addphoto' src="../../images/iconfont-tianjia.png" bindtap="chooseImage" />
-              </view> -->
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view> -->
+
+  <block wx:for="{{dataList}}">
+  <view class='item'>
+  <view class="flex mg-top8 bg-white" style="justify-content: space-between;align-items: center;padding: 15px 10px;border-bottom: 1px dotted #d2d2d2" bindtap="">
+  <view class="">{{item.images? '客户反馈' : '我的处理'}}</view>
+  <view class="">{{item.time}}</view>
+</view>
+    <!-- <textarea wx:if="{{item.reason}}"  placeholder='理由' disabled="true" value="原因：{{item.reason}}"></textarea> -->
+    <view wx:if="{{item.reason}}" style="padding: 15px 10px;border-bottom: 1px dotted #d2d2d2;word-wrap:break-word">
+    原因：{{item.reason}}
+    </view>
+     <view wx:if="{{!item.images}}" style="padding: 15px 10px;border-bottom: 1px dotted #d2d2d2;word-wrap:break-word">
+    金额：{{item.amount}}
+    </view>
+
+    
+    <!-- <textarea wx:if="{{item.amount}}" class='color-money' placeholder='退款金额' disabled="true" value="退款金额：{{item.amount}}"></textarea> -->
+
+    <view wx:if="{{item.images}}" class="weui-cell bg-white" style='padding:10px 10px'>
+      <view class="weui-cell__bd">
+        <view class="weui-uploader">
+          <view class="weui-uploader__hd">
+            <view class="weui-uploader__title" style='font-size:15px;'>反馈图片</view>
+            <view class="weui-uploader__info">{{item.imgURL.length}}/6</view>
+          </view>
+          <view class="weui-uploader__bd">
+            <view class="weui-uploader__files" id="uploaderFiles">
+              <block wx:for="{{item.imgURL}}" wx:key="*this" wx:for-item="img">
+                <view class="weui-uploader__file img-box">
+                  <image class="weui-uploader__img" src="{{img}}" mode="aspectFill" bindtap="previewImage" id='{{img}}' />
+                </view>
+              </block>
 
 
             </view>
@@ -44,46 +80,32 @@
         </view>
       </view>
     </view>
-
   </view>
+  </block>
 
   
-   <view class="weui-cells__title">退货原因</view>
+   <!-- <view class="weui-cells__title">退货原因</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">
       <view class="weui-cell__bd">
         <textarea maxlength='200' bindinput="getMemo" disabled='true' class="weui-textarea" value='{{reason}}' placeholder="申请退货原因" style="height: 3.3em" />
-        <!-- <view class="weui-textarea-counter">{{memoLength}}/200</view> -->
       </view>
     </view>
-  </view> 
+  </view>  -->
 
-  <button id="1" class="switch-commit mgt-20 mgb-20" bindtap='dealReturn'>确认退款</button>
- <button id="0" class="switch-commit mgt-20 mgb-20 del-commit del-commit" bindtap='dealReturn'>拒绝退货</button>  
-
-
-
-
-
-
+  <button wx:if="{{title == '申请退货详情'}}" id="1" class="switch-commit mgt-20 mgb-20" bindtap='dealReturn'>确认退款</button>
+  <button wx:if="{{title == '申请退货详情'}}" id="0" class="switch-commit mgt-20 mgb-20 del-commit del-commit" bindtap='dealReturn'>拒绝退款</button>  
 </view>
 
 
 <view class='mask-black' hidden='{{agree}}'>
   <view class='bg-white select-send'>
     <icon class='cancel' id='1' bindtap="hiddenMask" type="cancel" size="40"></icon>
+    <view class="weui-cells__title color-auto border-bot" style='padding-left: 0px;'>请输入退款金额</view>
     <view class='flex'>
-      <view>确认退款</view>
-      <input type='text' bindinput='change' class='weui-input left-input' value='{{amount}}元' ></input>
+       <!-- <view style='line-height:48px'></view>  -->
+      <input type='digit' bindinput='changeMoney' focus='{{autoFocusM}}' class='weui-input left-input' value='{{newAmount}}' placeholder='退款金额(单位:元)'></input>
     </view>
-     <!-- <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">退款金额</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input type='text' bindinput='change' class='weui-input' value='{{amount}}元' style='text-aligh:left'></input>
-      </view>
-    </view> -->
      <button bindtap='submitSend' style='background:#F05141;color:white;'> 确认退款 </button>
 
   </view>
@@ -93,8 +115,10 @@
 <view class='mask-black' hidden='{{reject}}'>
   <view class='bg-white select-send'>
     <icon class='cancel' id='0' bindtap="hiddenMask" type="cancel" size="40"></icon>
-  <textarea maxlength='50' bindinput="getMemo" class="weui-textarea" placeholder="拒绝退货原因" style="height: 3.3em" class='rejectText' />
-     <button bindtap='submitSend' style='background:#F05141;color:white;'> 拒绝退货 </button>
+    <view class="weui-cells__title color-auto border-bot" style='padding-left: 0px;'>拒绝退款</view>
+  <textarea maxlength='50' bindinput="getReject" focus='{{autoFocus}}' class="weui-textarea" placeholder="请输入拒绝退款原因" style="height: 4em" class='rejectText' value='{{rejectText}}' show-confirm-bar="false" />
+     <!-- <view>0/50</view> -->
+     <button bindtap='submitSend' style='background:#F05141;color:white;'> 拒绝退款 </button>
 
   </view>
 

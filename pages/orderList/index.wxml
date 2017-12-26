@@ -337,7 +337,7 @@
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">
-                <button type="button" class="mui-btn commit" bindtap='goDetail' id="{{item.id}}">查看退货详情</button>
+                <button type="button" class="mui-btn commit" bindtap='goDetail' id="{{item.id}}:{{item.userId}}:{{item.receiptAmount}}:0">查看退货详情</button>
                    <!-- <button type="button" class="mui-btn commit" bindtap='returnGoods' id="{{item.id}}">确认退货</button> 
                    <button type="button" class="switch-commit mgt-20 mgb-20 del-commit del-commit" bindtap='refuseReturn' id="{{item.id}}">拒绝退货</button>  -->
                 </view>
@@ -354,12 +354,13 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
           <block wx:for="{{list4}}">
           <view class='mui-table-view'>
-              <view class='li'>
+              <view class='li border-red'>
                 <view class="deal-top">
                   <span class="today">
                     <span>订单号：</span>{{item.id}}</span>
                   <span class="status">{{item.showTime}}</span>
-                     <image src='../../images/ok1.png' class='receive'></image>
+                     <image wx:if="{{item.status !== '退货申请驳回'}}" src='../../images/ok1.png' class='receive'></image>
+                     <image wx:if="{{item.status == '退货申请驳回'}}"src='../../images/tui.png' class='receive'></image>
                 </view>
                 <view class="deal-center">
                   <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
@@ -400,13 +401,6 @@
                     <p class="totalAmount">
                       <span>商品总价:</span>
                       <span>{{item.totalAmount}}</span>元</p>
-                    <!-- <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p> -->
-                    <!-- <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p> -->
                     <p class="receiptAmount">
                       <span>实收金额:</span>
                       <span class="color-call">{{item.receiptAmount}}</span>元</p>
@@ -424,7 +418,7 @@
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">
-                  <!-- <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button> -->
+                   <button wx:if="{{item.status == '退款成功'}}" type="button" class="mui-btn commit" bindtap='goDetail' id="{{item.id}}:{{item.userId}}:{{item.receiptAmount}}:1">查看详情</button> 
                 </view>
               </view>
 
@@ -434,86 +428,7 @@
 
         </view>
 
-        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
-          <block wx:for="{{list4}}">
-            <view class='mui-table-view'>
-              <view class='li border-red'>
-                <view class="deal-top">
-                  <span class="today">
-                    <span>订单号：</span>{{item.id}}</span>
-                  <span class="status">{{item.showTime}}</span>
-                  <image src='../../images/ok1.png' class='receive'></image>
-                </view>
-                <view class="deal-center">
-                  <p style="border-top:1px solid #e0e0e4; padding-top: 5px;">
-                    <span class="name">{{item.reciverName}}</span>
-                    <span class="phonebox">
-                      <!-- <span class="icon-phone color-call"></span>
-                   -->
-                      <image src='{{mobile}}' id='{{item.reciverMobile}}'  class='mobile' bindtap='callMobile'></image>
-                      <span class="mobile" data-bind="reciverMobile">{{item.reciverMobile}}</span>
-                    </span>
-                  </p>
-                  <p class="address">{{item.reciverAddr}}</p>
-                </view>
-                <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
-                  <view class="title">商品订单</view>
-                  <!-- {{#goodsList}} -->
-                   <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
-                  <view class="goodsbox">
-                     <!-- <img class="goodsimg" src="{{goods.images}}" alt="" />  -->
-                     <image class="goodsimg" src='{{item.goods.images}}'></image>
-                    <!-- <image class="goodsimg" src='../../images/all.jpg'></image> -->
-                    <span class="goodsname">{{item.goods.name}}</span>
-                    <span class="goodsnum">
-                      <span>×</span>{{item.goods.count}}</span>
-                    <span class="goodsprice">
-                      <span>￥</span>{{item.goods.price}}</span>
-                  </view>
-                  <!-- {{/goodsList}} -->
-                   <!-- </block>  -->
-                </view>
-                <view class="goods-memo">
-                  备注：{{item.memo}}
-                </view>
-                <view class="deal-bottom">
-                  <view class="deal-right">
-                    <p class="totalAmount">
-                      <span>商品总价:</span>
-                      <span>{{item.totalAmount}}</span>元</p>
-                    <!-- <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p> -->
-                    <!-- <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p> -->
-                    <p class="receiptAmount">
-                      <span>实收金额:</span>
-                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
-                  </view>
-                  <view class="deal-left">
-                    <p>
-                      <span>订单状态:</span>
-                      <span class="color-red">{{item.status}}</span>
-                    </p>
-                    <!-- <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p> -->
-                  </view>
-                </view>
-
-                <view class="deal-btn" style="border-bottom: 0px;">
-                  <!-- <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button> -->
-                </view>
-              </view>
-
-
-            </view>
-          </block>
-
-        </view>
+      
 
       </view>
     </view>

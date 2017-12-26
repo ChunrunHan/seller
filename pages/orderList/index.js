@@ -151,9 +151,7 @@ Page({
     
   },
   getList: function(index,isDown){
-    wx.showLoading({
-      title: '',
-    })
+    wx.showLoading()
     var that = this;
     // var status = 1;
     // status  1:待发货 3:已发货 4:已收货 6:退货申请 7:退货中 5:订单完成
@@ -206,15 +204,11 @@ Page({
     that.setData({
       lock: false
     })
-    wx.showLoading({
-      title: '',
-    })
     // urlBase + '/order/list/' + sellerId + '//2/' + page + '/' + size;
     // var url = urlBase + '/mall/order/list/group/' + app.sellerId + '/' + status+ '/'+ that.data.page + '/' + that.data.size;
     var url = urlBase + '/mall/order/group_seller/' + app.sellerId + '/' + status + '/' + that.data.page + '/' + that.data.size;
     console.log(url);
     ajax.get(url).then(function (data) {
-      wx.hideLoading()
       console.log('获得数据：' + JSON.stringify(data));
       var statusCode = data.statusCode;
       var data = data.data;
@@ -313,7 +307,7 @@ Page({
       if (isDown) {
         wx.stopPullDownRefresh();
       }
-
+      wx.hideLoading()
     }).catch(function(status){
       wx.hideLoading();
       oss.statusHandler(status)
@@ -418,8 +412,7 @@ Page({
         title: '商家配送',
       })
       that.setData({
-        'json.expressNo': '',
-        'json.carrierCode': ''
+        'json.expressNo': ''
           
       });
       console.log(that.data.json)
@@ -611,6 +604,7 @@ Page({
     })
   },
   returnGoodsDeal: function(orderId,allowed){
+    var that = this;
     // GET /order/response_refund/ { orderId } / { allowed }
     var url = urlBase + '/mall/order/response_refund/' + orderId + '/' + allowed;
     console.log(url);
@@ -622,6 +616,9 @@ Page({
       if (data.code == 0) {
         wx.showLoading({
           title: '提交成功'
+        })
+        that.setdata({
+          list4:[]
         })
         wx.startPullDownRefresh()
       } else if (data.code != 0 && statusCode == 200) {

@@ -5,16 +5,22 @@
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top:0px;
+  z-index: 100
 }
+
+ .color-money{
+  color: #ff0036;
+} 
 
 .select-send{
   position: absolute;
-  margin-top:50%;
+  margin-top:35%;
   margin-left: calc(10vw - 5px);
   width: 80vw;
   border: 1px dashed #c8c7cc;
   border-radius: 5px;
   padding: 0px 8px 8px 8px;
+  z-index: 999
 }
 
 .rejectText{
@@ -24,12 +30,13 @@
 .flex{
   display: flex;
   flex-direction:row;
-  align-items: baseline;
+  /* align-items: baseline; */
 }
 
 .left-input{
   text-align: center;
   color: red;
+  width: 100%;
 }
 
 .loading{
@@ -98,4 +105,50 @@
 }
 .memo-showbox image{
   width: 100%;
+}
+.border-bot{
+  border-bottom: 1rpx solid #D9D9D9;
+}
+
+
+.color-title-red{
+  color:#e02e24;
+}
+.item{
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: white;
+  font-size: 15px;
+}
+textarea{
+  padding: 10px 10px;
+  width: calc(100vw - 20px);
+  height: 4em;
+  border-bottom: 1px dotted #d2d2d2;
+}
+
+ .weui-uploader__img {
+  display: block;
+  width: 100%;
+  height:calc(100vw/3.5);
+
+} 
+
+.mg-top8{
+  margin-top: 8px;
+}
+.bg-white{
+  background: white;
+}
+
+.weui-cell:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top:0px !important;
+  color: #D9D9D9;
+  left: 15px;
 }
