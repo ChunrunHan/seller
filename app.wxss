@@ -183,3 +183,7 @@ background-color:#efeff4;
 .v-middle{
   vertical-align: middle
 }
+
+.flex{
+  display: flex;
+}

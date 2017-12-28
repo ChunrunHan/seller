@@ -14,6 +14,9 @@
     "pages/settingInfo/index",
     "pages/sellerInfo/index",
     "pages/sellerApply/index",
+    "pages/personal/index",
+    "pages/enterprise/index",
+    "pages/applyMode/index",
     "pages/applySuccess/index",
     "pages/password/index",
     "pages/mobile/index",
@@ -23,7 +26,8 @@
     "pages/cash/index",
     "pages/recharge/index",
     "pages/returnDetail/index",
-    "pages/cashInfo/index"
+    "pages/cashInfo/index",
+    "pages/protocol/index"
     
   ],
   "window": {

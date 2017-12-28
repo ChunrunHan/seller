@@ -25,14 +25,14 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "申请退货详情",
-					"pathName": "pages/returnDetail/index",
+					"name": "个人入驻",
+					"pathName": "pages/personal/index",
 					"query": ""
 				},
 				{
 					"id": 1,
-					"name": "test",
-					"pathName": "pages/order/index",
+					"name": "企业入驻",
+					"pathName": "pages/enterprise/index",
 					"query": ""
 				},
 				{

@@ -17,7 +17,7 @@ Page({
   onLoad: function (options) {
     var mobile = wx.getStorageSync('mobile');
     var wxOpenId = wx.getStorageSync('wxOpenId');
-    console.log(wxOpenId);
+    console.log("wxOpenId:"+wxOpenId);
     if (wxOpenId != ''){
       this.userLogin(mobile, '', '', wxOpenId);
     }
@@ -201,7 +201,7 @@ Page({
   },
   goApply: function () {
     wx.navigateTo({
-      url: '../sellerApply/index?id=1',
+      url: '../applyMode/index?id=1',
     })
   }
 })

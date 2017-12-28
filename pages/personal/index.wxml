@@ -1,0 +1,237 @@
+<!--index.wxml-->
+<view class="width100">
+
+  <view class="weui-cells__title">个人信息</view>
+
+  <view class="weui-cells weui-cells_after-title">
+
+    <!-- <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">店铺名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' bindinput='getStoreName' value='{{data.name}}' placeholder='请输入店铺名称'></input>
+      </view>
+    </view> -->
+
+    <!-- <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">入驻商品</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text'  class='weui-input text-right' value='{{data.goods}}' placeholder='请输入入驻商品'></input>
+      </view>
+    </view> -->
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">店铺负责人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' bindinput='getUserName' value='{{data.name}}' placeholder='请输入店铺负责人'></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">手机号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='tel' class='weui-input text-right' maxlength='11' bindinput='getMobile' value='{{data.mobile}}' placeholder='请输入手机号'></input>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">身份证件号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='tel' class='weui-input text-right' maxlength='18' bindinput='getIdcar' value='{{data.Idcar}}' placeholder='请输入身份证号'></input>
+      </view>
+    </view>
+
+     <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">身份证有效期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="endTimeChange">
+          <view class="weui-select weui-select_in-select-after text-right">{{endTime}} </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">银行卡号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' bindinput='getBackcard' value='{{data.bankCard}}' placeholder='请输入银行卡号'></input>
+      </view>
+    </view>
+
+  </view>
+
+
+  <view class="weui-cells__title">店铺信息</view>
+  <view class="weui-cells weui-cells_after-title">
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">店铺名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' value='{{data.goods}}' placeholder='请输入入驻商品'></input>
+      </view>
+    </view>
+    <!-- <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">主营类目</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' value='{{data.goods}}' placeholder='请输入入驻商品'></input>
+      </view>
+    </view> -->
+
+     <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">主营类目</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="getChange" value="{{categoryIndex}}" range="{{category}}">
+          <view class="weui-select weui-select_in-select-after text-right">{{category[categoryIndex]}} </view>
+        </picker>
+      </view>
+    </view>
+
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">所在地区</view>
+      </view>
+      <view class="weui-cell__bd" bindtap='showMap'>
+        <view bindchange="bindPeopleChange" value="{{peopleIndex}}">
+          <view class="weui-select weui-select_in-select-after text-right" hidden='{{!showAddress}}' style='color:#868686'> 请选择所在地区 </view>
+          <view class="weui-select weui-select_in-select-after text-right" hidden='{{showAddress}}'>{{province}} {{city}} {{district}} </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">门店地址</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' disabled='true' class='weui-input text-right' value='{{address}}' placeholder='选择地区后显示门店地址'></input>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- <view class="weui-cells__title">身份认证</view> 
+
+  <view class='bg-white weui-uploader' style='padding:10px 15px'>
+    <view class="weui-uploader__hd">
+      <view class="weui-uploader__title" style='font-size:17px'>手持身份证正面照</view>
+       <view class="weui-uploader__info">{{memofiles.length}}/1</view> 
+    </view>
+    <block wx:for="{{memofiles}}" wx:key="*this">
+      <view class='memo-showbox'>
+    
+        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
+
+        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+      </view>
+    </block>
+    <view class="width100" hidden='{{files.length == 1?true:false}}'>
+      <image class="weui-uploader__img" id='addMemoPhoto' src="../../images/addimages.svg" bindtap="chooseIdcarImage" />
+    </view>
+
+
+  </view> -->
+
+
+
+  <!-- <view class="weui-cells__title">商品描述</view> -->
+
+
+
+  <view class="weui-cells__title">身份确认</view>
+  <view class='bg-white weui-uploader' style='padding:10px 15px'>
+    <view class="weui-uploader__hd">
+      <view class="weui-uploader__title" style='font-size:17px'>身份证件正面</view>
+      <view class="weui-uploader__info">{{idcarZ.length}}/1</view>
+    </view>
+    <block wx:for="{{idcarZ}}" wx:key="*this">
+      <view class='memo-showbox'>
+        <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
+        <image mode="widthFix" data-mode="idcarZ" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
+
+        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+      </view>
+    </block>
+    <view class="width100" hidden='{{idcarZ.length == 1?true:false}}'>
+      <image class="weui-uploader__img" id='carZ' src="../../images/carZ.svg" bindtap="chooseIdcarImage" style='width:' />
+    </view>
+  </view>
+
+  <view class='bg-white weui-uploader' style='padding:10px 15px'>
+    <view class="weui-uploader__hd">
+      <view class="weui-uploader__title" style='font-size:17px'>身份证件反面</view>
+      <view class="weui-uploader__info">{{idcarF.length}}/1</view>
+    </view>
+    <block wx:for="{{idcarF}}" wx:key="*this">
+      <view class='memo-showbox'>
+        <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
+        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
+
+        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+      </view>
+    </block>
+    <view class="width100" hidden='{{idcarF.length == 1?true:false}}'>
+      <image class="weui-uploader__img" id='carF' src="../../images/carF.svg" bindtap="chooseIdcarImage" />
+    </view>
+  </view>
+
+  <view class='bg-white weui-uploader' style='padding:10px 15px'>
+    <view class="weui-uploader__hd">
+      <view class="weui-uploader__title" style='font-size:17px'>手持身份证件半身照片</view>
+      <view class="weui-uploader__info">{{idcarH.length}}/1</view>
+    </view>
+    <block wx:for="{{idcarH}}" wx:key="*this">
+      <view class='memo-showbox'>
+        <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
+        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
+
+        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+      </view>
+    </block>
+    <view class="width100" hidden='{{idcarH.length == 1?true:false}}'>
+      <image class="weui-uploader__img" id='carH' src="../../images/carH.svg" bindtap="chooseIdcarImage" />
+    </view>
+  </view>
+
+
+
+  <checkbox-group bindchange="bindAgreeChange">
+    <label class="weui-agree" for="weuiAgree">
+      <view class="weui-agree__text">
+        <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="{{isAgree}}" />
+        <view class="weui-agree__checkbox-icon">
+          <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="{{isAgree}}"></icon>
+        </view>
+        我已经阅读并同意
+        <navigator url="../protocol/index" class="weui-agree__link color-auto">《相关条款》</navigator>
+      </view>
+    </label>
+  </checkbox-group>
+
+  <button id="" class="switch-commit mgt-20 mgb-20" bindtap='submitInfo'>申请入驻</button>
+
+
+
+
+
+
+
+</view>
