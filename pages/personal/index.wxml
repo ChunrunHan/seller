@@ -5,30 +5,12 @@
 
   <view class="weui-cells weui-cells_after-title">
 
-    <!-- <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">店铺名称</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getStoreName' value='{{data.name}}' placeholder='请输入店铺名称'></input>
-      </view>
-    </view> -->
-
-    <!-- <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">入驻商品</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input type='text'  class='weui-input text-right' value='{{data.goods}}' placeholder='请输入入驻商品'></input>
-      </view>
-    </view> -->
-
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">店铺负责人</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getUserName' value='{{data.name}}' placeholder='请输入店铺负责人'></input>
+        <input type='text' class='weui-input text-right' bindinput='getmanagerName' value='{{data.managerName}}' placeholder='请输入店铺负责人'></input>
       </view>
     </view>
 
@@ -37,7 +19,7 @@
         <view class="weui-label">手机号</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='tel' class='weui-input text-right' maxlength='11' bindinput='getMobile' value='{{data.mobile}}' placeholder='请输入手机号'></input>
+        <input type='tel' class='weui-input text-right' maxlength='11' bindinput='getmanagerMobile' value='{{data.managerMobile}}' placeholder='请输入手机号'></input>
       </view>
     </view>
 
@@ -46,7 +28,7 @@
         <view class="weui-label">身份证件号</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='tel' class='weui-input text-right' maxlength='18' bindinput='getIdcar' value='{{data.Idcar}}' placeholder='请输入身份证号'></input>
+        <input type='tel' class='weui-input text-right' maxlength='18' bindinput='getmanagerIdNumber' value='{{data.managerIdNumber}}' placeholder='请输入身份证号'></input>
       </view>
     </view>
 
@@ -60,13 +42,20 @@
         </picker>
       </view>
     </view>
-
+     <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">开户银行</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input type='text' class='weui-input text-right' bindinput='getmanagerBank' value='{{data.managerBank}}' placeholder='请输入开户银行'></input>
+      </view>
+    </view>
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">银行卡号</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' bindinput='getBackcard' value='{{data.bankCard}}' placeholder='请输入银行卡号'></input>
+        <input type='text' maxlength='22' class='weui-input text-right' bindinput='getmanagerBankAccount' value='{{data.managerBankAccount}}' placeholder='请输入银行卡号'></input>
       </view>
     </view>
 
@@ -81,19 +70,20 @@
         <view class="weui-label">店铺名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' value='{{data.goods}}' placeholder='请输入入驻商品'></input>
+        <input type='text' class='weui-input text-right' bindinput='getsellerName' value='{{data.sellerName}}' placeholder='请输入店铺名称'></input>
       </view>
     </view>
-    <!-- <view class="weui-cell weui-cell_input">
+
+      <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">主营类目</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' class='weui-input text-right' value='{{data.goods}}' placeholder='请输入入驻商品'></input>
+        <input type='text' class='weui-input text-right' value='水果' disabled='true'></input>
       </view>
-    </view> -->
+    </view>
 
-     <view class="weui-cell weui-cell_select">
+     <!-- <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
         <view class="weui-label">主营类目</view>
       </view>
@@ -102,7 +92,7 @@
           <view class="weui-select weui-select_in-select-after text-right">{{category[categoryIndex]}} </view>
         </picker>
       </view>
-    </view>
+    </view> -->
 
 
     <view class="weui-cell weui-cell_select">
@@ -126,6 +116,23 @@
       </view>
     </view>
 
+  </view>
+    <view class='bg-white weui-uploader' style='padding:10px 15px'>
+    <view class="weui-uploader__hd">
+      <view class="weui-uploader__title" style='font-size:17px'>店铺头像</view>
+      <view class="weui-uploader__info">{{idcarB.length}}/1</view>
+    </view>
+    <block wx:for="{{idcarB}}" wx:key="*this">
+      <view class='memo-showbox'>
+        <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
+        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
+
+        <icon id='{{index}}' data-source='carB' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+      </view>
+    </block>
+    <view class="width100" hidden='{{idcarB.length >= 1?true:false}}'>
+      <image class="weui-uploader__img" id='carB' src="../../images/logo.svg" bindtap="chooseIdcarImage" />
+    </view>
   </view>
 
   <!-- <view class="weui-cells__title">身份认证</view> 
@@ -167,10 +174,10 @@
         <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
         <image mode="widthFix" data-mode="idcarZ" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
 
-        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+        <icon id='{{index}}' data-source='carZ' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
       </view>
     </block>
-    <view class="width100" hidden='{{idcarZ.length == 1?true:false}}'>
+    <view class="width100" hidden='{{idcarZ.length >= 1?true:false}}'>
       <image class="weui-uploader__img" id='carZ' src="../../images/carZ.svg" bindtap="chooseIdcarImage" style='width:' />
     </view>
   </view>
@@ -185,10 +192,10 @@
         <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
         <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
 
-        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+        <icon id='{{index}}' data-source='carF' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
       </view>
     </block>
-    <view class="width100" hidden='{{idcarF.length == 1?true:false}}'>
+    <view class="width100" hidden='{{idcarF.length >= 1?true:false}}'>
       <image class="weui-uploader__img" id='carF' src="../../images/carF.svg" bindtap="chooseIdcarImage" />
     </view>
   </view>
@@ -203,10 +210,10 @@
         <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
         <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
 
-        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+        <icon id='{{index}}' data-source='carH' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
       </view>
     </block>
-    <view class="width100" hidden='{{idcarH.length == 1?true:false}}'>
+    <view class="width100" hidden='{{idcarH.length >= 1?true:false}}'>
       <image class="weui-uploader__img" id='carH' src="../../images/carH.svg" bindtap="chooseIdcarImage" />
     </view>
   </view>

@@ -127,6 +127,7 @@ Page({
    */
   onHide: function () {
     // app.globalData.addPhoto = [];
+    
   },
 
   /**

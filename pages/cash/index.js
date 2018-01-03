@@ -13,7 +13,8 @@ Page({
       channel: 1,
       amount: ""
     },
-    totalAssets:0  // 可用金额
+    totalAssets:0,  // 可用金额
+    FreezingAmount: 0
   },
 
   /**
@@ -51,6 +52,7 @@ Page({
       'data.sellerId':app.sellerId
     })
     this.getAccount();
+    this.FreezingAmount();
   },
 
   /**
@@ -136,6 +138,28 @@ Page({
     }).catch(function (status) {
       wx.hideLoading();
       console.log('获取可提现金额:' + status);
+      oss.statusHandler(status);
+    });
+  },
+  // 获取冻结金额
+  FreezingAmount: function (e) {
+    var that = this;
+    var url = urlBase + '/paycenter/trusteeship/seller_amount';
+    console.log(url);
+    ajax.get(url).then(function (data) {
+      wx.hideLoading();
+      console.log('商家冻结金额余额： ' + JSON.stringify(data));
+      var data = data.data;
+      if (data.code === 0) {
+        var balance = data.additional;
+        that.setData({
+          FreezingAmount: balance
+        })
+      }
+
+    }).catch(function (status) {
+      wx.hideLoading();
+      console.log('获取金额:' + status);
       oss.statusHandler(status);
     });
   },

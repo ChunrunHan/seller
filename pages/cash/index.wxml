@@ -35,14 +35,13 @@
     </view>
 
     <view class="weui-cell weui-cell_switch" style='padding:10px 15px;'>
-      <view class="weui-cell__bd">可用金额 {{totalAssets}}</view>
+      <view class="weui-cell__bd">可用金额 <text style='padding-left:10px;'>{{totalAssets}}</text></view>
       <view class="weui-cell__ft btn-auto" bindtap='getCashAll'>
         全部提现
       </view>
     </view>
-
   </view>
-
+  <view class='text-center color-auto font-17'>冻结金额：{{FreezingAmount}}元</view> 
   <button id="" class="switch-commit mgt-20 mgb-20" bindtap='submitCash'>确认</button>
 
   <view class='text-center color-auto font-17' bindtap='goCashinfo'>查看提现状态</view>

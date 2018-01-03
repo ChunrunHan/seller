@@ -114,3 +114,10 @@
 /* .weui-uploader__img{
   border: 1px dashed gray;
 } */
+.memo-showbox{
+  position: relative;
+}
+
+.memo-showbox image{
+  width: 100%;
+}
