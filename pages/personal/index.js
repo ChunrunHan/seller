@@ -216,6 +216,7 @@ Page({
     var delfilename = e.currentTarget.dataset.name;
     var delfileFrom = e.currentTarget.dataset.source;
     let titlememo;
+    console.log(delfileFrom);
     switch (delfileFrom){
       case 'carB':
         titlememo = '确认删除店铺头像';
@@ -426,11 +427,12 @@ Page({
               title: '上传成功',
             });
             console.log(res);
-
+           
             var img = {
               oldImg: imgSrc,
               newImg: res.key
             }
+            console.log(img);
             if (imgId == 'carZ') {
               that.setData({
                 idcarZ: that.data.idcarZ.concat(img)
@@ -470,7 +472,7 @@ Page({
     console.log(JSON.stringify(this.data.data));
 
     console.log(JSON.stringify(that.data));
-    if (allData.managerName == '' || allData.managerMobile == '' || allData.province == '' || allData.district == '' || allData.city == "" || allData.address == '' || allData.sellerName == "" || that.data.IdcarZ == '' || that.data.IdcarH == '' || that.data.IdcarF == '' || that.data.idcarB == '' || allData.managerIdNumber == '' || allData.managerIdExpireDate == "" || allData.managerBank == '' || allData.managerBankAccount == '') {
+    if (allData.managerName == '' || allData.managerMobile == '' || allData.province == '' || allData.district == '' || allData.city == "" || allData.address == '' || allData.sellerName == "" || that.data.IdcarZ == '' || that.data.IdcarH == '' || that.data.endTime == '' || that.data.IdcarF == '' || that.data.idcarB == '' || allData.managerIdNumber == '' || allData.managerIdExpireDate == "" || allData.managerBank == '' || allData.managerBankAccount == '') {
       wx.showModal({
         title: '注意',
         content: '所有项为必填项',
@@ -484,6 +486,11 @@ Page({
       wx.showModal({
         title: '注意',
         content: '店铺名长度超过限制3-15',
+      })
+    } else if (allData.managerBank.length >10){
+      wx.showModal({
+        title: '注意',
+        content: '开户银行长度不能超过10个字符',
       })
     } else {
       if (oss.checkMobile(allData.managerMobile)) {

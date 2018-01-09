@@ -35,7 +35,7 @@
     </view>
 
     <view class="weui-cell weui-cell_switch" style='padding:10px 15px;'>
-      <view class="weui-cell__bd">可用金额 <text style='padding-left:10px;'>{{totalAssets}}</text></view>
+      <view class="weui-cell__bd"><span style="width:105px;display:inline-block;">可用金额</span> <text>{{totalAssets}}</text></view>
       <view class="weui-cell__ft btn-auto" bindtap='getCashAll'>
         全部提现
       </view>

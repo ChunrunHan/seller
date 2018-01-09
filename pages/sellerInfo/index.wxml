@@ -100,7 +100,7 @@
 
   </view>
 
-  <button id="" class="switch-commit mgt-20 mgb-20" bindtap='submitInfo'>保存信息</button>
+  <button  class="switch-commit mgt-20 mgb-20" bindtap='submitInfo'>保存信息</button>
 
 
 

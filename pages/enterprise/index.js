@@ -278,6 +278,7 @@ Page({
     var delfilename = e.currentTarget.dataset.name;
     var delfileFrom = e.currentTarget.dataset.source;
     let titlememo;
+    console.log(delfileFrom);
     switch (delfileFrom) {
       case 'carB':
         titlememo = '确认删除店铺头像';
@@ -554,12 +555,18 @@ Page({
     var that = this;
     var allData = that.data.data;
     console.log(JSON.stringify(this.data));
-    if (allData.managerName == '' || allData.managerMobile == '' || that.data.idcarZ == '' || allData.province == '' || allData.city == "" || allData.district == '' || allData.address == '' || allData.sellerName == '' || allData.category == '' || allData.legalRepresentative == '' || allData.legalRepresentativeMobile == '' || allData.legalRepresentativeIdNum == '' || allData.legalRepresentativeExpireDate == '' || that.data.idcarH == '' || that.data.idcarB == '' || that.data.idcarF == ''  ) {
+    if (allData.managerName == '' || allData.managerMobile == '' || that.data.idcarZ == '' || allData.province == '' || allData.city == "" || allData.district == '' || allData.address == '' || allData.sellerName == '' || allData.category == '' || allData.legalRepresentative == '' || allData.legalRepresentativeMobile == '' || allData.legalRepresentativeIdNum == '' || allData.legalRepresentativeExpireDate == '' || that.data.idcarH == '' || that.data.idcarB == '' || that.data.idcarF == '' || allData.enterpriseBank == '' ) {
       wx.showModal({
         title: '注意',
         content: '所有项为必填项',
       })
-    } else {
+    } else if (allData.enterpriseBank.length >10) {
+      wx.showModal({
+        title: '注意',
+        content: '开户银行长度不能超过10个字符',
+      })
+
+    } else{
       if (oss.checkMobile(allData.legalRepresentativeMobile) && oss.checkMobile(allData.managerMobile)) {
         if (oss.IdentityCodeValid(allData.legalRepresentativeIdNum)) {
           if (that.data.isAgree) {

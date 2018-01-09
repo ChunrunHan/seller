@@ -243,6 +243,7 @@ Page({
   },
   // 保存信息
   submitInfo: function (e) {
+    console.log('保存啊');
     var that = this;
     var allData = that.data.data;
     var oldimg = that.data.files.join(":");
@@ -273,6 +274,7 @@ Page({
         wx.showLoading({
           title: '保存中',
         })
+        console.log('hahahha');
         if(that.data.delfilename != ""){
           // that.delImg();
         }
@@ -292,17 +294,18 @@ Page({
             //   url: '../setting/index'
             // })
           } else if (data.statusCode == 200 && data.data.code !== 0){
-            wx.showToast({
-              title: data.data.message,
-              duration: 2000
+            wx.showModal({
+              title: '注意',
+              content: data.data.message,
             })
           }else{
-            oss.statusHandler(data.statusCode);
-            // wx.showToast({
-            //   title: '添加失败',
-            //   image: '../../images/alert.png',
-            //   duration: 2000
-            // })
+
+            // oss.statusHandler(data.statusCode);
+            wx.showToast({
+              title: '添加失败',
+              image: '../../images/alert.png',
+              duration: 2000
+            })
           }
 
         }).catch(function (status) {
