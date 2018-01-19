@@ -1,0 +1,41 @@
+/**index.wxss**/
+weui-navbar__slider {
+position:absolute;
+content:" ";
+left:0;
+bottom:0;
+height:3px;
+background-color:#1AAD19;
+-webkit-transition:-webkit-transform .3s;
+transition:-webkit-transform .3s;
+transition:transform .3s;
+transition:transform .3s, -webkit-transform .3s;
+
+}
+
+.rightText,.rightCount,.rightmoney{
+  padding-right: 23px;
+}
+.rightText::before{
+  content: '折';
+  position: absolute;
+  right:15px;
+  
+}
+.rightCount::before{
+  content: '张';
+  position: absolute;
+  right:15px;
+  
+}
+.rightmoney::before{
+  content: '元';
+  position: absolute;
+  right:15px;
+  
+}
+
+.weui-cell__ft {
+  text-align: right;
+  color: black;
+}

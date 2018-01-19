@@ -224,7 +224,7 @@ Page({
             var goodsImg = datalist[i].goods;
             goodsImg.images = goodsImg.images.split(':');
             console.log(goodsImg.images);
-            goodsImg.images = app.ossHost + '/' + app.sellerId + '/' + goodsImg.images[0];
+            goodsImg.images = app.ossHost + '/' + app.sellerId + '/' + goodsImg.images[0]+'!thumbnail';
             console.log(goodsImg.images);
             if (datalist[i].carrierCode == "" || datalist[i].expressNo == "" || datalist[i].carrierCode == undefined || datalist[i].expressNo == undefined) {
               datalist[i].isExpress = true;
@@ -544,19 +544,21 @@ Page({
   },
   showExpressInfo: function(e){
     console.log(JSON.stringify(e));
-    console.log(e.target.dataset.carriercode);
-    console.log(e.target.dataset.expressno);
-    var shipperCode = e.target.dataset.carriercode;
-    var logisticCode = e.target.dataset.expressno;
+    console.log(e.target.id)
+    var info = e.target.id;
+    console.log(info);
+    wx.navigateTo({
+      url: `../../pages/logistics/index?info=${info}`,
+    })
     // wx.showToast({
     //   title: '敬请期待',
     // })
-    this.setData({
-      showExpressInfo: false,
-      isScroll: false,
-      expressArry: []
-    });
-    this.getExpressInfo(shipperCode, logisticCode);
+    // this.setData({
+    //   showExpressInfo: false,
+    //   isScroll: false,
+    //   expressArry: []
+    // });
+    // this.getExpressInfo(shipperCode, logisticCode);
 
   },
   hiddenExpressMask: function(e){
@@ -643,46 +645,45 @@ Page({
   },
 // shipperCode [String] 物流公司代码
 // logisticCode [String] 运单号
-  getExpressInfo: function (shipperCode, logisticCode){
-    wx.showLoading({
-      title: '',
-    })
-    var url = 'https://www.kuaidi100.com/query?type=' + shipperCode + '&postid=' + logisticCode +'&id=19&valicode=&temp=0.8181859840210222'
-    // var url = 'https://www.kuaidi100.com/query?type=zhongtong&postid=538062303130&id=19&valicode=&temp=0.8181859840210222'
-    var that = this;
-    // var url = urlBase + '/mall/express/track_query/' + shipperCode + '/' + logisticCode;
-    console.log(url);
-    ajax.get(url).then(function (data) {
-      wx.hideLoading()
-      console.log('获得数据：' + JSON.stringify(data));
-      var statusCode = data.statusCode;
-      var dataList = data.data;
-      if (dataList.message == "ok") {
-        that.setData({
-          expressArry: dataList.data,
-          expressList: true
-        })
+  // getExpressInfo: function (shipperCode, logisticCode){
+  //   wx.showLoading({
+  //     title: '',
+  //   })
+  //   var url = 'https://www.kuaidi100.com/query?type=' + shipperCode + '&postid=' + logisticCode +'&id=19&valicode=&temp=0.8181859840210222'
+  //   var that = this;
+  //   // var url = urlBase + '/mall/express/track_query/' + shipperCode + '/' + logisticCode;
+  //   console.log(url);
+  //   ajax.get(url).then(function (data) {
+  //     wx.hideLoading()
+  //     console.log('获得数据：' + JSON.stringify(data));
+  //     var statusCode = data.statusCode;
+  //     var dataList = data.data;
+  //     if (dataList.message == "ok") {
+  //       that.setData({
+  //         expressArry: dataList.data,
+  //         expressList: true
+  //       })
         
-      } else if (dataList.statusCode != 200) {
-        wx.showToast({
-          title: dataList.errMsg,
-          image: '../../images/alert.png',
-          duration: 2000
-        })
-      } else {
-        oss.statusHandler(statusCode)
-      }
+  //     } else if (dataList.statusCode != 200) {
+  //       wx.showToast({
+  //         title: dataList.errMsg,
+  //         image: '../../images/alert.png',
+  //         duration: 2000
+  //       })
+  //     } else {
+  //       oss.statusHandler(statusCode)
+  //     }
 
-    }).catch(function (status) {
-      wx.hideLoading();
-      oss.statusHandler(status)
-      wx.showToast({
-        title: '请求超时',
-        image: '../../images/alert.png',
-        duration: 2000
-      })
-    })
-  },
+  //   }).catch(function (status) {
+  //     wx.hideLoading();
+  //     oss.statusHandler(status)
+  //     wx.showToast({
+  //       title: '请求超时',
+  //       image: '../../images/alert.png',
+  //       duration: 2000
+  //     })
+  //   })
+  // },
   // 查看退货详情
   goDetail:function(e){
     console.log(e.target.id);

@@ -171,7 +171,7 @@
                 </view>
 
                  <view class="deal-btn" style="border-bottom: 0px;">
-                  <button hidden='{{item.isExpress}}' type="button" class="mui-btn commit" bindtap='showExpressInfo' id="{{item.id}}" data-carrierCode="{{item.carrierCode}}" data-expressNo="{{item.expressNo}}">查看物流</button>
+                  <button hidden='{{item.isExpress}}' type="button" class="mui-btn commit" bindtap='showExpressInfo' id="{{item.id}}:{{item.carrierCode}}:{{item.expressNo}}:{{item.seller.id}}:{{item.goods.images}}">查看物流</button>
                   <button hidden='{{!item.isExpress}}' type="button" class="mui-btn commit" bindtap='deliveryComplete' id="{{item.id}}">配送完成</button>
                 </view> 
               </view>

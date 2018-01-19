@@ -1,0 +1,49 @@
+/**index.wxss**/
+#login-btn{
+  position: fixed;
+  bottom: 20px;
+  /* top:10px; */
+}
+
+.loading{
+  text-align: center;
+}
+
+#box{
+  /* height: 300px; */
+}
+
+.weui-cell__bd {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+          overflow:hidden;
+white-space:nowrap;
+text-overflow:ellipsis;
+
+}
+
+ .weui-cells::after {
+content:" ";
+position:absolute;
+left:0;
+bottom:0;
+right:0;
+height:0px;
+border-bottom:0rpx solid #D9D9D9 !important;
+color:#D9D9D9;
+
+} 
+.weui-cells::before {
+content:" ";
+position:absolute;
+left:0;
+top:0;
+right:0;
+height:0px;
+border-top:0rpx solid #D9D9D9 !important;
+color:#D9D9D9;
+
+}
+
+

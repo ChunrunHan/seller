@@ -1,0 +1,184 @@
+<view class="page width100">
+
+
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar" style='position:fixed'>
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style='background: #F05141;color:white'>
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white; width:{{sliderW}}px"></view>
+      </view>
+
+      <view class="search-result" style='magin-top:50% !important' hidden="{{listnum}}">
+        <image class="search-img" src="../../images/cart.svg" alt="" width="40px" height="40px"></image>
+        <view>当前没有{{statusText}}数据</view>
+      </view>
+
+      <view class="weui-tab__panel">
+        <!-- 发放优惠券 -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+
+          <view class="weui-cells__title">优惠券属性</view>
+          <view class="weui-cells weui-cells_after-title">
+
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">优惠券标题</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' maxlength='50' bindinput='getName' value='{{data.title}}' placeholder='请输入优惠券标题(至少三个字)'></input>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">优惠券张数</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='num' bindinput='getCouponCount' class='weui-input text-right rightCount' value='{{data.count}}' placeholder='请输入优惠券张数'></input>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">获取方式</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker bindchange="bindKindChange" id='kind' value="{{kindIndex}}" range="{{kindText}}">
+                  <view class="weui-select weui-select_in-select-after text-right">{{kindText[kindIndex]}} </view>
+                </picker>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">优惠券类型</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker bindchange="bindTypeChange" id='' value="{{typeIndex}}" range="{{typeText}}">
+                  <view class="weui-select weui-select_in-select-after text-right">{{typeText[typeIndex]}} </view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">开始领取时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-01-01" bindchange="startTimeChange">
+                  <view class="weui-select weui-select_in-select-after text-right">{{startTime}} </view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">结束领取时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="endTimeChange">
+                  <view class="weui-select weui-select_in-select-after text-right">{{endTime}} </view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">开始使用时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-01-01" bindchange="useStartTimeChange">
+                  <view class="weui-select weui-select_in-select-after text-right">{{useStartTime}} </view>
+                </picker>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_select">
+              <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label">结束使用时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="useEndTimeChange">
+                  <view class="weui-select weui-select_in-select-after text-right">{{useEndTime}} </view>
+                </picker>
+              </view>
+            </view>
+
+          </view>
+
+          <view class="weui-cells__title">优惠券使用规则</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view bindtap='showGoods' class="weui-cell weui-cell_access" id='use'>
+              <view class="weui-cell__bd">使用商品</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access" style='color:balck !important;'>{{goodsUse}}</view>
+            </view>
+            <view class="weui-cell weui-cell_input" hidden='true'>
+              <view class="weui-cell__hd">
+                <view class="weui-label">领取限制</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='num' bindinput='getCouponCount' class='weui-input text-right rightCount' value='{{data.rule.count}}' placeholder='单用户最多领取几张(0:不限)'></input>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">最低金额</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='num' bindinput='getCouponAmountLimit' class='weui-input text-right rightmoney' value='{{amountLimit}}' placeholder='0元无门槛'></input>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input" wx:if='{{typeIndex == 0}}'>
+              <view class="weui-cell__hd">
+                <view class="weui-label">满减金额</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='num' bindinput='getCouponDecrease' class='weui-input text-right rightmoney' value='{{decrease}}' placeholder='最低1元'></input>
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input" wx:if='{{typeIndex == 1}}'>
+              <view class="weui-cell__hd">
+                <view class="weui-label">折扣</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='num' bindinput='getCouponDiscount' class='weui-input text-right rightText' value='{{discount}}' placeholder='85折输入8.5，1折输入1'></input>
+              </view>
+            </view>
+            <!-- <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label"></view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='num' bindinput='getCouponCount' class='weui-input text-right' value='{{data.count}}' placeholder='最低1元'></input>
+              </view>
+            </view> -->
+            <view bindtap='showGoods' id='man' class="weui-cell weui-cell_access" wx:if='{{typeIndex == 2}}'>
+              <view class="weui-cell__bd">满赠商品</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+          
+
+
+
+
+          </view>
+          <button id="" class="switch-commit mgt-20 mgb-20" bindtap='putCoupon'>生成优惠券</button>
+
+
+        </view>
+
+
+        <!-- 管理优惠券 -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          第二页
+
+        </view>
+
+
+
+
+      </view>
+    </view>
+  </view>
+</view>
