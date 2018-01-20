@@ -17,19 +17,18 @@ App({
     console.log(msg)
   },
   globalData: {
-    addPhoto: []
+    addPhoto: [],
+    selectGoods:''
   },
-  // bucket: 'yzb-mall',
-  bucket: 'yezhubao-mall',
-  // urlBase: 'https://dev.yezhubao.net',
-  urlBase: 'https://api.yezhubao.net',
-  // token: '78423abfc55e48bd9b8019c008f4155e',
-  // sellerId: 'f63ef7105cf94d71015cfce10e760176',
+  bucket: 'yzb-mall',
+  urlBase: 'https://dev.yezhubao.net',
+  ossHost: 'https://dev.yezhubao.net/oss_mall',
   token: '',
   sellerId: '',
   mobile: '',
   id: '',
   realName: '',
-  // ossHost: 'https://dev.yezhubao.net/oss_mall',
-  ossHost: 'https://api.yezhubao.net/oss_mall'
+  // bucket: 'yezhubao-mall',
+  // urlBase: 'https://api.yezhubao.net',
+  // ossHost: 'https://api.yezhubao.net/oss_mall'
 })

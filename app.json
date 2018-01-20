@@ -27,7 +27,10 @@
     "pages/recharge/index",
     "pages/returnDetail/index",
     "pages/cashInfo/index",
-    "pages/protocol/index"
+    "pages/protocol/index",
+    "pages/logistics/index",
+    "pages/coupon/index",
+    "pages/selectGoods/index"
     
   ],
   "window": {

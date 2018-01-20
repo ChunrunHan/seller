@@ -20,19 +20,23 @@
 			"current": -1,
 			"list": []
 		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": -1,
 			"list": [
 				{
 					"id": 0,
-					"name": "个人入驻",
-					"pathName": "pages/personal/index",
+					"name": "优惠券",
+					"pathName": "pages/coupon/index",
 					"query": ""
 				},
 				{
 					"id": 1,
-					"name": "企业入驻",
-					"pathName": "pages/enterprise/index",
+					"name": "选择商品",
+					"pathName": "pages/selectGoods/index",
 					"query": ""
 				},
 				{
