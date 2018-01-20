@@ -40,6 +40,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    app.globalData.selectGoods = '';
     //  获取商家收入0 : 所有 1：昨天 2：今天
     this.getSellerMoney(1);
     this.getSellerMoney(2);

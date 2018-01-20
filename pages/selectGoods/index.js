@@ -126,12 +126,14 @@ Page({
 
     var source = this.data.source;
     if(source == 'use'){
-      wx.navigateTo({
-        url: '../coupon/index?id=' + e.detail.value +":"+ source,
+      app.globalData.selectGoods = e.detail.value + ":" + source;
+      wx.navigateBack({
+
       })
     }else{
-      wx.navigateTo({
-        url: '../coupon/index?id=' + e.detail.value + ":" + source,
+      app.globalData.selectGoods = e.detail.value + ":" + source;
+      wx.navigateBack({
+
       })
     }
 

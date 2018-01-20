@@ -7,9 +7,6 @@ var urlBase = app.urlBase;
 
 
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     data: { 
       "kind": 0,  //0：用户主动领取，1：自动领取优惠券，2：定向优惠券，商家发送到用户账户
@@ -32,14 +29,14 @@ Page({
         "excludeGoods": '', //不参与优惠活动的商品
         "includeGoods": '', //优惠券所包含的商品
         "discount":'', //折扣
-        "giftGoodsID": '' //赠品
+        "giftGoodsID": '', //赠品
+        "includeSeller": "" //包含的商家
       }
     },
     tabs: ["优惠券发放", "优惠券管理"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-
     listnum:true, //是否隐藏提示
     nowtime:'', //当前时间
     typeText: ['满减','折扣', '满赠', '新人',],
@@ -62,29 +59,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.id) //ff80b5b5610c7d7301610dc06f8a0018:火烧啊
-    var that = this;
-    if (options.id){
-      var sendValue = options.id.split(":");
-      if (sendValue[2] == 'use'){
-        that.setData({
-          "data.rule.includeGoods": sendValue[0],
-          "goodsUse": sendValue[1]
-        })
-        console.log(that.data)
-      }else{
-        that.setData({
-          "data.rule.giftGoodsID": sendValue[0],
-          "giftGoodsID": sendValue[1]
-        })
-      }
-    }
-   
+    console.log(app.sellerId) 
+  
+   var that = this;
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex,
+          "data.rule.includeSeller": app.sellerId
         });
       }
     });
@@ -112,6 +95,24 @@ Page({
     var nowtime = oss.NowTimer();
     console.log(nowtime);
     this.data.nowTime = nowtime;
+
+    var selectGoods = app.globalData.selectGoods;
+    console.log(selectGoods)
+    if (selectGoods) {
+      var sendValue = selectGoods.split(":");
+      if (sendValue[2] == 'use') {
+        that.setData({
+          "data.rule.includeGoods": sendValue[0],
+          "goodsUse": sendValue[1]
+        })
+        console.log(that.data)
+      } else {
+        that.setData({
+          "data.rule.giftGoodsID": sendValue[0],
+          "giftGoodsID": sendValue[1]
+        })
+      }
+    }
    
   },
 
@@ -251,9 +252,14 @@ Page({
     }
 
   },
+  getTitle: function (e) {
+    console.log(e.detail.value);
+    this.data.data.title = e.detail.value
+    console.log(JSON.stringify(this.data));
+  },
   getCouponCount: function (e) {
     console.log(e.detail.value);
-    this.data.data.rule.count = e.detail.value
+    this.data.data.count = e.detail.value
     console.log(JSON.stringify(this.data));
   },
   getCouponAmountLimit: function(e){
@@ -292,82 +298,111 @@ Page({
       })
     }
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // 生成优惠券
   putCoupon: function (e) {
     var that = this;
     console.log(JSON.stringify(that.data.data));
-   
-    // if (allData.name == '' || allData.oldPrice == '' || allData.singlePrice == '' || allData.leaderPrice == '' || allData.memberPrice == '' || allData.startTime == '' || allData.endTime == '' || allData.timeoutLimit == '' || allData.unit == '' || allData.remaining == '' || oldimg == "" || oldmemo == "") {
-    //   wx.showModal({
-    //     title: '注意',
-    //     content: '商品所有属性为必填项，且商品图片和商品描述图至少上传一张。',
-    //   })
-    // } else if (allData.startTime > allData.endTime) {
-    //   wx.showModal({
-    //     title: '注意',
-    //     content: '开始时间不能大于结束时间',
-    //   })
-    // } else if (allData.sellLocations.length == 0) {
-    //   wx.showModal({
-    //     title: '注意',
-    //     content: '请选择销售地区',
-    //   })
-    // } else {
+    var allData = that.data.data; 
+    if (allData.title == '' || allData.startTime == '' || allData.endTime == '' || allData.count == '' || allData.validityStartTime == '' || allData.validityEndTime == '') {
+      wx.showModal({
+        title: '注意',
+        content: '优惠券属性所有项为必填项',
+      })
+    } else if (allData.startTime > allData.endTime) {
+      wx.showModal({
+        title: '注意',
+        content: '优惠券开始领取时间不能大于结束领取时间',
+      })
+    } else if (allData.validityStartTime < allData.startTime) {
+      wx.showModal({
+        title: '注意',
+        content: '优惠券开始使用时间必须大于等于开始领取时间',
+      })
+    } else if (allData.validityStartTime > allData.validityEndTime) {
+      wx.showModal({
+        title: '注意',
+        content: '优惠券开始使用时间不能大于结束使用时间',
+      })
+    } else if (!allData.rule.includeGoods){
+      wx.showModal({
+        title: '注意',
+        content: '请选择优惠券使用规则的使用商品',
+      })
+    } else if (!allData.rule.amountLimit){
+      wx.showModal({
+        title: '注意',
+        content: '请输入优惠券使用最低金额，即满足的金额',
+      })
+    } else if (allData.type == 1 && !allData.rule.decrease){
+      wx.showModal({
+        title: '注意',
+        content: '请输入优惠券使用规则的满减金额',
+      })
+    } else if (allData.type == 1 && allData.rule.decrease <= 0){
+      wx.showModal({
+        title: '注意',
+        content: '满减金额必须大于0元',
+      })
+    } else if (allData.type == 2 && allData.rule.discount <= 0){
+      wx.showModal({
+        title: '注意',
+        content: '折扣必须大于0',
+      })
+
+    } else if (allData.type == 3 && !allData.rule.giftGoodsID){
+      wx.showModal({
+        title: '注意',
+        content: '满赠商品不能为空',
+      })
+    } else if (allData.type == 1 && allData.rule.decrease > allData.rule.amountLimit) {
+      wx.showModal({
+        title: '注意',
+        content: '最低金额必须大于满减金额',
+      })
+    } else {
      
-    //   console.log('上传的数据' + JSON.stringify(that.data.data));
-    //   wx.showLoading({
-    //     title: '添加中',
-    //   })
-    //   var newgoods = that.data.data;
-    //   console.log('上传的数据' + JSON.stringify(newgoods));
-    //   var url = urlBase + '/mall/goods/group';
-    //   ajax.post(url, newgoods).then(function (data) {
-    //     wx.hideLoading();
-    //     console.log(data);
-    //     console.log(JSON.stringify(data));
-    //     if (data.data.code == 0) {
-    //       wx.showToast({
-    //         title: '添加成功',
-    //         duration: 2000
-    //       })
-    //       wx.navigateBack({
-    //         url: '../goodsAdd/index'
-    //       })
-    //     } else {
-    //       oss.statusHandler(data.statusCode);
-    //       // wx.showToast({
-    //       //   title: '添加失败',
-    //       //   image: '../../images/alert.png',
-    //       //   duration: 2000
-    //       // })
-    //     }
+      console.log('上传的数据' + JSON.stringify(that.data.data));
+      wx.showLoading({
+        title: '添加中',
+      })
+      var coupons = that.data.data;
+      console.log('上传的数据' + JSON.stringify(coupons));
+      var url = urlBase + '/mall/coupon';
+      ajax.post(url, coupons).then(function (data) {
+        wx.hideLoading();
+        console.log(data);
+        console.log(JSON.stringify(data));
+        if (data.data.code == 0) {
+          wx.showToast({
+            title: '添加成功',
+            duration: 2000
+          })
+          wx.navigateBack({
+            url: '../goodsAdd/index'
+          })
+        } else {
+          oss.statusHandler(data.statusCode);
+         
+        }
 
-    //   }).catch(function (status) {
-    //     wx.hideLoading();
-    //     console.log(status.errMsg);
-    //     wx.showToast({
-    //       title: '请求超时',
-    //       image: '../../images/alert.png',
-    //       duration: 2000
-    //     })
-    //   });
+      }).catch(function (status) {
+        wx.hideLoading();
+        console.log(status.errMsg);
+        wx.showToast({
+          title: '请求超时',
+          image: '../../images/alert.png',
+          duration: 2000
+        })
+      });
 
-    // }
+    }
+  },
+  // 优惠券管理
+  scrolltoupper:function(e){
+    console.log('滚动到底部了')
+  },
+  scrolltolower:function(e){
+    console.log('滚动到顶部了');
   }
 
 
