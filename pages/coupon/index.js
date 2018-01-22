@@ -1,5 +1,5 @@
 //index.js
-var sliderWidth = 120; // 需要设置slider的宽度，用于计算中间位置
+var sliderWidth = 100; // 需要设置slider的宽度，用于计算中间位置
 var app = getApp()
 var ajax = require('../../utils/ajax');
 var oss = require('../../utils/oss');
@@ -9,7 +9,7 @@ var urlBase = app.urlBase;
 Page({
   data: {
     data: { 
-      "kind": 0,  //0：用户主动领取，1：自动领取优惠券，2：定向优惠券，商家发送到用户账户
+      "kind": 1,  //0：用户主动领取，1：普通优惠券，2：定向优惠券  
       "type": 1,  //1：满减，2：折扣，3：满赠，4：新人
       "title": "",
       "startTime": '',
@@ -41,14 +41,18 @@ Page({
     nowtime:'', //当前时间
     typeText: ['满减','折扣', '满赠', '新人',],
     typeIndex: 0,
-    kindText: ['用户主动领取优惠券', '用户自动领取优惠券', '定向优惠券，商家发送到用户账户'],
+    kindText: ['普通优惠券', '定向优惠券'],
     kindIndex: 0,
     useStartTime:'',
     useEndTime: '',
     endTime:'',
     startTime:'',
-    goodsUse: '', //使用商品
-    giftGoodsID: '' //赠品
+    goodsUse: '默认无限制', //使用商品
+    giftGoodsID: '', //赠品
+    page: 0,
+    size: 10,
+    lock: true,
+    coupons:[]
 
 
 
@@ -65,8 +69,9 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
+          sliderLeft: (res.windowWidth / that.data.tabs.length - 100) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex,
+          sliderW: sliderWidth,
           "data.rule.includeSeller": app.sellerId
         });
       }
@@ -83,6 +88,17 @@ Page({
       sliderOffset: e.currentTarget.offsetLeft,
       activeIndex: e.currentTarget.id
     });
+
+    console.log(e.currentTarget.id)
+    if (e.currentTarget.id == 1){
+      this.getCoupons();
+    }else{
+      this.setData({
+        page: 0,
+        coupons: [],
+        listnum: true
+      })
+    }
   },
 
   /**
@@ -157,6 +173,7 @@ Page({
     this.data.data.type = couponType;
     this.setData({
       typeIndex: e.detail.value,
+      // 'data.type': 'couponType',
       'data.rule.discount':'',
       'data.rule.decrease': '',
       'data.rule.giftGoodsID': ''
@@ -167,7 +184,7 @@ Page({
   bindKindChange: function (e) {
     console.log(parseInt(e.detail.value));
     var couponKind = parseInt(e.detail.value)
-    this.data.data.kind = couponKind;
+    this.data.data.kind = couponKind + 1;
     this.setData({
       kindIndex: e.detail.value
     });
@@ -304,6 +321,7 @@ Page({
     console.log(JSON.stringify(that.data.data));
     var allData = that.data.data; 
     if (allData.title == '' || allData.startTime == '' || allData.endTime == '' || allData.count == '' || allData.validityStartTime == '' || allData.validityEndTime == '') {
+    // if (allData.title == '' || allData.count == '') {
       wx.showModal({
         title: '注意',
         content: '优惠券属性所有项为必填项',
@@ -323,11 +341,11 @@ Page({
         title: '注意',
         content: '优惠券开始使用时间不能大于结束使用时间',
       })
-    } else if (!allData.rule.includeGoods){
-      wx.showModal({
-        title: '注意',
-        content: '请选择优惠券使用规则的使用商品',
-      })
+    // } else if (!allData.rule.includeGoods){
+    //   wx.showModal({
+    //     title: '注意',
+    //     content: '请选择优惠券使用规则的使用商品',
+    //   })
     } else if (!allData.rule.amountLimit){
       wx.showModal({
         title: '注意',
@@ -398,11 +416,102 @@ Page({
     }
   },
   // 优惠券管理
+  getCouponAuto:function(){
+    var that = this;
+    this.setData({
+      page: 0
+    });
+    that.getCoupons();
+  },
   scrolltoupper:function(e){
-    console.log('滚动到底部了')
+    console.log('滚动到头部了')
+    this.getCouponAuto();
   },
   scrolltolower:function(e){
-    console.log('滚动到顶部了');
+    console.log('滚动到底部了');
+    var that = this;
+    var lock = this.data.lock;
+    if (lock) {
+      console.log(that.data.page++);
+      var page = that.data.page++;
+      console.log(page);
+      this.setData({
+        page: page
+      });
+      console.log(that.data.page);
+      that.getCoupons();
+    }
+  },
+  getCoupons:function(e){
+    wx.showLoading({
+      title: '加载中',
+    })
+    var that = this;
+    that.setData({
+      lock: false
+    })
+    var page = that.data.page
+    var url = app.urlBase + '/mall/coupon/seller/my/' + page + '/' + that.data.size;
+    console.log(url);
+    ajax.get(url).then(function (data) {
+      wx.hideLoading();
+      console.log(JSON.stringify(data));
+      var statusCode = data.statusCode;
+      if (data.data.errCode == 0) {
+        var datalist = data.data.dataList;
+        for (var i = 0; i < datalist.length; i++) {
+          console.log(datalist[i].validityStartTime);
+          datalist[i].validityStartTime = oss.formatDate(datalist[i].validityStartTime);
+          datalist[i].validityEndTime = oss.formatDate(datalist[i].validityEndTime);
+        }
+        console.log(that.data.page)
+        if (that.data.page == 0) {
+          console.log('第一次加载数据')
+          that.setData({
+            coupons: data.data.dataList,
+            listnum: true
+          })
+        } else {
+          that.setData({
+            coupons: that.data.goods.concat(data.data.dataList)
+          })
+        }
+        that.setData({
+          lock: true
+        })
+
+      } else if (data.data.errCode == 1) {
+        console.log("没数据啊")
+        if (that.data.page == 0) {
+          console.log('显示提示啊');
+          that.setData({
+            listnum: false
+          })
+        } else {
+          wx.showToast({
+            title: '已加载全部',
+          })
+          that.setData({
+            lock: false
+          })
+
+        }
+
+
+      } else {
+        oss.statusHandler(statusCode);
+      }
+    }).catch(function (status) {
+      console.log(status)
+      that.setData({
+        lock: false
+      })
+      oss.statusHandler(status);
+      console.log(status)
+    })
+  },
+  couponDetail: function(e){
+    console.log(e.currentTarget.id)
   }
 
 

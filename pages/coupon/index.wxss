@@ -120,6 +120,10 @@ weui-navbar__slider {
   margin-top: 2vh;
   font-size: 1.2rem;
   font-weight: 600;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  padding: auto 3px;
 }
 
 .couponBox .coupon-content .description {
@@ -170,7 +174,7 @@ weui-navbar__slider {
 }
 
 .coupon-right .money {
-  margin-top: 5vh;
+  margin-top: 3vh;
   font-size: 1rem;
   color: #fff;
 }
@@ -185,3 +189,11 @@ weui-navbar__slider {
   color: #fff;
 }
 
+@media (min-width: 320px) {
+.couponBox .coupon-content .description {
+  margin-top:0.5vh;
+  font-size:14px;
+  color:rgba(7, 17, 27, 0.6);
+}
+
+}

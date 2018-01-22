@@ -14,7 +14,7 @@
 
       <view class="search-result" style='magin-top:50% !important' hidden="{{listnum}}">
         <image class="search-img" src="../../images/cart.svg" alt="" width="40px" height="40px"></image>
-        <view>当前没有{{statusText}}数据</view>
+        <view>当前没有优惠券</view>
       </view>
 
       <view class="weui-tab__panel">
@@ -74,7 +74,7 @@
 
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">结束领取时间</view>
+                <view class="weui-label">领取结束时间</view>
               </view>
               <view class="weui-cell__bd">
                 <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="endTimeChange">
@@ -96,7 +96,7 @@
 
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">结束使用时间</view>
+                <view class="weui-label">使用结束时间</view>
               </view>
               <view class="weui-cell__bd">
                 <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="useEndTimeChange">
@@ -172,9 +172,9 @@
 
         <!-- 管理优惠券 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-         <scroll-view scroll-y bindscrolltolower bindscrolltoupper style='height:calc(100vh - 50px)'>
-            <view>
-              <view class='couponBox'>
+         <scroll-view scroll-y bindscrolltolower="scrolltolower" bindscrolltoupper style='height:calc(100vh - 50px)'>
+            <block wx:for="{{coupons}}">
+              <view class='couponBox' bindtap='couponDetail' id="{{item.tag}}"> 
                 <view class='coupon-left'>
                   <view class='circle1'></view>
                   <view class='circle2'></view>
@@ -183,23 +183,34 @@
                   <view class='circle5'></view>
                   <view class='circle6'></view>
                   <view class='coupon-content'>
-                    <view class='title'>满<text>30</text>减<text>2</text>元</view>
-                    <view class="description">使用条件： <text>全场满减</text></view>
-							    	<view class="time"><text>2017-06-18</text> ~ <text>2017-06-21</text></view>
+                    <view wx:if="{{item.type == 1 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元减{{item.rule.decrease}}元</view>
+                    <view wx:if="{{item.type == 2 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元打{{item.rule.discount * 10}}折</view>
+                    <view wx:if="{{item.type == 3 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元赠{{item.rule.giftGoodsName}}</view>
+                    <view class="description no-wrap">使用商品：{{item.rule.includeGoodsName}}</view>
+							    	<view class="time"><text>{{item.validityStartTime}}</text> ~ <text>{{item.validityEndTime}}</text></view>
                   </view>
                 </view>
                 <view class='coupon-right active'>
                   <view class="circle"></view>
-                  <view class="money">
-                    <text class="number">10</text>
+                  <view class="money" wx:if="{{item.type == 1?true:false}}">
+                    <text class="number">{{item.rule.decrease}}</text>
                     <text class="symbol">元</text>
                   </view>
-                  <view class="button">共<text>1000</text>张</view>
+                  <view class="money" wx:if="{{item.type == 2?true:false}}">
+                    <text class="number">{{item.rule.discount * 10}}</text>
+                    <text class="symbol">折</text>
+                  </view>
+                  <view class="money" wx:if="{{item.type == 3?true:false}}">
+                    <text class="number">{{item.rule.decrease}}</text>
+                    <text class="symbol">满赠</text>
+                  </view>
+                  <view class="button">共<text>{{item.sendCount}}</text>张</view>
                 </view>
               </view>
+            </block>
               
 
-              <view class='couponBox'>
+              <!-- <view class='couponBox'>
                 <view class='coupon-left'>
                   <view class='circle1'></view>
                   <view class='circle2'></view>
@@ -221,10 +232,7 @@
                   </view>
                   <view class="button">共<text>1000</text>张</view>
                 </view>
-              </view>
-              
-
-            </view>
+              </view> -->
           
           
           </scroll-view>
