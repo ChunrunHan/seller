@@ -40,7 +40,14 @@
                   <p class="address">{{item.reciverAddr}}</p>
                 </view>
                 <view class="deal-center" style="border-bottom: 0px;padding-bottom: 0px;">
-                  <view class="title">商品订单</view>
+                  <view class="title">
+                    <view>
+                      商品订单
+                    </view>  
+                    <view>
+                      <span class="color-red font-16px">{{item.status}}</span>
+                    </view>
+                  </view>
                   <!-- {{#goodsList}} -->
                    <!-- <block wx:for="{{item.goods}}" wx:for-item="goods">  -->
                   <view class="goodsbox">
@@ -59,33 +66,49 @@
                 <view class="goods-memo">
                   备注：{{item.memo}}
                 </view>
-                <view class="deal-bottom">
+
+
+                <view class='order-bottom'>
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
+                    <span class="color-call">￥{{item.totalAmount}}</span>
+                  </view>
+                  <view class='flex-between bottom-line' wx:if="{{item.coupon}}">
+                    <view><span class="sign">券</span> 优惠券</view>
+                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
+                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
+                  </view>
+                   <view class="show-money">
+                    <span class="font-15">实收: </span>
+                    <span class="font-18">￥{{item.receiptAmount}}</span>
+                  </view>
+                
+                </view>
+
+                <!-- <view class="deal-bottom">
                   <view class="deal-right">
                     <p class="totalAmount">
                       <span>商品总价:</span>
                       <span>{{item.totalAmount}}</span>元</p>
-                    <!-- <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p> -->
-                    <!-- <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p> -->
+                    
+  
                     <p class="receiptAmount">
                       <span>实收金额:</span>
                       <span class="color-call">{{item.receiptAmount}}</span>元</p>
                   </view>
                   <view class="deal-left">
-                    <p>
+                   <p class="deliveryPrice" wx:if="{{item.coupon}}">
+                    <span><text class='sign'>券</text>优惠券:</span>
+                    <span>{{item.coupon.title}}</span>
+                    </p> 
+                  <p>
                       <span>订单状态:</span>
                       <span class="color-red">{{item.status}}</span>
                     </p>
-                    <!-- <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p> -->
+                  
                   </view>
-                </view>
+                </view> -->
 
                 <view class="deal-btn" style="border-bottom: 0px;">
                   <button type="button" class="mui-btn commit" bindtap='sendGood' id="{{item.id}}">开始配送</button>
@@ -142,32 +165,23 @@
                  <view class="goods-memo">
                   备注：{{item.memo}}
                 </view> 
-                <view class="deal-bottom">
-                  <view class="deal-right">
-                    <p class="totalAmount">
-                      <span>商品总价:</span>
-                      <span>{{item.totalAmount}}</span>元</p>
-                    <!-- <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p> -->
-                    <!-- <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p> -->
-                    <p class="receiptAmount">
-                      <span>实收金额:</span>
-                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+
+                <view class='order-bottom'>
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
+                    <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class="deal-left">
-                    <p>
-                      <span>订单状态:</span>
-                      <span class="color-red">{{item.status}}</span>
-                    </p>
-                    <!-- <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p> -->
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign">券</span> 优惠券</view>
+                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
+                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
+                   <view class="show-money">
+                    <span class="font-15">实收: </span>
+                    <span class="font-18">￥{{item.receiptAmount}}</span>
+                  </view>
+                
                 </view>
 
                  <view class="deal-btn" style="border-bottom: 0px;">
@@ -226,32 +240,23 @@
                 <view class="goods-memo">
                   备注：{{item.memo}}
                 </view>
-                <view class="deal-bottom">
-                  <view class="deal-right">
-                    <p class="totalAmount">
-                      <span>商品总价:</span>
-                      <span>{{item.totalAmount}}</span>元</p>
-                    <!-- <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p> -->
-                    <!-- <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p> -->
-                    <p class="receiptAmount">
-                      <span>实收金额:</span>
-                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+
+                 <view class='order-bottom'>
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
+                    <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class="deal-left">
-                    <p>
-                      <span>订单状态:</span>
-                      <span class="color-red">{{item.status}}</span>
-                    </p>
-                    <!-- <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p> -->
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign">券</span> 优惠券</view>
+                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
+                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
+                   <view class="show-money">
+                    <span class="font-15">实收: </span>
+                    <span class="font-18">￥{{item.receiptAmount}}</span>
+                  </view>
+                
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">
@@ -308,32 +313,22 @@
                 <view class="goods-memo">
                   备注：{{item.memo}}
                 </view>
-                <view class="deal-bottom">
-                  <view class="deal-right">
-                    <p class="totalAmount">
-                      <span>商品总价:</span>
-                      <span>{{item.totalAmount}}</span>元</p>
-                    <!-- <p class="deliveryPrice">
-                    <span>配送费:</span>
-                    <span>3</span>元</p> -->
-                    <!-- <p class="deliveryPrice">
-                    <span>优惠券:</span>
-                    <span>dd</span>
-                  </p> -->
-                    <p class="receiptAmount">
-                      <span>实收金额:</span>
-                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                <view class='order-bottom'>
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
+                    <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class="deal-left">
-                    <p>
-                      <span>订单状态:</span>
-                      <span class="color-red">{{item.status}}</span>
-                    </p>
-                    <!-- <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p> -->
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign">券</span> 优惠券</view>
+                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
+                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
+                   <view class="show-money">
+                    <span class="font-15">实收: </span>
+                    <span class="font-18">￥{{item.receiptAmount}}</span>
+                  </view>
+                
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">
@@ -396,25 +391,22 @@
                 <view class="goods-memo">
                   备注：{{item.memo}}
                 </view>
-                <view class="deal-bottom">
-                  <view class="deal-right">
-                    <p class="totalAmount">
-                      <span>商品总价:</span>
-                      <span>{{item.totalAmount}}</span>元</p>
-                    <p class="receiptAmount">
-                      <span>实收金额:</span>
-                      <span class="color-call">{{item.receiptAmount}}</span>元</p>
+                 <view class='order-bottom'>
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
+                    <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class="deal-left">
-                    <p>
-                      <span>订单状态:</span>
-                      <span class="color-red">{{item.status}}</span>
-                    </p>
-                    <!-- <p>
-                    <span>支付状态:</span>
-                    <span>已支付</span>
-                  </p> -->
+                  <view class='flex-between bottom-line'>
+                    <view><span class="sign">券</span> 优惠券</view>
+                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
+                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
+                   <view class="show-money">
+                    <span class="font-15">实收: </span>
+                    <span class="font-18">￥{{item.receiptAmount}}</span>
+                  </view>
+                
                 </view>
 
                 <view class="deal-btn" style="border-bottom: 0px;">

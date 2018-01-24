@@ -34,6 +34,10 @@ background-color:#efeff4;
   font-size: 15px;
 }
 
+.font-18{
+  font-size: 18px;
+}
+
 .font-30{
   font-size: 30px;
 }
@@ -192,4 +196,8 @@ background-color:#efeff4;
     overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+}
+
+.text-center{
+  text-align: center;
 }

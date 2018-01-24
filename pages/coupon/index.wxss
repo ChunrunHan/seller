@@ -118,7 +118,7 @@ weui-navbar__slider {
 
 .couponBox .coupon-content .title {
   margin-top: 2vh;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   overflow:hidden;
   text-overflow:ellipsis;

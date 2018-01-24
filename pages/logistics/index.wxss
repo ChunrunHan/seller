@@ -131,7 +131,9 @@
 .noneBox{
   text-align: center;
   color: gray;
-  /* padding-top: 50% */
+   padding-top: 50%;
+   font-size:15px;
+
 }
 
 .more {

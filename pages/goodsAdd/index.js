@@ -28,7 +28,7 @@ Page({
       endTime: '',
       timeoutLimit: 24,
       sellerId: '',
-      unit: '个',
+      unit: '',
       remaining: '',
       sellLocations: []
     },
@@ -724,17 +724,22 @@ Page({
     if (allData.name == '' || allData.oldPrice == '' || allData.singlePrice == '' || allData.leaderPrice == '' || allData.memberPrice == '' || allData.startTime == '' || allData.endTime == '' || allData.timeoutLimit == '' || allData.unit == '' || allData.remaining == '' || oldimg == "" || oldmemo == "") {
       wx.showModal({
         title: '注意',
-        content: '商品所有属性为必填项，且商品图片和商品描述图至少上传一张。',
+        content: '商品所有属性为必填项，且商品图片和商品描述图至少上传一张。'
       })
     } else if (allData.startTime > allData.endTime) {
       wx.showModal({
         title: '注意',
-        content: '开始时间不能大于结束时间',
+        content: '开始时间不能大于结束时间'
+      })
+    } else if (allData.name.length < 3) {
+      wx.showModal({
+        title: '注意',
+        content: '商品名称至少三个字'
       })
     } else if (allData.sellLocations.length == 0) {
       wx.showModal({
         title: '注意',
-        content: '请选择销售地区',
+        content: '请选择销售地区'
       })
     } else {
       var newImg = [];

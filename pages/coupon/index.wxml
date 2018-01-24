@@ -21,12 +21,12 @@
         <!-- 发放优惠券 -->
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
 
-          <view class="weui-cells__title">优惠券属性</view>
+          <view class="weui-cells__title">基本信息</view>
           <view class="weui-cells weui-cells_after-title">
 
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
-                <view class="weui-label">优惠券标题</view>
+                <view class="weui-label">标题</view>
               </view>
               <view class="weui-cell__bd">
                 <input type='text' class='weui-input text-right' maxlength='50' bindinput='getTitle' value='{{data.title}}' placeholder='优惠券标题(至少三个字)'></input>
@@ -34,7 +34,7 @@
             </view>
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
-                <view class="weui-label">优惠券张数</view>
+                <view class="weui-label">张数</view>
               </view>
               <view class="weui-cell__bd">
                 <input type='num' bindinput='getCouponCount' class='weui-input text-right rightCount' value='{{data.count}}' placeholder='请输入优惠券张数'></input>
@@ -52,7 +52,7 @@
             </view>
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">优惠券类型</view>
+                <view class="weui-label">类型</view>
               </view>
               <view class="weui-cell__bd">
                 <picker bindchange="bindTypeChange" id='' value="{{typeIndex}}" range="{{typeText}}">
@@ -60,10 +60,12 @@
                 </picker>
               </view>
             </view>
-
+          </view>
+           <view class="weui-cells__title">领取时间</view>
+           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">开始领取时间</view>
+                <view class="weui-label">开始时间</view>
               </view>
               <view class="weui-cell__bd">
                 <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-01-01" bindchange="startTimeChange">
@@ -74,7 +76,7 @@
 
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">领取结束时间</view>
+                <view class="weui-label">结束时间</view>
               </view>
               <view class="weui-cell__bd">
                 <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="endTimeChange">
@@ -82,10 +84,13 @@
                 </picker>
               </view>
             </view>
+             </view>
+           <view class="weui-cells__title">有效期</view>
+           <view class="weui-cells weui-cells_after-title">
 
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">开始使用时间</view>
+                <view class="weui-label">开始时间</view>
               </view>
               <view class="weui-cell__bd">
                 <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-01-01" bindchange="useStartTimeChange">
@@ -96,7 +101,7 @@
 
             <view class="weui-cell weui-cell_select">
               <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                <view class="weui-label">使用结束时间</view>
+                <view class="weui-label">结束时间</view>
               </view>
               <view class="weui-cell__bd">
                 <picker mode="date" value="{{date}}" start="{{nowTime}}" end="2050-09-01" bindchange="useEndTimeChange">
@@ -107,7 +112,7 @@
 
           </view>
 
-          <view class="weui-cells__title">优惠券使用规则</view>
+          <view class="weui-cells__title">使用规则</view>
           <view class="weui-cells weui-cells_after-title">
             <view bindtap='showGoods' class="weui-cell weui-cell_access" id='use'>
               <view class="weui-cell__bd">使用商品</view>
@@ -183,10 +188,11 @@
                   <view class='circle5'></view>
                   <view class='circle6'></view>
                   <view class='coupon-content'>
-                    <view wx:if="{{item.type == 1 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元减{{item.rule.decrease}}元</view>
+                    <!-- <view wx:if="{{item.type == 1 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元减{{item.rule.decrease}}元</view>
                     <view wx:if="{{item.type == 2 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元打{{item.rule.discount * 10}}折</view>
-                    <view wx:if="{{item.type == 3 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元赠{{item.rule.giftGoodsName}}</view>
-                    <view class="description no-wrap">使用商品：{{item.rule.includeGoodsName}}</view>
+                    <view wx:if="{{item.type == 3 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元赠{{item.rule.giftGoodsName}}</view> -->
+                    <view class="title">{{item.title}}</view>
+                    <view class="description no-wrap">适用商品：{{item.rule.includeGoodsName}}</view>
 							    	<view class="time"><text>{{item.validityStartTime}}</text> ~ <text>{{item.validityEndTime}}</text></view>
                   </view>
                 </view>

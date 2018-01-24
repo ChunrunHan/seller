@@ -65,7 +65,7 @@
         <view class="weui-label">原价</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' bindinput='getOldPrice' class='weui-input text-right' value='{{data.oldPrice}}' placeholder='元'></input>
+        <input type='digit' bindinput='getOldPrice' class='weui-input text-right' value='{{data.oldPrice}}' placeholder='元'></input>
       </view>
     </view>
 
@@ -74,7 +74,7 @@
         <view class="weui-label">规格</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' bindinput='getUnit' class='weui-input text-right' value='{{data.unit}}' placeholder='500ml × 12瓶'></input>
+        <input type='text' bindinput='getUnit' class='weui-input text-right' value='{{data.unit}}' placeholder='500ml/12瓶'></input>
       </view>
     </view>
 
@@ -83,7 +83,7 @@
         <view class="weui-label">存货量</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='num' bindinput='getRemaining' class='weui-input text-right' value='{{data.remaining}}' placeholder='存货数量'></input>
+        <input type='number' bindinput='getRemaining' class='weui-input text-right' value='{{data.remaining}}' placeholder='存货数量'></input>
       </view>
     </view>
 
@@ -131,7 +131,7 @@
         <view class="weui-label">单人购买价</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' bindinput='getSinglePrice' class='weui-input text-right' value='{{data.singlePrice}}' placeholder='元'></input>
+        <input type='digit' bindinput='getSinglePrice' class='weui-input text-right' value='{{data.singlePrice}}' placeholder='元'></input>
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -139,7 +139,7 @@
         <view class="weui-label">团长价格</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' bindinput='getLeaderPrice' class='weui-input text-right' value='{{data.leaderPrice}}' placeholder='元'></input>
+        <input type='digit' bindinput='getLeaderPrice' class='weui-input text-right' value='{{data.leaderPrice}}' placeholder='元'></input>
       </view>
     </view>
 
@@ -148,7 +148,7 @@
         <view class="weui-label">团员价格</view>
       </view>
       <view class="weui-cell__bd">
-        <input type='text' bindinput='getMemberPrice' class='weui-input text-right' value='{{data.memberPrice}}' placeholder='元'></input>
+        <input type='digit' bindinput='getMemberPrice' class='weui-input text-right' value='{{data.memberPrice}}' placeholder='元'></input>
       </view>
     </view>
 

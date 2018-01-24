@@ -9,7 +9,7 @@ var urlBase = app.urlBase;
 Page({
   data: {
     data: { 
-      "kind": 1,  //0：用户主动领取，1：普通优惠券，2：定向优惠券  
+      "kind": 1,  //1：普通优惠券（自动领），2：定向优惠券  (0：用户主动领取 不用)
       "type": 1,  //1：满减，2：折扣，3：满赠，4：新人
       "title": "",
       "startTime": '',
@@ -199,7 +199,7 @@ Page({
     if (starttime < current) {
       wx.showModal({
         title: '注意',
-        content: '优惠券开始领取时间大于当前时间，小于领取结束时间。',
+        content: '优惠券开始领取时间必须大于当前时间和小于领取结束时间。',
       })
     } else {
       this.setData({
@@ -220,7 +220,7 @@ Page({
     if (endtime < current || endtime < starttime) {
       wx.showModal({
         title: '注意',
-        content: '优惠券领取结束时间大于领取开始时间、当前时间。',
+        content: '优惠券领取结束时间必须大于领取开始时间和当前时间。',
       })
     } else {
       this.setData({
@@ -259,7 +259,7 @@ Page({
     if (endtime < current || endtime < starttime) {
       wx.showModal({
         title: '注意',
-        content: '优惠券使用结束时间大于开始使用时间、当前时间。',
+        content: '优惠券有效期结束时间必须大于有效期开始时间和当前时间。',
       })
     } else {
       this.setData({
@@ -329,7 +329,7 @@ Page({
     } else if (allData.startTime > allData.endTime) {
       wx.showModal({
         title: '注意',
-        content: '优惠券开始领取时间不能大于结束领取时间',
+        content: '优惠券开始领取时间不大于领取结束时间',
       })
     } else if (allData.validityStartTime < allData.startTime) {
       wx.showModal({
@@ -339,22 +339,17 @@ Page({
     } else if (allData.validityStartTime > allData.validityEndTime) {
       wx.showModal({
         title: '注意',
-        content: '优惠券开始使用时间不能大于结束使用时间',
+        content: "有效期开始时间不能大于结束时间"
       })
-    // } else if (!allData.rule.includeGoods){
-    //   wx.showModal({
-    //     title: '注意',
-    //     content: '请选择优惠券使用规则的使用商品',
-    //   })
-    } else if (!allData.rule.amountLimit){
+    } else if (allData.rule.amountLimit != 0 && allData.rule.amountLimit < 0){
       wx.showModal({
         title: '注意',
-        content: '请输入优惠券使用最低金额，即满足的金额',
+        content: '请输入最低金额最低为0无门槛',
       })
-    } else if (allData.type == 1 && !allData.rule.decrease){
+    } else if (allData.type == 1 && allData.rule.decrease <= 0 ){
       wx.showModal({
         title: '注意',
-        content: '请输入优惠券使用规则的满减金额',
+        content: '优惠券使用规则的满减金额不能为0',
       })
     } else if (allData.type == 1 && allData.rule.decrease <= 0){
       wx.showModal({
@@ -372,7 +367,7 @@ Page({
         title: '注意',
         content: '满赠商品不能为空',
       })
-    } else if (allData.type == 1 && allData.rule.decrease > allData.rule.amountLimit) {
+    } else if (allData.type == 1 && allData.rule.amountLimit != 0 && allData.rule.decrease > allData.rule.amountLimit ) {
       wx.showModal({
         title: '注意',
         content: '最低金额必须大于满减金额',
@@ -398,7 +393,13 @@ Page({
           wx.navigateBack({
             url: '../goodsAdd/index'
           })
-        } else {
+        } else if(data.data.code != 0 && data.statusCode == 200){
+          wx.showModal({
+            title: '注意',
+            content: data.data.message,
+          })
+
+        }else{
           oss.statusHandler(data.statusCode);
          
         }
@@ -463,6 +464,7 @@ Page({
           console.log(datalist[i].validityStartTime);
           datalist[i].validityStartTime = oss.formatDate(datalist[i].validityStartTime);
           datalist[i].validityEndTime = oss.formatDate(datalist[i].validityEndTime);
+          datalist[i].rule.includeGoodsName = datalist[i].rule.includeGoodsName || "不限"
         }
         console.log(that.data.page)
         if (that.data.page == 0) {

@@ -10,7 +10,7 @@ Page({
   data: {
     boxHeight: device.windowHeight - 80,
     list: [{ name: '账号管理', url: '', icon: '../../images/user.png', optype: 'navigate',url: '../settingInfo/index' }, { name: '商家信息', url: '', icon: '../../images/seller.png', optype: 'navigate',url:'../sellerInfo/index' }],
-    listTwo: [{ name: '版本号', url: '', icon: '../../images/version.png', version: '1.0' }, { name: '注销', url: '../login/index', icon: '../../images/restart.png'  }]
+    listTwo: [{ name: '版本号', url: '', icon: '../../images/version.png', version: '1.0.13' }, { name: '注销', url: '../login/index', icon: '../../images/restart.png'  }]
 
   },
   
@@ -79,15 +79,15 @@ Page({
     console.log('滚动到底部触发');
   },
   clearStorage: function(e){
-    wx.showLoading({
-      title: '',
-    })
     console.log('清除所有');
     var that = this;
     var index = e.currentTarget.id;
     console.log(typeof index);
     wx.hideLoading();
     if(parseInt(index)){
+      wx.showLoading({
+        title: '',
+      })
     //  注销
       try {
         wx.clearStorageSync()
