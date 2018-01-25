@@ -30,6 +30,7 @@
     "pages/protocol/index",
     "pages/logistics/index",
     "pages/coupon/index",
+    "pages/couponDetail/index",
     "pages/selectGoods/index"
     
   ],

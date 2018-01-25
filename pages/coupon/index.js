@@ -52,7 +52,8 @@ Page({
     page: 0,
     size: 10,
     lock: true,
-    coupons:[]
+    coupons:[],
+    currentTime:''
 
 
 
@@ -91,7 +92,12 @@ Page({
 
     console.log(e.currentTarget.id)
     if (e.currentTarget.id == 1){
-      this.getCoupons();
+      var currentTime = new Date().getTime();
+      this.setData({
+        currentTime
+      })
+      console.log("当前时间" + currentTime)
+      this.getCouponAuto();
     }else{
       this.setData({
         page: 0,
@@ -105,13 +111,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+
+    if (this.data.activeIndex == 1){
+      this.getCouponAuto();
+    }
   
     console.log(JSON.stringify(this.data));
     var that = this;
     var nowtime = oss.NowTimer();
-    console.log(nowtime);
+    console.log('当前时间'+nowtime);
     this.data.nowTime = nowtime;
-
+    // 选择的商品
     var selectGoods = app.globalData.selectGoods;
     console.log(selectGoods)
     if (selectGoods) {
@@ -461,12 +471,14 @@ Page({
       if (data.data.errCode == 0) {
         var datalist = data.data.dataList;
         for (var i = 0; i < datalist.length; i++) {
+          datalist[i].couponData = JSON.stringify(datalist[i])
           console.log(datalist[i].validityStartTime);
           datalist[i].validityStartTime = oss.formatDate(datalist[i].validityStartTime);
+          datalist[i].couponEndTime = datalist[i].validityEndTime
           datalist[i].validityEndTime = oss.formatDate(datalist[i].validityEndTime);
           datalist[i].rule.includeGoodsName = datalist[i].rule.includeGoodsName || "不限"
         }
-        console.log(that.data.page)
+        console.log(JSON.stringify(data.data.dataList))
         if (that.data.page == 0) {
           console.log('第一次加载数据')
           that.setData({
@@ -475,7 +487,7 @@ Page({
           })
         } else {
           that.setData({
-            coupons: that.data.goods.concat(data.data.dataList)
+            coupons: that.data.coupons.concat(data.data.dataList)
           })
         }
         that.setData({
@@ -513,7 +525,12 @@ Page({
     })
   },
   couponDetail: function(e){
-    console.log(e.currentTarget.id)
+    console.log(e.currentTarget.id);
+    // console.log(JSON.parse(e.currentTarget.id))
+    var value = e.currentTarget.id;
+    wx.navigateTo({
+      url: `../couponDetail/index?value=${value}`,
+    })
   }
 
 

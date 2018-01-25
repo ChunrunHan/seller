@@ -1,0 +1,171 @@
+<view class="page width100">
+
+
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar" style='position:fixed'>
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick" style='background: #F05141;color:white'>
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); background-color: white; width:{{sliderW}}px"></view>
+      </view>
+
+      <view class="search-result" style='magin-top:50% !important' hidden="{{listnum}}">
+        <image class="search-img" src="../../images/class.svg" alt="" width="40px" height="40px"></image>
+        <view>当前优惠券没有使用记录</view>
+      </view>
+
+      <view class="weui-tab__panel">
+        <!-- 优惠券信息 -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+
+          <view class='couponBox' bindtap='couponDetail'>
+            <view class='coupon-left'>
+              <view class='circle1'></view>
+              <view class='circle2'></view>
+              <view class='circle3'></view>
+              <view class='circle4'></view>
+              <view class='circle5'></view>
+              <view class='circle6'></view>
+              <view class='coupon-content'>
+                <view class="title">{{data.title}}</view>
+                <view class="description no-wrap">适用商品：{{data.rule.includeGoodsName}}</view>
+                <view class="time">
+                  <text>{{data.validityStartTime}}</text> ~
+                  <text>{{data.validityEndTime}}</text>
+                </view>
+              </view>
+            </view>
+            <view class="coupon-right {{data.couponEndTime < currentTime || data.lockedCount != 0 || data.usedCount == data.sendCount ? 'no':'active'}}">
+              <view class="circle"></view>
+              <view class="money" wx:if="{{data.type == 1?true:false}}">
+                <text class="number">{{data.rule.decrease}}</text>
+                <text class="symbol">元</text>
+              </view>
+              <view class="money" wx:if="{{data.type == 2?true:false}}">
+                <text class="number">{{data.rule.discount * 10}}</text>
+                <text class="symbol">折</text>
+              </view>
+              <view class="money" wx:if="{{data.type == 3?true:false}}">
+                <text class="number">{{data.rule.decrease}}</text>
+                <text class="symbol">满赠</text>
+              </view>
+              <view class="button">共
+                <text>{{data.sendCount}}</text>张</view>
+            </view>
+          </view>
+
+
+          <view class="weui-cells__title">基本信息</view>
+          <view class="weui-cells weui-cells_after-title">
+
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">获取方式</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.kindtext}}'></input>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">类型</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.typetext}}'></input>
+              </view>
+            </view>
+
+
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">开始领取时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.startTime}}'></input>
+              </view>
+            </view>
+
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">结束领取时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.endTime}}'></input>
+              </view>
+            </view>
+
+          <!-- </view> -->
+          <!-- <view class="weui-cells__title">使用情况</view> -->
+          <!-- <view class="weui-cells weui-cells_after-title"> -->
+
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">使用张数</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.usedCount}}'></input>
+              </view>
+            </view>
+
+             <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">过期张数</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.expiredCount}}'></input>
+              </view>
+            </view>
+
+             <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">冻结张数</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.lockedCount}}'></input>
+              </view>
+            </view>
+
+          </view>
+
+
+          <button id="{{data.tag}}" wx:if="{{data.lockedCount == 0}}" class="switch-commit mgt-20 mgb-20" bindtap='frozenCoupon'>冻结优惠券</button>
+
+
+
+        </view>
+
+
+        <!-- 优惠券使用情况 -->
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <scroll-view scroll-y bindscrolltolower="scrolltolower" hidden="{{!listnum}}" bindscrolltoupper style='height:calc(100vh - 50px)'>
+
+            <!-- <view class="weui-cells__title">使用情况</view> -->
+            <view class='couponShow'>
+              <block wx:for="{{couponUse}}">
+              <view class='couponlist flex'>
+                  <view class='flex' style='align-items: center;'>
+                    <image src='{{item.avatar}}' class='coupon-logo'></image>
+                    <view class='coupon-user'>{{item.name}}</view>
+                  </view>
+                  <view class='color-gray'>
+                    {{item.time}}
+                  </view>
+              </view> 
+              </block>
+             
+            </view>
+          </scroll-view>
+
+        </view>
+
+
+
+
+      </view>
+    </view>
+  </view>
+</view>

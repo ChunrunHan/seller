@@ -179,7 +179,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
          <scroll-view scroll-y bindscrolltolower="scrolltolower" bindscrolltoupper style='height:calc(100vh - 50px)'>
             <block wx:for="{{coupons}}">
-              <view class='couponBox' bindtap='couponDetail' id="{{item.tag}}"> 
+              <view class='couponBox' bindtap='couponDetail' id="{{item.couponData}}"> 
                 <view class='coupon-left'>
                   <view class='circle1'></view>
                   <view class='circle2'></view>
@@ -196,7 +196,7 @@
 							    	<view class="time"><text>{{item.validityStartTime}}</text> ~ <text>{{item.validityEndTime}}</text></view>
                   </view>
                 </view>
-                <view class='coupon-right active'>
+                <view class="coupon-right {{item.couponEndTime < currentTime || item.lockedCount != 0 || item.usedCount == item.sendCount ? 'no':'active'}}">
                   <view class="circle"></view>
                   <view class="money" wx:if="{{item.type == 1?true:false}}">
                     <text class="number">{{item.rule.decrease}}</text>

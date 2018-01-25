@@ -134,6 +134,12 @@
 					"name": "apply",
 					"pathName": "pages/sellerApply/index",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "优惠券详情",
+					"pathName": "pages/couponDetail/index",
+					"query": ""
 				}
 			]
 		}

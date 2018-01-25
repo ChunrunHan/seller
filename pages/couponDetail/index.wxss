@@ -1,0 +1,263 @@
+/**index.wxss**/
+
+weui-navbar__slider {
+  position: absolute;
+  content: " ";
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  background-color: #1aad19;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+.rightText, .rightCount, .rightmoney {
+  padding-right: 23px;
+}
+
+.rightText::before {
+  content: '折';
+  position: absolute;
+  right: 15px;
+}
+
+.rightCount::before {
+  content: '张';
+  position: absolute;
+  right: 15px;
+}
+
+.rightmoney::before {
+  content: '元';
+  position: absolute;
+  right: 15px;
+}
+
+.weui-cell__ft {
+  text-align: right;
+  color: black;
+}
+
+.couponBox {
+  padding: 0;
+  margin: 2.5vh auto 0 auto;
+  width: 90vw;
+  height: 100px;
+}
+
+.couponBox .coupon-left {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: 65%;
+  background-color: #fff;
+  text-align: center;
+}
+
+.couponBox .coupon-left .circle1 {
+  position: absolute;
+  left: -1%;
+  top: 14%;
+  width: 2vw;
+  height: 1vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.couponBox .coupon-left .circle2 {
+  position: absolute;
+  left: -1%;
+  top: 28%;
+  width: 2vw;
+  height: 1vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.couponBox .coupon-left .circle3 {
+  position: absolute;
+  left: -1%;
+  top: 42%;
+  width: 2vw;
+  height: 1vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.couponBox .coupon-left .circle4 {
+  position: absolute;
+  left: -1%;
+  top: 56%;
+  width: 2vw;
+  height: 1vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.couponBox .coupon-left .circle5 {
+  position: absolute;
+  left: -1%;
+  top: 70%;
+  width: 2vw;
+  height: 1vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.couponBox .coupon-left .circle6 {
+  position: absolute;
+  left: -1%;
+  top: 84%;
+  width: 2vw;
+  height: 1vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.couponBox .coupon-content .title {
+  margin-top: 2vh;
+  font-size: 1.1rem;
+  font-weight: 600;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  padding: auto 3px;
+}
+
+.couponBox .coupon-content .description {
+  margin-top: 1.5vh;
+  font-size: 14px;
+  color: rgba(7, 17, 27, 0.6);
+}
+
+.couponBox .coupon-content .time {
+  margin-top: 1vh;
+  font-size: 13px;
+  color: rgba(7, 17, 27, 0.6);
+}
+
+.couponBox .coupon-right.active {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: 35%;
+  text-align: center;
+  background: -webkit-linear-gradient(left, #ff285c, #f34f2b);
+  background: -o-linear-gradient(right, #ff285c, #f34f2b);
+  background: -moz-linear-gradient(right, #ff285c, #f34f2b);
+  background: linear-gradient(to right, #ff285c, #f34f2b);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.couponBox .coupon-right.no {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: 35%;
+  text-align: center;
+  background-color: rgba(7, 17, 27, 0.2);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.coupon-right .circle {
+  position: absolute;
+  right: -10%;
+  top: 35%;
+  width: 8vw;
+  height: 5vh;
+  border-radius: 50%;
+  background-color: rgb(240, 240, 242);
+}
+
+.coupon-right .money {
+  margin-top: 3vh;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.coupon-right .money .number {
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.coupon-right .button {
+  font-size: 1rem;
+  color: #fff;
+}
+
+@media (min-width: 320px) {
+.couponBox .coupon-content .description {
+  margin-top:0.5vh;
+  font-size:14px;
+  color:rgba(7, 17, 27, 0.6);
+}
+
+}
+
+.couponlist{
+  padding: 5px 10px;
+  justify-content: space-between;
+  align-items: center;
+  align-content:center;
+  background: white;
+  position: relative;
+  font-size: 17px;
+}
+
+.couponlist .coupon-logo{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.couponlist:before {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 15px;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+
+.couponShow{
+  position: relative;
+}
+
+.couponShow::after{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+
+.couponShow::before{
+    position: absolute;
+    top: -1px;
+    right: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+
+.couponlist .coupon-user{
+  width: 30vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
