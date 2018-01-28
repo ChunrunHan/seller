@@ -271,15 +271,27 @@ Page({
             duration: 2000
           });
         } else{
-          console.log(num.toString());
-          num = num.toString();
-          var json = {
-            orderId: that.data.orderId,
-            deny: false,
-            amount: num,
-            reason: ''
-          }
-          that.returnResult(json);
+          wx.showModal({
+            title: '提示',
+            content: `确认退款金额${num}`,
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+                console.log(num.toString());
+                num = num.toString();
+                var json = {
+                  orderId: that.data.orderId,
+                  deny: false,
+                  amount: num,
+                  reason: ''
+                }
+                that.returnResult(json);
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+          
         }
        
 

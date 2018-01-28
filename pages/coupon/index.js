@@ -309,6 +309,7 @@ Page({
   getCouponDiscount: function (e) {
     console.log(e.detail.value);
     this.data.discount = e.detail.value
+    console.log(this.data.discount.split('.').length)
     if (this.data.discount < 0){
       wx.showModal({
         title: '注意',
@@ -326,7 +327,7 @@ Page({
         'discount': ''
       })
     }else{
-      if (this.data.discount.split('.')[1].length > 1){
+      if (this.data.discount.split('.')[1].length > 1 || this.data.discount.split('.').length > 2){
         wx.showModal({
           title: '注意',
           content: '小数点后只保留一位',
@@ -366,6 +367,11 @@ Page({
         title: '注意',
         content: '优惠券属性所有项为必填项',
       })
+    } else if (allData.title.length < 3){
+      wx.showModal({
+        title: '注意',
+        content: '优惠券标题至少三个字',
+      })
     } else if (allData.startTime > allData.endTime) {
       wx.showModal({
         title: '注意',
@@ -386,10 +392,10 @@ Page({
         title: '注意',
         content: '请输入最低金额最低为0无门槛',
       })
-    } else if (allData.type == 1 && allData.rule.decrease <= 0 ){
+    } else if (allData.type == 1 && allData.rule.decrease < 100 ){
       wx.showModal({
         title: '注意',
-        content: '优惠券使用规则的满减金额不能为0',
+        content: '优惠券使用规则的满减金额最低一元',
       })
     } else if (allData.type == 1 && allData.rule.decrease <= 0){
       wx.showModal({

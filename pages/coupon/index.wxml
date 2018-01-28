@@ -29,7 +29,7 @@
                 <view class="weui-label">标题</view>
               </view>
               <view class="weui-cell__bd">
-                <input type='text' class='weui-input text-right' maxlength='50' bindinput='getTitle' value='{{data.title}}' placeholder='优惠券标题(至少三个字)'></input>
+                <input type='text' class='weui-input text-right' maxlength='50' bindinput='getTitle' value='{{data.title}}' placeholder='标题至少三个字'></input>
               </view>
             </view>
             <view class="weui-cell weui-cell_input">
