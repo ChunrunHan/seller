@@ -308,39 +308,41 @@ Page({
   },
   getCouponDiscount: function (e) {
     console.log(e.detail.value);
-    this.data.discount = e.detail.value
-    console.log(this.data.discount.split('.').length)
-    if (this.data.discount < 0){
+    var _this = this;
+    _this.data.discount = e.detail.value
+    // console.log(this.data.discount.split('.').length)
+    if (_this.data.discount < 0){
       wx.showModal({
         title: '注意',
         content: '折扣必须大于0',
       })
-      this.setData({
+      _this.setData({
         'discount': ''
       })
-    }else if(this.data.discount >= 10){
+    } else if (_this.data.discount >= 10){
       wx.showModal({
         title: '注意',
-        content: '折扣必须小于10',
+        content: '折扣最多为1折',
       })
-      this.setData({
+      _this.setData({
         'discount': ''
       })
     }else{
-      if (this.data.discount.split('.')[1].length > 1 || this.data.discount.split('.').length > 2){
-        wx.showModal({
-          title: '注意',
-          content: '小数点后只保留一位',
-        })
-        this.setData({
-          'discount': ''
-        })
-        return;
-      }
-      this.setData({
-        'data.rule.discount': $.accDiv(e.detail.value, 10)
+      // if (this.data.discount.split('.')[1].length > 1 || this.data.discount.split('.').length > 2){
+      //   wx.showModal({
+      //     title: '注意',
+      //     content: '小数点后只保留一位',
+      //   })
+      //   this.setData({
+      //     'discount': ''
+      //   })
+      //   return;
+      // }
+      console.log($.accDiv(_this.data.discount, 10));
+      _this.setData({
+        'data.rule.discount': $.accDiv(_this.data.discount, 10)
       })
-      console.log(JSON.stringify(this.data.data));
+      console.log(JSON.stringify(_this.data.data));
     }
     
   },
