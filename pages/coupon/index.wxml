@@ -203,7 +203,7 @@
                     <text class="symbol">元</text>
                   </view>
                   <view class="money" wx:if="{{item.type == 2?true:false}}">
-                    <text class="number">{{item.rule.discount * 10}}</text>
+                    <text class="number">{{item.rule.discount}}</text>
                     <text class="symbol">折</text>
                   </view>
                   <view class="money" wx:if="{{item.type == 3?true:false}}">

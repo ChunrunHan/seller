@@ -3,6 +3,7 @@ var sliderWidth = 100; // 需要设置slider的宽度，用于计算中间位置
 var app = getApp()
 var ajax = require('../../utils/ajax');
 var oss = require('../../utils/oss');
+var $ = require('../../utils/util');
 var urlBase = app.urlBase;
 
 
@@ -293,7 +294,7 @@ Page({
     console.log(e.detail.value);
     this.data.amountLimit = e.detail.value
     this.setData({
-      'data.rule.amountLimit': e.detail.value*100
+      'data.rule.amountLimit': $.accMul(e.detail.value, 100)
     })
     console.log(JSON.stringify(this.data.data));
   },
@@ -301,7 +302,7 @@ Page({
     console.log(e.detail.value);
     this.data.decrease = e.detail.value
     this.setData({
-      'data.rule.decrease': e.detail.value * 100
+      'data.rule.decrease': $.accMul(e.detail.value, 100)
     })
     console.log(JSON.stringify(this.data.data));
   },
@@ -309,7 +310,7 @@ Page({
     console.log(e.detail.value);
     this.data.discount = e.detail.value
     this.setData({
-      'data.rule.discount': e.detail.value / 10
+      'data.rule.discount': $.accDiv(e.detail.value, 100)
     })
     console.log(JSON.stringify(this.data.data));
   },
@@ -476,7 +477,10 @@ Page({
           datalist[i].validityStartTime = oss.formatDate(datalist[i].validityStartTime);
           datalist[i].couponEndTime = datalist[i].validityEndTime
           datalist[i].validityEndTime = oss.formatDate(datalist[i].validityEndTime);
-          datalist[i].rule.includeGoodsName = datalist[i].rule.includeGoodsName || "不限"
+          datalist[i].rule.includeGoodsName = datalist[i].rule.includeGoodsName || "不限";
+          if (datalist[i].type == 2){
+            datalist[i].rule.discount = $.accMul(datalist[i].rule.discount,10)
+          }
         }
         console.log(JSON.stringify(data.data.dataList))
         if (that.data.page == 0) {

@@ -3,6 +3,7 @@ var sliderWidth = 100; // 需要设置slider的宽度，用于计算中间位置
 var app = getApp()
 var ajax = require('../../utils/ajax');
 var oss = require('../../utils/oss');
+var $ = require('../../utils/util');
 var urlBase = app.urlBase;
 
 
@@ -72,6 +73,9 @@ Page({
     datalist.rule.includeGoodsName = datalist.rule.includeGoodsName || "不限";
     datalist.kindtext = that.data.kindText[datalist.kind-1];
     datalist.typetext = that.data.typeText[datalist.type-1];
+    if (datalist.type == 2) {
+      datalist.rule.discount = $.accMul(datalist.rule.discount, 10)
+    }
     that.setData({
       'data': datalist
     })

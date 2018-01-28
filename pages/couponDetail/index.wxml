@@ -46,15 +46,14 @@
                 <text class="symbol">元</text>
               </view>
               <view class="money" wx:if="{{data.type == 2?true:false}}">
-                <text class="number">{{data.rule.discount * 10}}</text>
+                <text class="number">{{data.rule.discount}}</text>
                 <text class="symbol">折</text>
               </view>
               <view class="money" wx:if="{{data.type == 3?true:false}}">
                 <text class="number">{{data.rule.decrease}}</text>
                 <text class="symbol">满赠</text>
               </view>
-              <view class="button">共
-                <text>{{data.sendCount}}</text>张</view>
+              <view class="button">共<text>{{data.sendCount}}</text>张</view>
             </view>
           </view>
 

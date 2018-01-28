@@ -492,7 +492,7 @@ weui-cell__ft {
 .order-bottom .bottom-line{
   padding: 5px 0px;
   font-size: 15px;
-  border-bottom: 1px solid #e0e0e4;
+   border-bottom: 1px solid #f4f4f8; 
 }
 
 .show-money{
