@@ -424,6 +424,9 @@ Page({
 
     })
 
+  },
+  binderrorimg: function(){
+    
   }
 
 

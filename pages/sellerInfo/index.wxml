@@ -5,7 +5,7 @@
     <block wx:for="{{files}}" wx:key="*this">
       <view style='position:relative;display:inline-block'>
         <image class="img-logo" src="{{item.oldImg}}" />
-        <icon id='{{index}}' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
+        <icon id='{{index}}' data-name='{{item.newImg}}' binderror="binderrorimg" class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
       </view>
 
     </block>

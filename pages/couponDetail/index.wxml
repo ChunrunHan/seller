@@ -33,6 +33,7 @@
                 <view class="title">{{data.title}}</view>
                 <view class="description no-wrap">适用商品：{{data.rule.includeGoodsName}}</view>
                 <view class="time">
+                  有效期: 
                   <text>{{data.validityStartTime}}</text> ~
                   <text>{{data.validityEndTime}}</text>
                 </view>
@@ -79,6 +80,15 @@
               </view>
             </view>
 
+             <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">满足金额</view>
+              </view>
+              <view class="weui-cell__bd">
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.rule.amountLimit}}元'></input>
+              </view>
+            </view>
+
 
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__hd">
@@ -107,7 +117,7 @@
                 <view class="weui-label">使用张数</view>
               </view>
               <view class="weui-cell__bd">
-                <input type='text' class='weui-input text-right' disabled='true' value='{{data.usedCount}}'></input>
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.usedCount}}张'></input>
               </view>
             </view>
 
@@ -116,7 +126,7 @@
                 <view class="weui-label">过期张数</view>
               </view>
               <view class="weui-cell__bd">
-                <input type='text' class='weui-input text-right' disabled='true' value='{{data.expiredCount}}'></input>
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.expiredCount}}张'></input>
               </view>
             </view>
 
@@ -125,7 +135,7 @@
                 <view class="weui-label">冻结张数</view>
               </view>
               <view class="weui-cell__bd">
-                <input type='text' class='weui-input text-right' disabled='true' value='{{data.lockedCount}}'></input>
+                <input type='text' class='weui-input text-right' disabled='true' value='{{data.lockedCount}}张'></input>
               </view>
             </view>
 

@@ -193,7 +193,7 @@
                     <view wx:if="{{item.type == 3 ? true:false}}" class='title'>满{{item.rule.amountLimit}}元赠{{item.rule.giftGoodsName}}</view> -->
                     <view class="title">{{item.title}}</view>
                     <view class="description no-wrap">适用商品：{{item.rule.includeGoodsName}}</view>
-							    	<view class="time"><text>{{item.validityStartTime}}</text> ~ <text>{{item.validityEndTime}}</text></view>
+							    	<view class="time">有效期: <text>{{item.validityStartTime}}</text> ~ <text>{{item.validityEndTime}}</text></view>
                   </view>
                 </view>
                 <view class="coupon-right {{item.couponEndTime < currentTime || item.lockedCount != 0 || item.usedCount == item.sendCount ? 'no':'active'}}">

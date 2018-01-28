@@ -134,7 +134,7 @@ weui-navbar__slider {
 
 .couponBox .coupon-content .time {
   margin-top: 1vh;
-  font-size: 13px;
+  font-size: 11px;
   color: rgba(7, 17, 27, 0.6);
 }
 

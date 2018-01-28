@@ -71,7 +71,7 @@ Page({
     datalist.startTime = oss.formatDate(datalist.startTime);
     datalist.rule.includeGoodsName = datalist.rule.includeGoodsName || "不限";
     datalist.kindtext = that.data.kindText[datalist.kind-1];
-    datalist.typetext = that.data.typeText[datalist.type];
+    datalist.typetext = that.data.typeText[datalist.type-1];
     that.setData({
       'data': datalist
     })

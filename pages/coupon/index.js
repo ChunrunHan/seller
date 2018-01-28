@@ -33,7 +33,7 @@ Page({
         "includeSeller": "" //包含的商家
       }
     },
-    tabs: ["优惠券发放", "优惠券管理"],
+    tabs: ["发放", "管理"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,

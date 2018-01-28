@@ -74,9 +74,9 @@
                     <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
                   <view class='flex-between bottom-line' wx:if="{{item.coupon}}">
-                    <view><span class="sign">券</span> 优惠券</view>
-                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
-                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <view><span class="sign">券</span> {{item.coupon.title}}</view>
+                    <span wx:if="{{item.coupon.type == 1 || item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span>
+                    <!-- <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span> -->
                     <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
                    <view class="show-money">
@@ -171,10 +171,10 @@
                     <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
                     <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class='flex-between bottom-line'>
-                    <view><span class="sign">券</span> 优惠券</view>
-                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
-                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                   <view class='flex-between bottom-line' wx:if="{{item.coupon}}">
+                    <view><span class="sign">券</span> {{item.coupon.title}}</view>
+                    <span wx:if="{{item.coupon.type == 1 || item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span>
+                    <!-- <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span> -->
                     <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
                    <view class="show-money">
@@ -246,10 +246,10 @@
                     <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
                     <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class='flex-between bottom-line'>
-                    <view><span class="sign">券</span> 优惠券</view>
-                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
-                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                    <view class='flex-between bottom-line' wx:if="{{item.coupon}}">
+                    <view><span class="sign">券</span> {{item.coupon.title}}</view>
+                    <span wx:if="{{item.coupon.type == 1 || item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span>
+                    <!-- <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span> -->
                     <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
                    <view class="show-money">
@@ -318,10 +318,10 @@
                     <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
                     <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class='flex-between bottom-line'>
-                    <view><span class="sign">券</span> 优惠券</view>
-                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
-                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                  <view class='flex-between bottom-line' wx:if="{{item.coupon}}">
+                    <view><span class="sign">券</span> {{item.coupon.title}}</view>
+                    <span wx:if="{{item.coupon.type == 1 || item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span>
+                    <!-- <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span> -->
                     <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
                    <view class="show-money">
@@ -396,10 +396,10 @@
                     <view><span class="sign" style="background:#f5e41e">总</span> 商品总价</view>
                     <span class="color-call">￥{{item.totalAmount}}</span>
                   </view>
-                  <view class='flex-between bottom-line'>
-                    <view><span class="sign">券</span> 优惠券</view>
-                    <span wx:if="{{item.coupon.type == 1}}" class="color-call">-￥{{item.coupon.rule.decrease}}</span>
-                    <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.coupon.rule.discount * item.totalAmount}}</span>
+                  <view class='flex-between bottom-line' wx:if="{{item.coupon}}">
+                    <view><span class="sign">券</span> {{item.coupon.title}}</view>
+                    <span wx:if="{{item.coupon.type == 1 || item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span>
+                    <!-- <span wx:if="{{item.coupon.type == 2}}" class="color-call">-￥{{item.deductedAmount}}</span> -->
                     <span wx:if="{{item.coupon.type == 3}}" class="color-call">{{item.coupon.rule.giftGoodsID}}</span>
                   </view>
                    <view class="show-money">
