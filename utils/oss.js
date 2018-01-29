@@ -159,29 +159,12 @@ function statusHandler(status) {
 
   switch (status) {
     case 0:
- 
       wx.showToast({
         title: '网络问题稍后再试',
         image: '../../images/alert.png',
         duration: 2000
       })
       break;
-    // case ERROR.FILE_INVALID:
-     
-    //   wx.showToast({
-    //     title: '无效的文件',
-    //     image: '../../images/alert.png',
-    //     duration: 2000
-    //   })
-    //   break;
-    // case ERROR.INVALID_PARAMS:
-    
-    //   wx.showToast({
-    //     title: '无效的参数',
-    //     image: '../../images/alert.png',
-    //     duration: 2000
-    //   })
-      // break;
     case "request:fail timeout":
       wx.showToast({
         title: '请求超时稍后再试',
@@ -191,7 +174,6 @@ function statusHandler(status) {
       break;
 
     case 204:
-  
       wx.showToast({
         title: '没有内容稍后再试',
         image: '../../images/alert.png',
@@ -199,7 +181,6 @@ function statusHandler(status) {
       })
       break;
     case 401:
-      
       wx.showToast({
         title: '无权限重新登录',
         image: '../../images/alert.png',
@@ -210,19 +191,15 @@ function statusHandler(status) {
           }, 2000);
         }
       })
-      
       break;
     case 403:
-    
       wx.showToast({
         title: '越权重新登录',
         image: '../../images/alert.png',
         duration: 2000,
         success: function (res) {
           setTimeout(function(){
-            setTimeout(function () {
               restart();
-            }, 2000);
           },2000);
           
         }

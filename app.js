@@ -20,15 +20,15 @@ App({
     addPhoto: [],
     selectGoods:''
   },
-  bucket: 'yzb-mall',
-  urlBase: 'https://dev.yezhubao.net',
-  ossHost: 'https://dev.yezhubao.net/oss_mall',
+  // bucket: 'yzb-mall',
+  // urlBase: 'https://dev.yezhubao.net',
+  // ossHost: 'https://dev.yezhubao.net/oss_mall',
   token: '',
   sellerId: '',
   mobile: '',
   id: '',
   realName: '',
-  // bucket: 'yezhubao-mall',
-  // urlBase: 'https://api.yezhubao.net',
-  // ossHost: 'https://api.yezhubao.net/oss_mall'
+  bucket: 'yezhubao-mall',
+  urlBase: 'https://api.yezhubao.net',
+  ossHost: 'https://api.yezhubao.net/oss_mall'
 })
