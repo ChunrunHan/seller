@@ -10,7 +10,7 @@ Page({
   data: {
     boxHeight: device.windowHeight - 80,
     list: [{ name: '账号管理', url: '', icon: '../../images/user.png', optype: 'navigate',url: '../settingInfo/index' }, { name: '商家信息', url: '', icon: '../../images/seller.png', optype: 'navigate',url:'../sellerInfo/index' }],
-    listTwo: [{ name: '版本号', url: '', icon: '../../images/version.png', version: '1.0.25' }, { name: '注销', url: '../login/index', icon: '../../images/restart.png'  }]
+    listTwo: [{ name: '版本号', url: '', icon: '../../images/version.png', version: '1.0.28' }, { name: '注销', url: '../login/index', icon: '../../images/restart.png'  }]
 
   },
   

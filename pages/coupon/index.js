@@ -290,6 +290,28 @@ Page({
     this.data.data.count = e.detail.value
     console.log(JSON.stringify(this.data));
   },
+  getUserMaxCount: function(e){
+    var _this = this;
+    console.log(e.detail.value);
+    if (e.detail.value < 0) {
+      _this.setData({
+        'data.rule.count': 1
+      })
+      return;
+    } else if (e.detail.value > 1000){
+      _this.setData({
+        'data.rule.count': 999
+      })
+      return;
+    }else{
+      _this.setData({
+        'data.rule.count': e.detail.value
+      })
+      _this.data.data.rule.count = e.detail.value
+      console.log(JSON.stringify(this.data));
+    }
+    
+  },
   getCouponAmountLimit: function(e){
     console.log(e.detail.value);
     this.data.amountLimit = e.detail.value
@@ -363,7 +385,7 @@ Page({
     var that = this;
     console.log(JSON.stringify(that.data.data));
     var allData = that.data.data; 
-    if (allData.title == '' || allData.startTime == '' || allData.endTime == '' || allData.count == '' || allData.validityStartTime == '' || allData.validityEndTime == '') {
+    if (allData.title == '' || allData.startTime == '' || allData.endTime == '' || allData.count == '' || allData.validityStartTime == '' || allData.validityEndTime == '' || allData.rule.count == '') {
     // if (allData.title == '' || allData.count == '') {
       wx.showModal({
         title: '注意',
@@ -373,6 +395,16 @@ Page({
       wx.showModal({
         title: '注意',
         content: '优惠券标题至少三个字',
+      })
+    } else if (parseInt(allData.rule.count) > parseInt(allData.count)){
+      wx.showModal({
+        title: '注意',
+        content: '单用户领取优惠券张数不能大于优惠券总张数',
+      })
+    } else if (allData.rule.count >= 1000) {
+      wx.showModal({
+        title: '注意',
+        content: '单用户领取优惠券张数不能大于1000张',
       })
     } else if (allData.startTime > allData.endTime) {
       wx.showModal({
