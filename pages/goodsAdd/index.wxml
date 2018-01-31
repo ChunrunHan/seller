@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="width100">
+<view class="width100" bindtap='clearControlBtn'>
 
   <view class="weui-cells__title">商品信息</view>
 
@@ -39,8 +39,18 @@
             <view class="weui-uploader__files" id="uploaderFiles">
               <block wx:for="{{files}}" wx:key="*this">
                 <view class="weui-uploader__file img-box" id="{{item}}">
-                  <image class="weui-uploader__img" src="{{item.oldImg}}" mode="aspectFill" bindtap="previewImage" id='{{item.oldImg}}' />
+                  <!-- <image class="weui-uploader__img" src="{{item.oldImg}}" mode="aspectFill" bindtap="previewImage" id='{{item.oldImg}}' />
                   <icon id='{{index}}' data-source='goods' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
+                  <view class='flex arrow-box' hidden='{{files.length == 1}}'>
+                    <image class='arrow-img' data-source='goods' data-direction="left" data-index="{{index}}" src='../../images/left-arrow.svg' catchtap='chageImgPositon' />
+                    <image class='arrow-img' data-source='goods' data-direction="right" data-index="{{index}}" src='../../images/right-arrow.svg' catchtap='chageImgPositon' />
+                  </view> -->
+                   <image class="weui-uploader__img" src="{{item.oldImg}}" mode="aspectFill" data-index="{{index}}" data-source="goods" longpress="previewImage" catchtap="showControlBtn" id='{{item.oldImg}}' data-showArrow="{{item.showArrow}}"/>
+                  <icon id='{{index}}' data-source='goods' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30" hidden='{{item.showArrow == 0}}'></icon>
+                  <view class='flex arrow-box' hidden='{{files.length == 1 || item.showArrow == 0}}'>
+                    <image class='arrow-img' data-source='goods' data-direction="left" data-index="{{index}}" src='../../images/l-a.svg' catchtap='chageImgPositon' />
+                    <image class='arrow-img' data-source='goods' data-direction="right" data-index="{{index}}" src='../../images/r-a.svg' catchtap='chageImgPositon' />
+                  </view>
                 </view>
               </block>
               <view class="weui-uploader__file img-box" hidden='{{files.length == 6?true:false}}'>
@@ -86,15 +96,6 @@
         <input type='number' bindinput='getRemaining' class='weui-input text-right' value='{{data.remaining}}' placeholder='存货数量'></input>
       </view>
     </view>
-
-
-
-
-
-
-
-
-
 
     <view class="weui-cell weui-cell_switch">
       <view class="weui-cell__bd">支持七天无理由退货</view>
@@ -240,73 +241,8 @@
         <icon id='{{index}}' class='' bindtap="delZones" type="cancel" size="30"></icon>
       </view>
     </block>
-
-    <!-- <view class='area-box'>
-          <text>双福大厦</text>
-          <icon class='' bindtap="" type="cancel" size="30"></icon>
-        </view>
-         <view class='area-box'>
-          <text>双福大厦</text>
-          <icon class='' bindtap="" type="cancel" size="30"></icon>
-        </view>
-         <view class='area-box'>
-          <text>双福大厦</text>
-          <icon class='' bindtap="" type="cancel" size="30"></icon>
-        </view> -->
   </view>
 
-
-
-  <!-- <view class="weui-cells__title">带跳转的列表项</view>
-        <view class="weui-cells weui-cells_after-title">
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
-            <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-                <view class="weui-cell__bd">cell standard</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-            </navigator>
-        </view> -->
-
-  <!-- <view class="weui-cells__title">商品描述</view>
-  <view class="weui-cells weui-cells_after-title">
-    <view class="weui-cell">
-      <view class="weui-cell__bd">
-        <textarea maxlength='200' bindinput="getMemo" class="weui-textarea" value='{{memo}}' placeholder="请输入商品描述" style="height: 3.3em" />
-        <view class="weui-textarea-counter">{{memoLength}}/200</view>
-      </view>
-    </view>
-  </view> -->
-
-  <!-- <view class="weui-cells__title">商品描述</view>
-  <view class="bg-white" style='padding:10px 15px'>
-    <view class="weui-cell__bd">
-      <view class="weui-uploader">
-        <view class="weui-uploader__hd">
-          <view class="weui-uploader__title" style='font-size:17px'>描述图片</view>
-          <view class="weui-uploader__info">{{memofiles.length}}/20</view>
-        </view>
-
-        <view class="weui-uploader__bd">
-          <view class="weui-uploader__files" id="uploaderFiles">
-            <block wx:for="{{memofiles}}" wx:key="*this">
-              <view class="" id="{{item}}" style='position:relative;width:100vw;'>
-                <image style='width:100vw;' mode="widthFix" src="{{item.oldImg}}" bindtap="previewImage" id='{{item.oldImg}}' />
-
-                <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
-              </view>
-            </block>
-            <view class="weui-uploader__file width100" hidden='{{memofiles.length == 20?true:false}}'>
-              <image class="weui-uploader__img" id='addMemoPhoto' src="../../images/addimages.svg" bindtap="chooseMemoImage" />
-            </view>
-
-
-          </view>
-        </view>
-      </view>
-    </view>
-  </view> -->
 
 
 
@@ -320,9 +256,18 @@
     <block wx:for="{{memofiles}}" wx:key="*this">
       <view class='memo-showbox'>
         <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
-        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
-
+        <!-- <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
         <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+        <view class='flex memo-box' hidden='{{memofiles.length == 1}}'>
+          <image class='memo-arrow' data-source='memo' data-direction="top" data-index="{{index}}" src='../../images/left-arrow.svg' catchtap='chageImgPositon' />
+          <image class='memo-arrow' data-source='memo' data-direction="bottom" data-index="{{index}}" src='../../images/right-arrow.svg' catchtap='chageImgPositon' />
+        </view> -->
+        <image mode="widthFix" src="{{item.oldImg}}" data-index="{{index}}" data-source="memo" catchtap="showControlBtn" id='{{item.oldImg}}' data-showArrow="{{item.showArrow}}" />
+        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="40" hidden='{{item.showArrow == 0}}'></icon>
+        <view class='flex memo-box' hidden='{{memofiles.length == 1 || item.showArrow == 0}}'>
+          <image class='memo-arrow' data-source='memo' data-direction="top" data-index="{{index}}" src='../../images/up.svg' catchtap='chageImgPositon' />
+          <image class='memo-arrow' data-source='memo' data-direction="bottom" data-index="{{index}}" src='../../images/down.svg' catchtap='chageImgPositon' />
+        </view>
       </view>
     </block>
     <view class="width100" hidden='{{memofiles.length == 20?true:false}}'>

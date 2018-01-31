@@ -54,7 +54,8 @@ Page({
             console.log(res.filename);
             var img = {
               oldImg: avatar,
-              newImg: res.filename
+              newImg: res.filename,
+              showArrow: 0
             }
             app.globalData.addPhoto = app.globalData.addPhoto.concat(img);
             wx.navigateBack({

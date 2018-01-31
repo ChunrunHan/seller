@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="width100">
+<view class="width100" bindtap='clearControlBtn'>
 
   <view class="weui-cells__title">商品信息</view>
 
@@ -39,8 +39,12 @@
             <view class="weui-uploader__files" id="uploaderFiles">
               <block wx:for="{{files}}" wx:key="*this">
                 <view class="weui-uploader__file img-box" id="{{item}}">
-                  <image class="weui-uploader__img" src="{{item.oldImg}}" mode="aspectFill" bindtap="previewImage" id='{{item.oldImg}}' />
-                  <icon id='{{index}}' data-source='goods' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30"></icon>
+                  <image class="weui-uploader__img" src="{{item.oldImg}}" mode="aspectFill" data-index="{{index}}" data-source="goods" longpress="previewImage" catchtap="showControlBtn" id='{{item.oldImg}}' data-showArrow="{{item.showArrow}}" />
+                  <icon id='{{index}}' data-source='goods' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="30" hidden='{{item.showArrow == 0}}'></icon>
+                  <view class='flex arrow-box' hidden='{{files.length == 1 || item.showArrow == 0}}'>
+                    <image class='arrow-img' data-source='goods' data-direction="left" data-index="{{index}}" src='../../images/l-a.svg' catchtap='chageImgPositon' />
+                    <image class='arrow-img' data-source='goods' data-direction="right" data-index="{{index}}" src='../../images/r-a.svg' catchtap='chageImgPositon' />
+                  </view>
                 </view>
               </block>
               <view class="weui-uploader__file img-box" hidden='{{files.length == 6?true:false}}'>
@@ -86,14 +90,6 @@
         <input type='number' bindinput='getRemaining' class='weui-input text-right' value='{{data.remaining}}' placeholder='存货数量'></input>
       </view>
     </view>
-
-
-
-
-
-
-
-
 
 
     <view class="weui-cell weui-cell_switch">
@@ -152,20 +148,6 @@
       </view>
     </view>
 
-
-
-
-
-    <!-- <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label">团购开始时间</view>
-      </view>
-      <view class="weui-cell__bd">
-        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="startTimeChange">
-          <view class="weui-input text-right weui-select_in-select-after">{{data.startTime}}</view>
-        </picker>
-      </view>
-    </view> -->
 
     <view class="weui-cell weui-cell_select">
       <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -320,9 +302,12 @@
     <block wx:for="{{memofiles}}" wx:key="*this">
       <view class='memo-showbox'>
         <!-- <image src='../../images/logo.jpg' mode='widthFix' style='width:100%'></image> -->
-        <image mode="widthFix" src="{{item.oldImg}}" bindtap="" id='{{item.oldImg}}' />
-
-        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="50"></icon>
+        <image mode="widthFix" src="{{item.oldImg}}" data-index="{{index}}" data-source="memo" catchtap="showControlBtn" id='{{item.oldImg}}' data-showArrow="{{item.showArrow}}" />
+        <icon id='{{index}}' data-source='memo' data-name='{{item.newImg}}' class='cancel' bindtap="delImage" type="cancel" size="40" hidden='{{item.showArrow == 0}}'></icon>
+        <view class='flex memo-box' hidden='{{memofiles.length == 1 || item.showArrow == 0}}'>
+          <image class='memo-arrow' data-source='memo' data-direction="top" data-index="{{index}}" src='../../images/up.svg' catchtap='chageImgPositon' />
+          <image class='memo-arrow' data-source='memo' data-direction="bottom" data-index="{{index}}" src='../../images/down.svg' catchtap='chageImgPositon' />
+        </view>
       </view>
     </block>
     <view class="width100" hidden='{{memofiles.length == 20?true:false}}'>
@@ -339,7 +324,7 @@
 
 
   <button id="" class="switch-commit mgt-20 mgb-20" bindtap='saveGoods'>保存商品</button>
-   <button id="{{data.id}}" class="switch-commit mgt-20 mgb-20 del-commit" bindtap='openConfirm'>删除商品</button> 
+  <button id="{{data.id}}" class="switch-commit mgt-20 mgb-20 del-commit" bindtap='openConfirm'>删除商品</button>
 
 
 

@@ -140,6 +140,12 @@
 					"name": "优惠券详情",
 					"pathName": "pages/couponDetail/index",
 					"query": ""
+				},
+				{
+					"id": 19,
+					"name": "编辑商品",
+					"pathName": "pages/goodsEdit/index",
+					"query": "goodsId=ff80b5b5610c7d7301610dc06f8a0018"
 				}
 			]
 		}

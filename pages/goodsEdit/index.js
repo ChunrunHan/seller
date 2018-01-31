@@ -243,7 +243,8 @@ Page({
               console.log(res.filename);
               var img = {
                 oldImg: imgSrc,
-                newImg: res.filename
+                newImg: res.filename,
+                showArrow: 0
               }
               that.setData({
                 memofiles: that.data.memofiles.concat(img)
@@ -264,6 +265,67 @@ Page({
       }
     })
   },
+  // 图片上显示删除、箭头
+  showControlBtn: function(e){
+    console.log(e)
+    console.log(e.currentTarget.dataset.index)
+    console.log(e.currentTarget.dataset.source)
+    console.log(e.currentTarget.dataset.showarrow);
+    var showArrow = e.currentTarget.dataset.showArrow;
+    var source = e.currentTarget.dataset.source;
+    var index = e.currentTarget.dataset.index;
+    if(source == 'goods'){
+      var imgs = this.data.files;
+      imgs.forEach(function (v, i) {
+        console.log(i);
+        if (i == index){
+          v.showArrow = !v.showArrow;
+        } else{
+          v.showArrow = 0;
+        }
+      
+      })
+      
+      this.setData({
+        files: imgs
+      })
+
+    }else if(source == 'memo'){
+      var imgs = this.data.memofiles;
+      imgs.forEach(function (v, i) {
+        console.log(i);
+        if (i == index) {
+          v.showArrow = !v.showArrow;
+        } else {
+          v.showArrow = 0;
+        }
+
+      })
+      this.setData({
+        memofiles: imgs
+      })
+
+    }
+
+  },
+
+  //隐藏删除、箭头
+  clearControlBtn:function(){
+    var goodsImg = this.data.files;
+    var memoImg = this.data.memofiles;
+    for (var i = 0; i < goodsImg.length; i++) {
+      goodsImg[i].showArrow = 0;
+    }
+    for (var i = 0; i < memoImg.length; i++) {
+      memoImg[i].showArrow = 0;
+    }
+    this.setData({
+      memofiles: memoImg,
+      files: goodsImg
+    })
+
+  },
+
   previewImage: function (e) {
     var imgs = this.data.files;
     console.log(this.data.files)
@@ -769,7 +831,7 @@ Page({
       var statusCode = data.statusCode;
       if (data.data.errCode == 0) {
         var data = data.data.data;
-
+      
         //  处理商品描述图片
         if (data.description != "") {
           var memoImgs = data.description.split(':');
@@ -778,7 +840,8 @@ Page({
             console.log(img1);
             var json1 = {
               oldImg: img1,
-              newImg: memoImgs[i]
+              newImg: memoImgs[i],
+              showArrow: 0
             }
             that.setData({
               memofiles: that.data.memofiles.concat(json1)
@@ -795,7 +858,8 @@ Page({
           console.log(img2);
           var json2 = {
             oldImg: img2,
-            newImg: goodsImgs[i]
+            newImg: goodsImgs[i],
+            showArrow: 0
           }
           that.setData({
             files: that.data.files.concat(json2)
@@ -858,6 +922,103 @@ Page({
       oss.statusHandler(status);
       console.log(status)
     })
+  },
+
+  // 左右移动图片
+  chageImgPositon: function(e){
+    var _this = this;
+    console.log('来源' +e.currentTarget.dataset.source)
+    console.log('方向'+e.currentTarget.dataset.direction)
+    console.log('index'+e.currentTarget.dataset.index)
+    let source = e.currentTarget.dataset.source;
+    let direction = e.currentTarget.dataset.direction;
+    let index = e.currentTarget.dataset.index;
+    if(source == 'goods'){
+      if (direction == 'left'){
+        console.log('左移动');
+        console.log('files图：'+JSON.stringify(_this.data.files));
+        console.log('当前图：' + JSON.stringify(_this.data.files[index]))
+        if (_this.data.files.length == 1 || index == 0){
+          wx.showModal({
+            title: '注意',
+            content: '当前图片已经是第一张了',
+          })
+        }else{
+          // console.log('左移动之前' + JSON.stringify(_this.data.files))
+          let can = _this.data.files[index];
+          _this.data.files[index] = _this.data.files[index-1];
+          _this.data.files[index-1] = can;
+          console.log("左移动之后"+JSON.stringify(_this.data.files)) 
+          _this.setData({
+            files: _this.data.files
+          })
+          app.globalData.addPhoto = _this.data.files
+
+        }
+      }else{
+        console.log('右移动');
+        console.log('files图：' + JSON.stringify(_this.data.files));
+        console.log('当前图：' + JSON.stringify(_this.data.files[index]))
+        if (_this.data.files.length == 1 || index == _this.data.files.length-1 ) {
+          wx.showModal({
+            title: '注意',
+            content: '当前图片已经是最后一张了',
+          })
+        } else {
+          let can = _this.data.files[index];
+          _this.data.files[index] = _this.data.files[index + 1];
+          _this.data.files[index + 1] = can;
+          console.log("右移动之后" + JSON.stringify(_this.data.files)) 
+          _this.setData({
+            files: _this.data.files
+          })
+          app.globalData.addPhoto = _this.data.files
+        }
+      }
+
+    } else if (source == 'memo'){
+      if (direction == 'top') {
+        console.log('上移动');
+        console.log('memofiles图：' + JSON.stringify(_this.data.memofiles));
+        console.log('当前图：' + JSON.stringify(_this.data.memofiles[index]))
+        if (_this.data.memofiles.length == 1 || index == 0) {
+          wx.showModal({
+            title: '注意',
+            content: '当前图片已经是第一张了',
+          })
+        } else {
+          // console.log('左移动之前' + JSON.stringify(_this.data.files))
+          let can = _this.data.memofiles[index];
+          _this.data.memofiles[index] = _this.data.memofiles[index - 1];
+          _this.data.memofiles[index - 1] = can;
+          console.log("上移动之后" + JSON.stringify(_this.data.memofiles))
+          _this.setData({
+            memofiles: _this.data.memofiles
+          })
+
+        }
+      } else {
+        console.log('下移动');
+        console.log('memofiles图：' + JSON.stringify(_this.data.memofiles));
+        console.log('当前图：' + JSON.stringify(_this.data.memofiles[index]))
+        if (_this.data.memofiles.length == 1 || index == _this.data.memofiles.length - 1) {
+          wx.showModal({
+            title: '注意',
+            content: '当前图片已经是最后一张了',
+          })
+        } else {
+          let can = _this.data.memofiles[index];
+          _this.data.memofiles[index] = _this.data.memofiles[index + 1];
+          _this.data.memofiles[index + 1] = can;
+          console.log("下移动之后" + JSON.stringify(_this.data.memofiles))
+          _this.setData({
+            memofiles: _this.data.memofiles
+          })
+        }
+      }
+
+    }
+
   }
 
 

@@ -21,7 +21,7 @@
           <block wx:for="{{list1}}">
             <view class='mui-table-view'>
               <view class='li border-red'>
-                <view class="deal-top">
+                 <view class="deal-top">
                   <span class="today">
                     <span>订单号：</span>{{item.id}}</span>
                   <span class="status">{{item.showTime}}</span>
