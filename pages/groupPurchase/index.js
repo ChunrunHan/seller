@@ -245,7 +245,33 @@ Page({
   },
   // 复制商品
   copyGoods: function(e){
+    wx.showLoading({
+      title: '复制中',
+    })
     console.log(e.target.id);
+    var that = this;
+    var goodsId = e.target.id;
+    var url = `${app.urlBase}/mall/goods/copy/${goodsId}`
+    console.log(url);
+    ajax.get(url).then(function (data) {
+      wx.hideLoading();
+      console.log(JSON.stringify(data));
+      var statusCode = data.statusCode;
+      if (data.data.errCode == 0) {
+        that.setData({
+          page: 0,
+          goods: []
+        });
+        that.getGoodslist();
+
+      } else {
+        oss.statusHandler(statusCode);
+      }
+    }).catch(function (status) {
+      wx.hideLoading();
+      console.log(status)
+      oss.statusHandler(status);
+    })
 
   },
   // 删除商品

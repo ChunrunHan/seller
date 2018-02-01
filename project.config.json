@@ -136,9 +136,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "优惠券详情",
-					"pathName": "pages/couponDetail/index",
+					"id": 18,
+					"name": "添加商品",
+					"pathName": "pages/goodsAdd/index",
 					"query": ""
 				},
 				{

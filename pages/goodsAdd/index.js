@@ -30,6 +30,7 @@ Page({
       sellerId: '',
       unit: '',
       remaining: '',
+      textDescription: '',
       sellLocations: []
     },
 
@@ -37,8 +38,8 @@ Page({
     peopleIndex: 0,
     day: ["24小时", "48小时", "72小时"],
     dayIndex: 0,
-    // memo: '',
-    // memoLength: 0,
+    textDescription: '',
+    textDescriptionLength: 0,
     files: [],
     zones: [],
     memofiles: [],
@@ -568,11 +569,11 @@ Page({
   getMemo: function (e) {
     console.log(e.detail.value.length);
     this.setData({
-      memoLength: e.detail.value.length,
-      memo: e.detail.value
+      textDescriptionLength: e.detail.value.length,
+      textDescription: e.detail.value
     });
-    this.data.data.description = e.detail.value;
-    console.log(JSON.stringify(this.data));
+    this.data.data.textDescription = e.detail.value;
+    console.log(JSON.stringify(this.data.data));
   },
   getName: function (e) {
     console.log(e.detail.value);

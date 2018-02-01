@@ -30,6 +30,7 @@ Page({
       sellerId: '',
       unit: '',
       remaining: '',
+      textDescription: '',
       sellLocations: []
     },
 
@@ -37,8 +38,8 @@ Page({
     peopleIndex: 0,
     day: ["24小时", "48小时", "72小时"],
     dayIndex: 0,
-    // memo: '',
-    // memoLength: 0,
+    textDescription: '',
+    textDescriptionLength: 0,
     files: [],
     zones: [],
     memofiles: [],
@@ -531,10 +532,10 @@ Page({
   getMemo: function (e) {
     console.log(e.detail.value.length);
     this.setData({
-      memoLength: e.detail.value.length,
-      memo: e.detail.value
+      textDescriptionLength: e.detail.value.length,
+      textDescription: e.detail.value
     });
-    this.data.data.description = e.detail.value;
+    this.data.data.textDescription = e.detail.value;
     console.log(JSON.stringify(this.data));
   },
   getName: function (e) {
@@ -831,7 +832,11 @@ Page({
       var statusCode = data.statusCode;
       if (data.data.errCode == 0) {
         var data = data.data.data;
-      
+        if (data.textDescription){
+          that.setData({
+            textDescription: data.textDescription
+          })
+        }
         //  处理商品描述图片
         if (data.description != "") {
           var memoImgs = data.description.split(':');

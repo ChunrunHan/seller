@@ -293,6 +293,14 @@
 
 
   <view class="weui-cells__title">商品描述</view>
+   <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea maxlength='200' bindinput="getMemo" class="weui-textarea" value='{{textDescription}}' placeholder="请输入商品描述文字" style="height: 5em" />
+        <view class="weui-textarea-counter">{{textDescriptionLength}}/200</view>
+      </view>
+    </view>
+  </view>
 
   <view class='bg-white weui-uploader' style='padding:10px 15px'>
     <view class="weui-uploader__hd">
@@ -324,7 +332,7 @@
 
 
   <button id="" class="switch-commit mgt-20 mgb-20" bindtap='saveGoods'>保存商品</button>
-  <button id="{{data.id}}" class="switch-commit mgt-20 mgb-20 del-commit" bindtap='openConfirm'>删除商品</button>
+  <!-- <button id="{{data.id}}" class="switch-commit mgt-20 mgb-20 del-commit" bindtap='openConfirm'>删除商品</button> -->
 
 
 
