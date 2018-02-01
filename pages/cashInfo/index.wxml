@@ -20,7 +20,7 @@
             <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/yl.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
@@ -61,7 +61,7 @@
             <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/yl.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
@@ -103,7 +103,7 @@
         <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/yl.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>
@@ -154,7 +154,7 @@
         <view class='bg-white mgb-10'>
               <view class='bill-top text-center'>
                 <view class=''>
-                    <image class='wxpay-logo mgt-20' src='../../images/zfblogo.png' mode='widthFix'></image>
+                    <image class='wxpay-logo mgt-20' src='../../images/yl.png' mode='widthFix'></image>
                 </view>
 
                 <view class='flex-view-item font-40'>

@@ -17,8 +17,8 @@
       <view class="weui-cell__hd">
 
         <view class="weui-label">
-          <image src='../../images/zfbpay.png' class='left-img'></image>
-          支付宝</view>
+          <image src='../../images/yl.png' class='left-img'></image>
+          银联</view>
       </view>
       <!-- <image class='right-img' src='../../images/check.png'></image> -->
     </view>
